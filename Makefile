@@ -9,7 +9,7 @@ help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  %-18s %s\n", $$1, $$2 } /^##@/ { printf "\n%s\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 	@echo ''
 
-install: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-offensive install-wordlists install-hardening clean ## Install SkillArch
+install: install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-offensive install-wordlists install-hardening install-neolex clean ## Install SkillArch
 	@echo "You are all set up! Enjoy ! 🌹"
 
 sanity-check:
@@ -107,6 +107,7 @@ install-gui: sanity-check ## Install gui, i3, polybar, kitty, rofi, picom
 	[ ! -d ~/.config/i3 ] && mkdir -p ~/.config/i3
 	[ -f ~/.config/i3/config ] && [ ! -L ~/.config/i3/config ] && mv ~/.config/i3/config ~/.config/i3/config.skabak
 	ln -sf /opt/skillarch/config/i3/config ~/.config/i3/config
+	ln -sf /opt/skillarch/config/i3/scripts ~/.config/i3/scripts
 
 	# polybar config
 	[ ! -d ~/.config/polybar ] && mkdir -p ~/.config/polybar
@@ -114,6 +115,7 @@ install-gui: sanity-check ## Install gui, i3, polybar, kitty, rofi, picom
 	ln -sf /opt/skillarch/config/polybar/config.ini ~/.config/polybar/config.ini
 	[ -f ~/.config/polybar/launch.sh ] && [ ! -L ~/.config/polybar/launch.sh ] && mv ~/.config/polybar/launch.sh ~/.config/polybar/launch.sh.skabak
 	ln -sf /opt/skillarch/config/polybar/launch.sh ~/.config/polybar/launch.sh
+	ln -sf /opt/skillarch/config/polybar/scripts ~/.config/polybar/scripts
 
 	# rofi config
 	[ ! -d ~/.config/rofi ] && mkdir -p ~/.config/rofi
@@ -192,6 +194,12 @@ install-hardening: sanity-check ## Install hardening tools
 	yes|sudo pacman -S --noconfirm --needed opensnitch
 	# OPT-IN opensnitch as an egress firewall
 	# sudo systemctl enable --now opensnitchd.service
+	make clean
+
+install-neolex: sanity-check ## Install Neolex's tweaks
+	yes|sudo pacman -S --noconfirm --needed copyq synology-drive brightnessctl firefox
+	yay --noconfirm --needed -S  surfshark-client surfshark-vpn-cli-bin
+	pipx install droopescan
 	make clean
 
 update: sanity-check ## Update SkillArch

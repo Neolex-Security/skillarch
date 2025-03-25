@@ -183,3 +183,8 @@ alias dsysdig='dockit --privileged -v /var/run/docker.sock:/host/var/run/docker.
 alias dswagger-editor='dockit -p 127.0.0.1:8000:8080 docker.swagger.io/swaggerapi/swagger-editor'
 alias dcarbonyl='dockit fathyb/carbonyl' # Chrome in Terminal
 alias dphp7='dockit php:7.4' # Arch suffers from "too new libraries" making it hard to build
+
+
+## Neolex alias
+alias hg="history|grep -i"
+alias vim="nvim"
