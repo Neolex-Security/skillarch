@@ -197,7 +197,7 @@ install-hardening: sanity-check ## Install hardening tools
 	make clean
 
 install-neolex: sanity-check ## Install Neolex's tweaks
-	yes|sudo pacman -S --noconfirm --needed copyq synology-drive brightnessctl firefox
+	yes|sudo pacman -S --noconfirm --needed copyq synology-drive brightnessctl firefox libreoffice-fresh
 	yay --noconfirm --needed -S  surfshark-client surfshark-vpn-cli-bin
 	pipx install droopescan
 	make clean
