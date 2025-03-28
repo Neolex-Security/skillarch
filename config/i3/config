@@ -242,7 +242,7 @@ exec --no-startup-id copyq
 assign [class="obsidian"] 11
 assign [class="Google-chrome"] 1
 assign [class="discord"] 1
-assign [class="thunderbird-esr"] 10
+assign [class="thunderbird"] 10
 
 # workspace
 set $workspace11 "11"
