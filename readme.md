@@ -100,6 +100,7 @@ make help
 ### MISC Gotchas
 
 - If `make install` or `ska-update-simple` loop on a y/n question, fix your pacman config first! 😉
+- The main config is azerty (shhh I know), here is a refetrence to [tweak your config back to qwerty](https://github.com/CachyOS/cachyos-i3wm-settings/blob/develop/etc/skel/.config/i3/config)
 - Kitty visual/rectangle select is done with `ctrl+alt+click/drag`, you're welcome!
 - The docker `latest` is actually the `lite` image with everything CLI related
 - The docker `full` image contains GUI stuff and wordlists
@@ -108,6 +109,7 @@ make help
  - Check it's actually true: `polybar  --list-monitors` # Should have one primary label
  - Fix it by openin `arandr` + right click to set `primary` on your main screen.
  - Reload i3 with `mod+Shift+r`, then make it permanent, aka goto doc `Multiple Monitor`
+- No [CachyOs on ARM](https://discuss.cachyos.org/t/arm-future-for-cachyos/727), therefore no SkillArch on ARM.
 
 ### VM & VirtualBox Stuff
 
@@ -270,6 +272,25 @@ argcomplete bypass-url-parser dirsearch exegol pre-commit sqlmap wafw00f yt-dlp 
 # OMZ plugins
 colored-man-pages docker extract fzf mise npm terraform tmux zsh-autosuggestions zsh-completions zsh-syntax-highlighting ssh-agent
 
+# VsCode Extensions
+bibhasdn.unique-lines
+eriklynd.json-tools
+mechatroner.rainbow-csv
+mitchdenny.ecdc
+ms-azuretools.vscode-docker
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-vscode-remote.remote-containers
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
+ms-vscode.remote-explorer
+ms-vsliveshare.vsliveshare
+pomdtr.excalidraw-editor
+trailofbits.weaudit
+yzane.markdown-pdf
+zobo.php-intellisense
+
 # Cloned Tools
 https://github.com/LazyVim/starter
 https://github.com/jpillora/chisel
@@ -332,11 +353,3 @@ https://github.com/p0dalirius/webapp-wordlists
 - https://github.com/newmanls/rofi-themes-collection
 - https://github.com/orhun/config
 - https://github.com/regolith-linux/regolith-desktop
-
----
-
-## BugFix & Improvements
-
-- Digital Ocean Vendor Images to allow an easy PoC of SkillArch
-- Arm docker builds to support Android 15 + Mac M cores in VM?
-- Consider two workflows, default "noconfig" install, and the custom "fork + pull upsteam" maj process
