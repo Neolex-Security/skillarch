@@ -192,3 +192,5 @@ alias dphp7='dockit php:7.4' # Arch suffers from "too new libraries" making it h
 alias hg="history|grep -i"
 alias vim="nvim"
 alias o="xdg-open"
+alias ks="kitten ssh"
+alias icat="kitten icat"
