@@ -120,8 +120,3 @@ eval "$(register-python-argcomplete --no-defaults exegol)"
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/.pdtm/go/bin
 export ANDROID_HOME="/home/neolex/Android/sdk"
-
-notif() {
-  printf "\x1b]99;;$1\x1b\\"
-
-}
