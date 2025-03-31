@@ -287,3 +287,4 @@ bindsym $mod+Shift+Control+0 move container to workspace 20
 
 # shortcuts
 bindsym $mod+Shift+c exec --no-startup-id copyq toggle
+bindsym $mod+dead_circumflex exec /usr/bin/normcap
