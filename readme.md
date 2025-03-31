@@ -2,12 +2,7 @@
 
 <img src='assets/skillarch-full.png' width='250'>
 
-- ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-- ⚠️ SkillArch is in `BETA` for now ⚒️
-- ⚠️ Wait for `GA` for your main machine 🙏
-- ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-
-> The install takes 15/20mn 🕑️\
+> The lite/full install takes 20/30 minutes 🕑️\
 > Please watch this intro video to onboard yourself! 🙏\
 > ➡️ TODO:(lalu) ⬅️
 
@@ -116,7 +111,7 @@ make help
 
 ### VM & VirtualBox Stuff
 
-- The `ska-vbox-guestutils` alias will auto-install `virtualbox-guest-utils`
+- The `ska-vbox-install-guestutils` alias will auto-install `virtualbox-guest-utils`
 - In `VirtualBox`, when i3 starts it will run `VBoxClient-all` for clipboard & goodies
 - Transparency `CAN` work with `picom` but:
   - It requires to enable `enable hardware virtualization`
@@ -172,8 +167,8 @@ bindsym $mod+m exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym $mod+Return exec /usr/bin/kitty
 bindsym $mod+Shift+Return exec /usr/bin/google-chrome-stable
 bindsym $mod+Shift+Q kill
-bindsym $mod+space exec --no-startup-id rofi -show run
-bindsym $mod+Shift+space exec --no-startup-id rofi -show drun
+bindsym $mod+space exec --no-startup-id rofi -show drun
+bindsym $mod+Shift+space exec --no-startup-id rofi -show run
 bindsym $mod+Control+space exec --no-startup-id rofi -show window
 
 # Power & Lock
@@ -222,7 +217,7 @@ bindsym $mod+Shift+agrave move container to workspace number $ws10
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
-# Resize
+# Resize & Scratchpad
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym Left resize shrink width 10 px or 10 ppt
 bindsym Down resize grow height 10 px or 10 ppt
@@ -232,6 +227,8 @@ bindsym Return mode "default"
 bindsym Escape mode "default"
 bindsym $mod+r mode "default"
 bindsym $mod+r mode "resize"
+bindsym $mod+shift+a move to scratchpad
+bindsym $mod+a scratchpad show
 
 # Custom Apps & Settings
 bindsym $mod+p exec flameshot gui
@@ -253,10 +250,10 @@ bindsym $mod+k exec cursor
 
 ```bash
 # Pacman Packages
-arandr asciinema base-devel bat bettercap bison blueman bottom brightnessctl burpsuite bzip2 ca-certificates cheese cloc cmake code code-marketplace curl discord dmenu docker docker-compose dos2unix dragon-drop-git dunst emote exa expect fastfetch feh ffmpeg filezilla flameshot foremost fq fx gdb ghex ghidra git git-delta gitleaks glow gnupg google-chrome gparted gron guvcview hashcat htmlq htop hwinfo i3-gaps i3blocks i3lock i3lock-fancy-git i3status icu inotify-tools iproute2 jless jq kdenlive kitty kompare lazygit libedit libffi libjpeg-turbo libpcap libpng libreoffice-fresh libxml2 libzip llvm lsof ltrace make meld metasploit mise mlocate mplayer ncurses neovim net-tools ngrep nm-connection-editor nmap nomachine obs-studio-browser okular opensnitch openssh openssl parallel perl-image-exiftool php-gd picom pkgconf polybar postgresql-libs python-virtualenv qbittorrent re2c readline ripgrep rlwrap rofi signal-desktop socat sqlite sshpass superfile sysstat tmate tmux tor torbrowser-launcher traceroute trash-cli tree unzip vbindiff veracrypt vim viu vlc-luajit websocat wget wireshark-qt xclip xsv xz yay zip zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting zsh-theme-powerlevel10k cronie audacity xorg-xhost
+arandr asciinema base-devel bat bettercap bison blueman bottom brightnessctl burpsuite bzip2 ca-certificates cheese cloc cmake code code-marketplace curl discord dmenu docker docker-compose dos2unix dragon-drop-git dunst emote exa expect fastfetch feh ffmpeg filezilla flameshot foremost fq fx gdb ghex ghidra git git-delta gitleaks glow gnupg google-chrome gparted gron guvcview hashcat htmlq htop hwinfo i3-gaps i3blocks i3lock i3lock-fancy-git i3status icu inotify-tools iproute2 jless jq kdenlive kitty kompare lazygit libedit libffi libjpeg-turbo libpcap libpng libreoffice-fresh libxml2 libzip llvm lsof ltrace make meld metasploit mise mlocate mplayer ncurses neovim net-tools ngrep nm-connection-editor nmap nomachine obs-studio-browser okular opensnitch openssh openssl parallel perl-image-exiftool php-gd picom pkgconf polybar postgresql-libs python-virtualenv qbittorrent re2c readline ripgrep rlwrap rofi signal-desktop socat sqlite sshpass superfile sysstat tmate tmux tor torbrowser-launcher traceroute trash-cli tree unzip vbindiff veracrypt vim viu vlc-luajit websocat wget wireshark-qt xclip xsv xz yay zip zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting zsh-theme-powerlevel10k cronie audacity xorg-xhost gnu-netcat archlinux-keyring jdk21-openjdk polkit-gnome
 
 # Yay packages
-ffuf gau pdtm-bin waybackurls cursor-bin fswebcam i3-battery-popup-git python-pipx rofi-power-menu
+ffuf gau pdtm-bin waybackurls cursor-bin fswebcam i3-battery-popup-git python-pipx rofi-power-menu fabric-ai-bin
 
 # Mise tools
 usage pdm rust terraform golang python nodejs

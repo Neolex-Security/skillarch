@@ -114,6 +114,10 @@ bindsym $mod+Shift+f floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+Shift+BackSpace focus mode_toggle
 
+# scratchpad
+bindsym $mod+shift+a move to scratchpad
+bindsym $mod+a scratchpad show
+
 # focus the parent container
 # bindsym $mod+q focus parent
 
@@ -195,7 +199,7 @@ bindsym $mod+k exec cursor
 bindsym $mod+BackSpace split toggle
 bindsym $mod+m exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
-bindsym $mod+Escape exec rofi -show power-menu -modi power-menu:rofi-power-menu
+bindsym $mod+Escape exec rofi -show power-menu -modi "power-menu:rofi-power-menu --choices shutdown/reboot/logout/suspend"
 bindsym $mod+l exec i3lock-fancy -f Bitstream-Vera-Serif -t 'Welcome back to SkillArch'
 
 # Window Colors

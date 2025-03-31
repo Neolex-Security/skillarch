@@ -6,7 +6,8 @@ alias ska-help-aliases='alias | fzf'
 alias ska-help-packages='pacman -Q | fzf'
 alias ska-update-simple='ska && make update && make install'
 alias ska-update-advanced='echo "# SAVE your changes on your repo" ; echo "git add foo ; git commit -m i-added-foo ; git push" ; echo "# Then, from a CLEAN git state" ; echo "ska && git status" ; echo "# PULL & CHECKOUT upstream changes" ; echo "git fetch upstream && git checkout main" ; echo "# MERGE upstream changes" ; echo "git merge upstream/main" ; echo "# SAVE your new current state" ; echo "git push origin main" ; echo "# Check & Compare your current drift from upstream" ; echo "git diff upstream/main" ; echo "# Reapply with latest changes" ; echo "ska-update-simple"'
-alias ska-vbox-guestutils='sudo pacman -S virtualbox-guest-utils'
+alias ska-vbox-install-guestutils='sudo pacman -S virtualbox-guest-utils'
+alias ska-vbox-install='sudo pacman -S virtualbox virtualbox-host-dkms && echo -e "\n\n\nNow reboot to load the vbox drivers"'
 alias ska-sudo-unlock='su -c "faillock --user $USER --reset"'
 alias fastfetch='/usr/bin/fastfetch --logo /opt/skillarch/assets/skillarch-full.png --logo-width 50'
 alias neofetch='fastfetch'
@@ -94,11 +95,12 @@ alias paste='xclip -selection clipboard -o'
 alias mcrypt-enc='f(){ PASS=$(cat /dev/urandom | base64 | head -c 20) && echo "$PASS" | xclip -selection c && tar -zcvf "$1.tar.gz" "$1" && echo "$PASS" && mcrypt "$1.tar.gz" && echo "$1.tar.gz $PASS" | xclip -selection c;  unset -f f; }; f'
 alias mcrypt-dec='mdecrypt'
 alias get-meteo='curl https://wttr.in/'
+alias fab='fabric-ai -s'
 
 # Python
 alias pv='f(){ if [ -z "$1" ] ; then echo "Use: pv 3.12" ; else mise use "python@$1" ; mise config set env._.python.venv.path .venv ; mise config set --type bool env._.python.venv.create true ; mise exec -- which python ; mise exec -- python --version ; fi;  unset -f f; }; f'
 alias pyreq='pip install -r requirements.txt'
-alias pysrv='mkdir -pv /tmp/empty ; python3 -m http.server -d /tmp/empty'
+alias pysrv='mkdir -pv /tmp/empty ; python -m http.server -d /tmp/empty'
 
 # Data Generation & Modification
 alias get-badchars='echo -e "\x22\x27<?>][]{}_)(*;/\x5c"'
