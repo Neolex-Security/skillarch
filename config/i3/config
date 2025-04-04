@@ -288,3 +288,17 @@ bindsym $mod+Shift+Control+0 move container to workspace 20
 # shortcuts
 bindsym $mod+Shift+c exec --no-startup-id copyq toggle
 bindsym $mod+Mod1+BackSpace layout toggle split
+
+
+set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi
+bindsym $mod+Mod1+Return mode $mode_launcher
+
+mode "$mode_launcher" {
+    bindsym b exec kitty ssh neolex@bug.neolex.dev
+    bindsym r exec kitty ssh pi@192.168.1.138
+    bindsym p exec kitty python
+    bindsym n exec kitty node
+    
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
