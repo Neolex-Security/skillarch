@@ -120,3 +120,4 @@ eval "$(register-python-argcomplete --no-defaults exegol)"
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/.pdtm/go/bin
 export ANDROID_HOME="/home/neolex/Android/sdk"
+export ANDROID_AVD_HOME="/home/neolex/.config/.android/avd"
