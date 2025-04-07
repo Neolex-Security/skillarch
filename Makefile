@@ -199,9 +199,9 @@ install-hardening: sanity-check ## Install hardening tools
 	make clean
 
 install-neolex: sanity-check ## Install Neolex's tweaks
-	yes|sudo pacman -S --noconfirm --needed copyq synology-drive brightnessctl firefox libreoffice-fresh ufw
-	yay --noconfirm --needed -S  surfshark-client surfshark-vpn-cli-bin
-	pipx install droopescan
+	yes|sudo pacman -S --noconfirm --needed copyq synology-drive brightnessctl firefox libreoffice-fresh ufw jadx qemu qemu-user-static
+	yay --noconfirm --needed -S  surfshark-client surfshark-vpn-cli-bin jadx-gui-desktop android-apktool android-sdk-build-tools
+	pipx install droopescan frida-tools objection
 	make clean
 
 update: sanity-check ## Update SkillArch

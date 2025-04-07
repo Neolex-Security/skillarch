@@ -119,5 +119,6 @@ eval "$(register-python-argcomplete --no-defaults exegol)"
 # Created by `pipx` on 2025-03-03 15:05:01
 export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/.pdtm/go/bin
+export PATH=$PATH:~/Android/sdk/cmdline-tools/latest/bin
 export ANDROID_HOME="/home/neolex/Android/sdk"
 export ANDROID_AVD_HOME="/home/neolex/.config/.android/avd"
