@@ -288,7 +288,7 @@ bindsym $mod+Shift+Control+0 move container to workspace 20
 # shortcuts
 bindsym $mod+Shift+c exec --no-startup-id copyq toggle
 bindsym $mod+Mod1+BackSpace layout toggle split
-
+bindsym $mod+dead_circumflex exec normcap
 
 set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi
 bindsym $mod+Mod1+Return mode $mode_launcher
