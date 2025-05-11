@@ -123,3 +123,4 @@ export PATH=$PATH:~/.pdtm/go/bin
 export PATH=$PATH:~/Android/sdk/cmdline-tools/latest/bin
 export ANDROID_HOME="/home/neolex/Android/sdk"
 export ANDROID_AVD_HOME="/home/neolex/.config/.android/avd"
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
