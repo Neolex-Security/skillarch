@@ -290,14 +290,15 @@ bindsym $mod+Mod1+BackSpace layout toggle split
 bindsym $mod+dead_circumflex exec normcap
 
 set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
-bindsym $mod+Mod1+Return mode $mode_launcher
+bindsym $mod+Mod1+Return mode "$mode_launcher"
 
 mode "$mode_launcher" {
     bindsym b exec kitty ssh neolex@bug.neolex.dev
     bindsym r exec kitty ssh pi@192.168.1.138
     bindsym p exec kitty python
     bindsym n exec kitty node
-    bindsym d exec kitty ssh neolex@bug.neolex.dev -t 'tmux attach -t dns || tmux new -s dns' 
+    bindsym d exec kitty ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
+
