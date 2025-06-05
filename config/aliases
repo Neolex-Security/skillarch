@@ -197,4 +197,4 @@ alias ks="kitten ssh"
 alias icat="kitten icat"
 alias notif="kitten notify"
 alias getipcontainer="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
-alias fkill="kill -9 $(get-pid-ps)"
+alias fkill='kill -9 `get-pid-ps`'
