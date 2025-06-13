@@ -285,7 +285,7 @@ bindsym $mod+Shift+Control+9 move container to workspace 19
 bindsym $mod+Shift+Control+0 move container to workspace 20
 
 # shortcuts
-bindsym $mod+asterisk exec --no-startup-id  rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'; 
+bindsym $mod+asterisk rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' ; sleep 0.5; xdotool type $(xclip -o -selection clipboard)
 bindsym $mod+Mod1+BackSpace layout toggle split
 bindsym $mod+dead_circumflex exec normcap
 
