@@ -240,7 +240,7 @@ exec --no-startup-id thunderbird
 exec --no-startup-id obsidian
 exec --no-startup-id discord
 exec --no-startup-id google-chrome-stable
-
+exec --no-startup-id synology-drive
 # window to workspace
 assign [class="obsidian"] 11
 assign [class="Google-chrome"] 1
