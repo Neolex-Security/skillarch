@@ -302,3 +302,4 @@ mode "$mode_launcher" {
     bindsym Return mode "default"
 }
 
+bindsym $mod+Tab workspace back_and_forth
