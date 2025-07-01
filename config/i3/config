@@ -60,7 +60,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec /usr/bin/kitty
+bindsym $mod+Return exec /usr/bin/alacritty
 bindsym $mod+Shift+Return exec /usr/bin/google-chrome-stable
 
 # kill focused window
@@ -224,11 +224,9 @@ for_window [title="^Volume Control$"] floating enable
 for_window [floating] resize set 1536 864, resize set 1536 864, move position 192 108
 
 # HELP
-bindsym $mod+h exec kitty --title "Help: SkillArch Bindings" zsh -ic "ska-help-bindings"
-bindsym $mod+Shift+h exec kitty --title "Help: SkillArch Aliases" zsh -ic "ska-help-aliases"
-bindsym $mod+Control+h exec kitty --title "Help: SkillArch packages" zsh -ic "ska-help-packages"
 
-# Neolex Config
+bindsym $mod+Control+h exec alacritty --title "Help: SkillArch packages" -e zsh -ic "ska-help-packages"
+
 
 # keyboard layout
 exec_always --no-startup-id /bin/bash -c "setxkbmap -layout fr -variant basic -option 'caps:swapescape'"
@@ -293,11 +291,11 @@ set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
 bindsym $mod+Mod1+Return mode "$mode_launcher"
 
 mode "$mode_launcher" {
-    bindsym b exec kitty ssh neolex@bug.neolex.dev
-    bindsym r exec kitty ssh pi@192.168.1.138
-    bindsym p exec kitty python
-    bindsym n exec kitty node
-    bindsym d exec kitty ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns
+    bindsym b exec alacritty ssh neolex@bug.neolex.dev
+    bindsym r exec alacritty ssh pi@192.168.1.138
+    bindsym p exec alacritty python
+    bindsym n exec alacritty node
+    bindsym d exec alacritty ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
