@@ -205,7 +205,7 @@ install-hardening: sanity-check ## Install hardening tools
 
 install-neolex: sanity-check ## Install Neolex's tweaks
 	yes|sudo pacman -S --noconfirm --needed copyq synology-drive brightnessctl firefox libreoffice-fresh ufw jadx qemu qemu-user-static piper
-	yay --noconfirm --needed -S  surfshark-client surfshark-vpn-cli-bin jadx-gui-desktop android-apktool android-sdk-build-tools zscroll-git freefonts spotify playerctl
+	yay --noconfirm --needed -S  surfshark-client surfshark-vpn-cli-bin jadx-gui-desktop android-apktool android-sdk-build-tools zscroll-git freefonts spotify playerctl rustscan
 	pipx install droopescan frida-tools objection
 	make clean
 
