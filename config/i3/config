@@ -164,7 +164,6 @@ bindsym $mod+Shift+agrave move container to workspace number $ws10
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -189,7 +188,7 @@ bindsym $mod+p exec flameshot gui
 bindsym $mod+Shift+p exec flameshot full -p ~/Pictures/
 bindsym $mod+s exec pavucontrol
 bindsym $mod+shift+s exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
-bindsym $mod+e exec emote
+bindsym $mod+Shift+e exec emote
 bindsym $mod+b exec blueman-manager
 bindsym $mod+w exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi
 bindsym $mod+n exec nautilus
@@ -291,11 +290,11 @@ set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
 bindsym $mod+Mod1+Return mode "$mode_launcher"
 
 mode "$mode_launcher" {
-    bindsym b exec alacritty ssh neolex@bug.neolex.dev
-    bindsym r exec alacritty ssh pi@192.168.1.138
-    bindsym p exec alacritty python
-    bindsym n exec alacritty node
-    bindsym d exec alacritty ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns
+    bindsym b exec alacritty -e ssh neolex@bug.neolex.dev
+    bindsym r exec alacritty -e ssh pi@192.168.1.138
+    bindsym p exec alacritty -e python
+    bindsym n exec alacritty -e node
+    bindsym d exec alacritty -e ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
