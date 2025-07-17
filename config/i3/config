@@ -289,6 +289,8 @@ bindsym $mod+dead_circumflex exec normcap
 set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
 bindsym $mod+Mod1+Return mode "$mode_launcher"
 
+bindsym $mod+Shift+b exec --no-startup-id ~/.local/bin/set-default-browser
+
 mode "$mode_launcher" {
     bindsym b exec alacritty -e ssh neolex@bug.neolex.dev
     bindsym r exec alacritty -e ssh pi@192.168.1.138

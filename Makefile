@@ -141,6 +141,11 @@ install-gui: sanity-check ## Install gui, i3, polybar, kitty, rofi, picom
 	[ ! -d /etc/X11/xorg.conf.d ] && sudo mkdir -p /etc/X11/xorg.conf.d
 	[ -f /etc/X11/xorg.conf.d/30-touchpad.conf ] && sudo mv /etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf.skabak
 	sudo ln -sf /opt/skillarch/config/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+
+	# local bin
+	[ ! -d ~/.local/bin ] && mkdir -p ~/.local/bin
+	ln -sf /opt/skilarch/config/bin/set-default-browser ~/.local/bin/set-default-browser
+
 	make clean
 
 install-gui-tools: sanity-check ## Install system packages

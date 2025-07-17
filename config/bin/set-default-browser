@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# List of installed browsers (modify as needed)
+browsers=("chromium.desktop" "google-chrome.desktop" "firefox.desktop" "brave-browser.desktop")
+
+# Use Rofi to select a browser
+chosen=$(printf "%s\n" "${browsers[@]}" | rofi -dmenu -p "Choose default browser")
+
+# If user made a selection, apply it
+if [[ -n "$chosen" ]]; then
+  unset BROWSER
+  xdg-settings set default-web-browser "$chosen"
+  xdg-mime default "$chosen" x-scheme-handler/http
+  xdg-mime default "$chosen" x-scheme-handler/https
+  notify-send "Default browser changed to $chosen"
+fi
