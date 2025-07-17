@@ -144,7 +144,7 @@ install-gui: sanity-check ## Install gui, i3, polybar, kitty, rofi, picom
 
 	# local bin
 	[ ! -d ~/.local/bin ] && mkdir -p ~/.local/bin
-	ln -sf /opt/skilarch/config/bin/set-default-browser ~/.local/bin/set-default-browser
+	ln -s /opt/skillarch/config/bin/set-default-browser ~/.local/bin/set-default-browser
 
 	make clean
 
