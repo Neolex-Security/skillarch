@@ -286,19 +286,20 @@ bindsym $mod+asterisk exec rofi -modi "clipboard:greenclip print" -show clipboar
 bindsym $mod+Mod1+BackSpace layout toggle split
 bindsym $mod+dead_circumflex exec normcap
 
-set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
-bindsym $mod+Mod1+Return mode "$mode_launcher"
 
 bindsym $mod+Shift+b exec --no-startup-id ~/.local/bin/set-default-browser
 
+bindsym $mod+Mod1+Return mode "$mode_launcher"
+set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
 mode "$mode_launcher" {
-    bindsym b exec alacritty -e ssh neolex@bug.neolex.dev
-    bindsym r exec alacritty -e ssh pi@192.168.1.138
-    bindsym p exec alacritty -e python
-    bindsym n exec alacritty -e node
-    bindsym d exec alacritty -e ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns
+    bindsym b exec alacritty -e ssh neolex@bug.neolex.dev; mode "default"
+    bindsym r exec alacritty -e ssh pi@192.168.1.138; mode "default"
+    bindsym p exec alacritty -e python; mode "default"
+    bindsym n exec alacritty -e node; mode "default"
+    bindsym d exec alacritty -e ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns ; mode "default"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
 
 bindsym $mod+Tab workspace back_and_forth
+
