@@ -2,9 +2,8 @@
 
 <img src='assets/logo-round-cold.png' width='250'><img src='assets/logo-round-hot.png' width='250'>
 
-> The lite/full install takes 10/20 minutes 🕑️\
-> Please watch this intro video to onboard yourself! 🙏\
-> ➡️ TBD ⬅️
+> The lite/full install takes 10/15 minutes 🕑️\
+> And here is a gentle rice 😇
 
 <img src='assets/rice-01.png' width='800'>
 
@@ -13,6 +12,10 @@
 ## How To Install
 
 ### SIMPLE / NO-CUSTOMIZE / NO-BACKUP
+
+> Please watch this 5mn intro video to onboard yourself! 🙏
+
+[![](https://img.youtube.com/vi/HB1hxJgGoDo/0.jpg)](https://youtu.be/HB1hxJgGoDo)
 
 - First, download the `Desktop Edition` at https://cachyos.org/download/
 - Install it, pick the `Gnome` flavor
@@ -25,6 +28,10 @@ make install # Then reboot && pick i3 at login
 ```
 
 ###  ADVANCED / FULL-CUSTOMIZE / FULL-BACKUP
+
+> Please watch this 10mn intro video to onboard yourself! 🙏
+
+[![](https://img.youtube.com/vi/Wq6CmJJnTJk/0.jpg)](https://youtu.be/Wq6CmJJnTJk)
 
 1. [Fork this repo](https://github.com/laluka/skillarch/fork)
 1. Install `your` SkillArch with the [usual install process](#simple--no-customize--no-backup)
@@ -110,6 +117,8 @@ make help
 - Chrome extensions are not installed by default. Have a look to [/config/chrome-extensions.lst](/config/chrome-extensions.lst)
 
 ### VM & VirtualBox Stuff
+
+> I've had tons of issues with VirtualBox laterly, and things worked PERFECTLY on Gnome Boxes (from `qemu-full` and `gnome-extra`), I strongly suggest using it instead, see the install guide above.
 
 - The `ska-vbox-install-guestutils` alias will auto-install `virtualbox-guest-utils`
 - In `VirtualBox`, when i3 starts it will run `VBoxClient-all` for clipboard & goodies
