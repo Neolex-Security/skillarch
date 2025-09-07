@@ -303,3 +303,6 @@ mode "$mode_launcher" {
 
 bindsym $mod+Tab workspace back_and_forth
 
+for_window [class="Emote"] floating enable, move position mouse
+
+
