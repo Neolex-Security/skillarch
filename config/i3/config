@@ -61,7 +61,7 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec /usr/bin/alacritty
-bindsym $mod+Shift+Return exec /usr/bin/google-chrome-stable
+bindsym $mod+Shift+Return exec /usr/bin/firefox
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -236,7 +236,7 @@ exec --no-startup-id /usr/bin/nitrogen --restore
 exec --no-startup-id thunderbird
 exec --no-startup-id obsidian
 exec --no-startup-id discord
-exec --no-startup-id google-chrome-stable
+exec --no-startup-id firefox
 exec --no-startup-id synology-drive
 # window to workspace
 assign [class="obsidian"] 11
