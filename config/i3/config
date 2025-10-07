@@ -233,7 +233,6 @@ bindsym $mod+Control+h exec alacritty --title "Help: SkillArch packages" -e zsh 
 # keyboard layout
 exec_always --no-startup-id /bin/bash -c "setxkbmap -layout fr -variant basic -option 'caps:swapescape'"
 # Start apps at startup
-exec --no-startup-id SHIORI_DIR=/home/neolex/shiori shiori server --port 5343
 exec --no-startup-id greenclip daemon
 exec --no-startup-id /usr/bin/nitrogen --restore
 exec --no-startup-id thunderbird
@@ -309,3 +308,6 @@ bindsym $mod+Tab workspace back_and_forth
 for_window [class="Emote"] floating enable, move position mouse
 
 
+# BugTime (Timewarrior + Rofi)
+bindsym $mod+F5 exec --no-startup-id ~/.local/bin/bugtime-start
+bindsym $mod+F6 exec --no-startup-id ~/.local/bin/bugtime-stop
