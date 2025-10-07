@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIST="$HOME/.config/bugtime/programs.txt"
+
+if [[ ! -s "$LIST" ]]; then
+  notify-send "BugTime" "Aucun programme. Édite ~/.config/bugtime/programs.txt"
+  exit 1
+fi
+
+CURRENT=""
+if timew get dom.active >/dev/null 2>&1; then
+  if [[ "$(timew get dom.active)" == "1" ]]; then
+    # Récupère la ligne "Tracking …"
+    CURRENT=$(timew | head -n1 | sed 's/^Tracking //')
+  fi
+fi
+
+PROMPT="Start"
+[[ -n "$CURRENT" ]] && PROMPT="Start (actuel: $CURRENT)"
+
+CHOICE=$(rofi -dmenu -p "$PROMPT" < "$LIST")
+[[ -z "$CHOICE" ]] && exit 0
+
+# Si déjà en cours, on stoppe d'abord
+if [[ -n "$CURRENT" ]]; then
+  timew stop >/dev/null 2>&1 || true
+fi
+
+timew start "$CHOICE"
+notify-send "BugTime" "⏱️ Start: $CHOICE"
+

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if timew get dom.active >/dev/null 2>&1 && [[ "$(timew get dom.active)" == "1" ]]; then
+  # Résumé court du segment stoppé
+  ACTIVE=$(timew | head -n1 | sed 's/^Tracking //')
+  timew stop >/dev/null
+  notify-send "BugTime" "⏹️ Stop: ${ACTIVE:-(inconnu)}"
+else
+  notify-send "BugTime" "Aucun timer actif"
+fi
+
