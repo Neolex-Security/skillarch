@@ -298,7 +298,7 @@ mode "$mode_launcher" {
     bindsym r exec kitty -e ssh neolex@192.168.1.138; mode "default
     bindsym p exec kitty -e python; mode "default"
     bindsym n exec kitty -e node; mode "default"
-    bindsym d exec kitty -e ssh neolex@bug.neolex.dev -t tmux attach -t dns || tmux new -s dns ; mode "default"
+    bindsym d exec kitty -e ssh neolex@bug.neolex.dev -t "tmux attach -t dns || tmux new -s dns" ; mode "default"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
