@@ -207,6 +207,8 @@ alias ks="kitten ssh"
 alias icat="kitten icat"
 alias notif="kitten notify"
 alias getipcontainer="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
+alias kcpy="kitten clibpoard"
+alias kpaste="kitten clipboard --get-clipboard"
 alias fkill='kill -9 `get-pid-ps`'
 alias cf="builtin cd"
 cd() {
@@ -228,3 +230,5 @@ alias grepintip='grep --color=always -E $INTERNALIP'
 dontresolve(){
     while read subdomain; do dig +short "$subdomain" | grep -q . || echo "$subdomain"; done < $1
   }
+
+

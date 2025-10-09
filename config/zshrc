@@ -127,6 +127,7 @@ export ANDROID_HOME="/home/neolex/Android/sdk"
 export ANDROID_AVD_HOME="/home/neolex/.config/.android/avd"
 source /home/neolex/.neozshrc
 [ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+export EDITOR="/usr/bin/nvim"
 unalias z
 eval "$(zoxide init zsh)"
 
