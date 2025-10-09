@@ -144,8 +144,7 @@ install-gui: sanity-check ## Install gui, i3, polybar, kitty, rofi, picom
 
 	# local bin
 	[ ! -d ~/.local/bin ] && mkdir -p ~/.local/bin
-
-	ln -sf /opt/skillarch/config/bin ~/.local/bin
+	ln -sf /opt/skillarch/config/bin/* ~/.local/bin
 	make clean
 
 install-gui-tools: sanity-check ## Install system packages
