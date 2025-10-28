@@ -106,8 +106,8 @@ bindsym Control+Mod1+p exec --no-startup-id /home/neolex/.config/i3/scripts/busy
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-# bindsym $mod+s layout stacking
-# bindsym $mod+z layout tabbed
+#bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
 # bindsym $mod+BackSpace layout toggle split
 
 # toggle tiling / floating
