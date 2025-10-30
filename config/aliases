@@ -235,4 +235,5 @@ dontresolve(){
     while read subdomain; do dig +short "$subdomain" | grep -q . || echo "$subdomain"; done < $1
   }
 
+alias fcat='fzf --preview "cat {}"'
 
