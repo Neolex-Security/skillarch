@@ -240,11 +240,15 @@ exec --no-startup-id thunderbird
 exec --no-startup-id obsidian
 exec --no-startup-id discord
 exec --no-startup-id firefox
+exec --no-startup-id caido
+exec --no-startup-id chromium
 exec --no-startup-id synology-drive
 # window to workspace
 assign [class="obsidian"] 11
 assign [class="Google-chrome"] 1
 assign [class="discord"] 1
+assign [class="Chromium"] 2
+assign [class="Caido"] 2
 assign [class="thunderbird"] 10
 
 # workspace

@@ -19,7 +19,7 @@ fi
 PROMPT="Start"
 [[ -n "$CURRENT" ]] && PROMPT="Start (actuel: $CURRENT)"
 
-CHOICE=$(rofi -dmenu -p "$PROMPT" < "$LIST")
+CHOICE=$(rofi -dmenu -i -p "$PROMPT" <"$LIST")
 [[ -z "$CHOICE" ]] && exit 0
 
 # Si déjà en cours, on stoppe d'abord
@@ -29,4 +29,3 @@ fi
 
 timew start "$CHOICE"
 notify-send "BugTime" "⏱️ Start: $CHOICE"
-
