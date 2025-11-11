@@ -62,7 +62,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec /usr/bin/kitty
+bindsym $mod+Return exec /usr/bin/alacritty
 bindsym $mod+Shift+Return exec /usr/bin/firefox
 
 # kill focused window
@@ -228,7 +228,7 @@ for_window [class="install4j-burp-StartBurp" title="^win[0-9]+$"] kill
 
 # HELP
 
-bindsym $mod+Control+h exec kitty --title "Help: SkillArch packages" -e zsh -ic "ska-help-packages"
+bindsym $mod+Control+h exec alacritty --title "Help: SkillArch packages" -e zsh -ic "ska-help-packages"
 
 
 # keyboard layout
@@ -299,11 +299,11 @@ bindsym $mod+Shift+b exec --no-startup-id ~/.local/bin/set-default-browser
 bindsym $mod+Mod1+Return mode "$mode_launcher"
 set $mode_launcher Term: [b]ug.neolex.dev [p]ython [n]node [r]aspberrypi [d]ns
 mode "$mode_launcher" {
-    bindsym b exec kitty -e ssh neolex@bug.neolex.dev; mode "default"
-    bindsym r exec kitty -e ssh neolex@192.168.1.138; mode "default
-    bindsym p exec kitty -e python; mode "default"
-    bindsym n exec kitty -e node; mode "default"
-    bindsym d exec kitty -e ssh neolex@bug.neolex.dev -t "tmux attach -t dns || tmux new -s dns" ; mode "default"
+    bindsym b exec alacritty -e ssh neolex@bug.neolex.dev; mode "default"
+    bindsym r exec alacritty -e ssh neolex@192.168.1.138; mode "default
+    bindsym p exec alacritty -e python; mode "default"
+    bindsym n exec alacritty -e node; mode "default"
+    bindsym d exec alacritty -e ssh neolex@bug.neolex.dev -t "tmux attach -t dns || tmux new -s dns" ; mode "default"
     bindsym Escape mode "default"
     bindsym Return mode "default"
 }
@@ -316,3 +316,4 @@ for_window [class="Emote"] floating enable, move position mouse
 # BugTime (Timewarrior + Rofi)
 bindsym $mod+F5 exec --no-startup-id ~/.local/bin/bugtime-start
 bindsym $mod+F6 exec --no-startup-id ~/.local/bin/bugtime-stop
+bindsym $mod+F7 exec --no-startup-id ~/.local/bin/bugtime-add
