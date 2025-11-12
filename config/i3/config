@@ -249,7 +249,7 @@ assign [class="Google-chrome"] 1
 assign [class="discord"] 1
 assign [class="Chromium"] 2
 assign [class="Caido"] 2
-assign [class="thunderbird"] 10
+assign [class="org.mozilla.Thunderbird"] 10
 
 # workspace
 set $workspace11 "11"
@@ -291,7 +291,7 @@ bindsym $mod+Shift+Control+0 move container to workspace 20
 # shortcuts
 bindsym $mod+asterisk exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' 
 bindsym $mod+Mod1+BackSpace layout toggle split
-bindsym $mod+dead_circumflex exec normcap
+bindsym $mod+dead_circumflex exec /home/neolex/.local/bin/neocr
 
 
 bindsym $mod+Shift+b exec --no-startup-id ~/.local/bin/set-default-browser
