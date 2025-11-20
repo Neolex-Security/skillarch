@@ -70,7 +70,7 @@ bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec --no-startup-id rofi -show drun
-bindsym $mod+Shift+space exec --no-startup-id rofi -show run
+bindsym $mod+Shift+space exec --no-startup-id env PATH="$HOME/.local/bin:$PATH" rofi -show run
 bindsym $mod+Control+space exec --no-startup-id rofi -show window
 
 # A more modern dmenu replacement is rofi:
