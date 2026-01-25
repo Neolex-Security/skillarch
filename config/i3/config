@@ -70,8 +70,9 @@ bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec --no-startup-id rofi -show drun
-bindsym $mod+Shift+space exec --no-startup-id env PATH="$HOME/.local/bin:$PATH" rofi -show run
+bindsym $mod+Shift+space exec --no-startup-id  env PATH="$HOME/.local/bin:$PATH"rofi -show run
 bindsym $mod+Control+space exec --no-startup-id rofi -show window
+
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -188,7 +189,7 @@ gaps outer 0
 
 bindsym $mod+p exec flameshot gui
 bindsym $mod+Shift+p exec flameshot full -p ~/Pictures/
-bindsym $mod+s exec pavucontrol
+bindsym $mod+s exec ~/.local/bin/switch-audio-output
 bindsym $mod+shift+s exec XDG_CURRENT_DESKTOP=GNOME gnome-control-center
 bindsym $mod+e exec emote
 bindsym $mod+b exec blueman-manager
@@ -291,7 +292,7 @@ bindsym $mod+Shift+Control+0 move container to workspace 20
 # shortcuts
 bindsym $mod+asterisk exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' 
 bindsym $mod+Mod1+BackSpace layout toggle split
-bindsym $mod+dead_circumflex exec /home/neolex/.local/bin/neocr
+bindsym $mod+dead_circumflex exec env PATH="$HOME/.local/bin:$PATH" neocr
 
 
 bindsym $mod+Shift+b exec --no-startup-id ~/.local/bin/set-default-browser

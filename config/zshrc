@@ -134,3 +134,5 @@ eval "$(zoxide init zsh)"
 
 # opencode
 export PATH=/home/neolex/.opencode/bin:$PATH
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
