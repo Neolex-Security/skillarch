@@ -314,6 +314,7 @@ bindsym $mod+Tab workspace back_and_forth
 for_window [class="Emote"] floating enable, move position mouse
 
 
+bindsym $mod+g exec ~/.local/bin/guitarec
 # BugTime (Timewarrior + Rofi)
 bindsym $mod+F5 exec --no-startup-id ~/.local/bin/bugtime-start
 bindsym $mod+F6 exec --no-startup-id ~/.local/bin/bugtime-stop
