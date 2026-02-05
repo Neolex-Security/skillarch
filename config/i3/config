@@ -211,7 +211,6 @@ default_floating_border pixel 2
 client.focused          #000000 #000000 #000000 #aa00ee   #660066
 client.unfocused        #000000 #000000 #000000 #000000   #000000
 client.focused_inactive #000000 #000000 #000000 #000000   #000000
-client.unfocused_inactive #000000 #000000 #000000 #000000   #000000
 client.urgent           #000000 #000000 #000000 #000000   #000000
 
 # Make help windows float by default
@@ -228,11 +227,6 @@ for_window [floating] resize set 1536 864, move position 192 108
 for_window [title="^Whisper .*$"] resize set 1000 250, move position center
 # Fix for floating i3 popups in burpsuite
 for_window [class="install4j-burp-StartBurp" title="^win[0-9]+$"] kill
-
-# HELP
-<<<<<<< HEAD
-
-bindsym $mod+Control+h exec alacritty --title "Help: SkillArch packages" -e zsh -ic "ska-help-packages"
 
 
 # keyboard layout
