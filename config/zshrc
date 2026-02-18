@@ -139,3 +139,6 @@ eval "$(rbenv init - zsh)"
 
 # Mammouth Code
 export PATH="$HOME/.mammouth/bin:$PATH"
+
+# OpenClaw Completion
+source "/home/neolex/.openclaw/completions/openclaw.zsh"
