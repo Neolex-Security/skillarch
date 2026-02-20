@@ -1,5 +1,4 @@
 #!/bin/bash -x
-set -euo pipefail
 
 # Terminate already running bar instances
 killall -q polybar || true
