@@ -284,7 +284,6 @@ bindsym $mod+Shift+Control+0 move container to workspace 20
 
 # shortcuts
 bindsym $mod+asterisk exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' 
-bindsym $mod+Mod1+BackSpace layout toggle split
 bindsym $mod+dead_circumflex exec env PATH="$HOME/.local/bin:$PATH" neocr
 
 
