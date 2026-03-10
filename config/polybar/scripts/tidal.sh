@@ -25,6 +25,12 @@ function main() {
     httpSilentGet pause
     ;;
   "playpause")
+    STATUS=$(httpGet current)
+    if echo "$STATUS" | grep -q "paused"; then
+        polybar-msg action "#tidal-play-pause.hook.1"
+    else
+        polybar-msg action "#tidal-play-pause.hook.0"
+    fi
     httpSilentGet playpause
     ;;
   "next")
