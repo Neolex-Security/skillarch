@@ -130,15 +130,3 @@ source /home/neolex/.neozshrc
 export EDITOR="/usr/bin/nvim"
 unalias z
 eval "$(zoxide init zsh)"
-
-
-# opencode
-export PATH=/home/neolex/.opencode/bin:$PATH
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - zsh)"
-
-# Mammouth Code
-export PATH="$HOME/.mammouth/bin:$PATH"
-
-# OpenClaw Completion
-source "/home/neolex/.openclaw/completions/openclaw.zsh"
