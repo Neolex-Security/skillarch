@@ -250,16 +250,6 @@ alias kcpy="kitten clibpoard"
 alias kpaste="kitten clipboard --get-clipboard"
 alias fkill='kill -9 `get-pid-ps`'
 alias cf="builtin cd"
-cd() {
-  cf $1
-  pwd > /tmp/last_dir
-}
-cz() {
-  z $1
-  pwd > /tmp/last_dir
-}
-
-builtin cd $(cat /tmp/last_dir)
 alias ba='f(){ echo $1 | base64 -d ; unset -f f; }; f'
 alias ha='cd /DATA/hacking'
 alias sv="source .venv/bin/activate"
