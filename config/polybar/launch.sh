@@ -3,6 +3,7 @@
 # Terminate already running bar instances
 killall -q polybar 2>/dev/null || true
 
+<<<<<<< HEAD
 # Wait until the processes have been shut down (max 5s)
 count=0
 while pgrep -u "$UID" -x polybar >/dev/null 2>&1; do
