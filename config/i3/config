@@ -308,9 +308,9 @@ for_window [class="Emote"] floating enable, move position mouse
 
 bindsym $mod+g exec ~/.local/bin/guitarec
 # BugTime (Timewarrior + Rofi)
-bindsym $mod+F5 exec --no-startup-id ~/.local/bin/bugtime-start
-bindsym $mod+F6 exec --no-startup-id ~/.local/bin/bugtime-stop
-bindsym $mod+F7 exec --no-startup-id ~/.local/bin/bugtime-add
+#bindsym $mod+F5 exec --no-startup-id ~/.local/bin/bugtime-start
+#bindsym $mod+F6 exec --no-startup-id ~/.local/bin/bugtime-stop
+#bindsym $mod+F7 exec --no-startup-id ~/.local/bin/bugtime-add
 bindsym $mod+h exec kitty --title "Help: SkillArch Bindings" zsh -ic "ska-help-bindings"
 
 bindsym $mod+Shift+h exec kitty --title "Help: SkillArch Aliases" zsh -ic "ska-help-aliases"
