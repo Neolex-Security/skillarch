@@ -5,7 +5,7 @@ desktop:
   allow_resize: true
 network:
   protocol: http
-  websocket_port: 8443
+  websocket_port: 8444
   interface: 127.0.0.1
   ssl:
     pem_certificate: /home/hacker/.vnc/self.pem
