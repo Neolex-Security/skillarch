@@ -214,11 +214,16 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
 	$(call ska-link,/opt/skillarch/config/polybar/launch.sh,$$HOME/.config/polybar/launch.sh)
-	$(call ska-link,/opt/skillarch/config/polybar/scripts/tidal.sh,$$HOME/.config/polybar/scripts/tidal.sh)
 	$(call ska-link,/opt/skillarch/config/polybar/scripts/scroll_tidal_status.sh,$$HOME/.config/polybar/scripts/scroll_tidal_status.sh)
+	$(call ska-link,/opt/skillarch/config/polybar/scripts/tidal.sh,$$HOME/.config/polybar/scripts/tidal.sh)
 	# rofi config
 	[[ ! -d ~/.config/rofi ]] && mkdir -p ~/.config/rofi || true
-	$(call ska-link,/opt/skillarch/config/rofi/config.rasi,$$HOME/.config/rofi/config.rasi)
+
+  # local/bin
+	$(call ska-link,/opt/skillarch/config/bin/bugtime-start,$$HOME/.config/bin/bugtime-start)
+	$(call ska-link,/opt/skillarch/config/bin/bugtime-stop,$$HOME/.config/bin/bugtime-stop)
+	$(call ska-link,/opt/skillarch/config/bin/set-default-browser,$$HOME/.config/bin/set-default-browser)
+	$(call ska-link,/opt/skillarch/config/bin/switch-audio-output,$$HOME/.config/bin/switch-audio-output)
 
 	# picom config
 	$(call ska-link,/opt/skillarch/config/picom.conf,$$HOME/.config/picom.conf)
