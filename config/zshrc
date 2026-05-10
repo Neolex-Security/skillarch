@@ -130,3 +130,6 @@ export EDITOR="/usr/bin/nvim"
 unalias z
 eval "$(zoxide init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# direnv: per-project env loading (source ~/.envrc / ./.envrc; auto-unload on cd-out)
+eval "$(direnv hook zsh)"

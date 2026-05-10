@@ -226,7 +226,7 @@ for_window [floating] resize set 1536 864, move position 192 108
 
 
 # keyboard layout
-exec_always --no-startup-id /bin/bash -c "setxkbmap -layout fr -variant basic -option 'caps:swapescape'"
+exec_always --no-startup-id /bin/bash -c "setxkbmap -layout fr"
 # Start apps at startup
 exec --no-startup-id greenclip daemon
 exec --no-startup-id /usr/bin/nitrogen --restore
