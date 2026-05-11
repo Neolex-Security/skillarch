@@ -232,6 +232,13 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/kitty ]] && mkdir -p ~/.config/kitty || true
 	$(call ska-link,/opt/skillarch/config/kitty/kitty.conf,$$HOME/.config/kitty/kitty.conf)
 
+	# kanata config + user service
+	[[ ! -d ~/.config/kanata ]] && mkdir -p ~/.config/kanata || true
+	$(call ska-link,/opt/skillarch/config/kanata/kanata.kbd,$$HOME/.config/kanata/kanata.kbd)
+	$(call ska-link,/opt/skillarch/config/kanata/type.sh,$$HOME/.config/kanata/type.sh)
+	[[ ! -d ~/.config/systemd/user ]] && mkdir -p ~/.config/systemd/user || true
+	$(call ska-link,/opt/skillarch/config/systemd/user/kanata.service,$$HOME/.config/systemd/user/kanata.service)
+
 	# touchpad config
 	[[ ! -d /etc/X11/xorg.conf.d ]] && sudo mkdir -p /etc/X11/xorg.conf.d || true
 	[[ -f /etc/X11/xorg.conf.d/30-touchpad.conf ]] && sudo mv /etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf.skabak || true
