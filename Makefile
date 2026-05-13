@@ -236,6 +236,10 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/kanata ]] && mkdir -p ~/.config/kanata || true
 	$(call ska-link,/opt/skillarch/config/kanata/kanata.kbd,$$HOME/.config/kanata/kanata.kbd)
 	$(call ska-link,/opt/skillarch/config/kanata/type.sh,$$HOME/.config/kanata/type.sh)
+	$(call ska-link,/opt/skillarch/config/kanata/layer-listener.sh,$$HOME/.config/kanata/layer-listener.sh)
+	$(call ska-link,/opt/skillarch/config/kanata/layer-notify.py,$$HOME/.config/kanata/layer-notify.py)
+	$(call ska-link,/opt/skillarch/config/kanata/layer-polybar.sh,$$HOME/.config/kanata/layer-polybar.sh)
+	chmod +x /opt/skillarch/config/kanata/type.sh /opt/skillarch/config/kanata/layer-listener.sh /opt/skillarch/config/kanata/layer-polybar.sh /opt/skillarch/config/kanata/layer-notify.py || true
 	[[ ! -d ~/.config/systemd/user ]] && mkdir -p ~/.config/systemd/user || true
 	$(call ska-link,/opt/skillarch/config/systemd/user/kanata.service,$$HOME/.config/systemd/user/kanata.service)
 

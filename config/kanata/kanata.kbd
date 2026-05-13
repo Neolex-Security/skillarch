@@ -1,149 +1,117 @@
-;; ============================================================
-;; Kanata config — neolex (CachyOS + i3, AZERTY FR)
-;; - Caps    : tap=Esc / hold=Ctrl
-;; - Caps+P  : toggle pentest layer (chord, sticky)
-;; - Menu    : layer pentest (held)
-;; - RAlt    : passthrough (AltGr — handled by OS)
-;; ============================================================
-
 (defcfg
   process-unmapped-keys yes
   danger-enable-cmd yes
-  concurrent-tap-hold yes)
+  concurrent-tap-hold yes
+)
 
-(defchordsv2
-  (caps p) @pentog 200 first-release ())
 
 (defsrc
-  caps  cmp
-  q  w  e  r  t  y  u  i  o  p
-  a  s  d  f  g  h  j  k  l
-  z  x  c  v  b  n  m
-  1  2  3  4  5  6  7  8  9  0)
+  caps
+  a z e r t y u i o p
+  q s d f g h j k l ;     ;; <-- ; instead of m (the M-labeled key on AZERTY)
+  w x c v b n m)          ;; <-- m instead of , (the ,-labeled key on AZERTY)
+
+;; ---------- helpers ----------
+(defalias
+  back (layer-switch base)
+)
 
 (defalias
-  cesc (tap-hold 200 200 esc lctl)
-  pen  (layer-while-held pentest)
+  pubuntu (multi (cmd /home/neolex/.config/kanata/payloads/type.sh ubuntu) @back)
+  pfd     (multi (cmd /home/neolex/.config/kanata/payloads/type.sh fd)     @back)
+)
 
-  ;; --- Payloads bruts (xdotool via type.sh) ---
-  pxs   (cmd /home/neolex/.config/kanata/payloads/type.sh xss)
-  pxs2  (cmd /home/neolex/.config/kanata/payloads/type.sh xss2)
-  pxb   (cmd /home/neolex/.config/kanata/payloads/type.sh xb)
-  ptr   (cmd /home/neolex/.config/kanata/payloads/type.sh trav)
-  ptr2  (cmd /home/neolex/.config/kanata/payloads/type.sh trav2)
-  psm   (cmd /home/neolex/.config/kanata/payloads/type.sh semi)
-  pss   (cmd /home/neolex/.config/kanata/payloads/type.sh ssrf)
-  pss2  (cmd /home/neolex/.config/kanata/payloads/type.sh ssrf2)
-  poo   (cmd /home/neolex/.config/kanata/payloads/type.sh oob)
-  psq   (cmd /home/neolex/.config/kanata/payloads/type.sh sqli)
-  psq2  (cmd /home/neolex/.config/kanata/payloads/type.sh sqli2)
-  plj   (cmd /home/neolex/.config/kanata/payloads/type.sh log4j)
-  pcm   (cmd /home/neolex/.config/kanata/payloads/type.sh cmd)
-  ptm   (cmd /home/neolex/.config/kanata/payloads/type.sh tmpl)
 
-  ;; --- Wrappers : fire payload + exit pentest (back to base) ---
-  exs   (multi @pxs  (layer-switch base))
-  exs2  (multi @pxs2 (layer-switch base))
-  exb   (multi @pxb  (layer-switch base))
-  esq   (multi @psq  (layer-switch base))
-  esq2  (multi @psq2 (layer-switch base))
-  ess   (multi @pss  (layer-switch base))
-  ess2  (multi @pss2 (layer-switch base))
-  etr   (multi @ptr  (layer-switch base))
-  etr2  (multi @ptr2 (layer-switch base))
-  esm   (multi @psm  (layer-switch base))
-  eoo   (multi @poo  (layer-switch base))
-  elj   (multi @plj  (layer-switch base))
-  ecm   (multi @pcm  (layer-switch base))
-  etm   (multi @ptm  (layer-switch base))
 
-  ;; --- Prefix one-shots (entered from pentest, expire after 2s) ---
-  xpfx  (one-shot 2000 (layer-while-held xss-prefix))
-  spfx  (one-shot 2000 (layer-while-held sqli-prefix))
-  rpfx  (one-shot 2000 (layer-while-held ssrf-prefix))
-  tpfx  (one-shot 2000 (layer-while-held trav-prefix))
+;; ---------- payloads (auto-return to base) ----------
+(defalias
+  pxs  (multi (cmd /home/neolex/.config/kanata/payloads/type.sh xss)   @back)
+  pxs2 (multi (cmd /home/neolex/.config/kanata/payloads/type.sh xss2)  @back)
+  pxb  (multi (cmd /home/neolex/.config/kanata/payloads/type.sh xb)    @back)
+  pss  (multi (cmd /home/neolex/.config/kanata/payloads/type.sh sqli)  @back)
+  psa  (multi (cmd /home/neolex/.config/kanata/payloads/type.sh sqli2) @back)
+  ptr  (multi (cmd /home/neolex/.config/kanata/payloads/type.sh trav)  @back)
+  ptr2 (multi (cmd /home/neolex/.config/kanata/payloads/type.sh trav2) @back)
+  psem (multi (cmd /home/neolex/.config/kanata/payloads/type.sh semi)  @back)
+  psr  (multi (cmd /home/neolex/.config/kanata/payloads/type.sh ssrf)  @back)
+  psr2 (multi (cmd /home/neolex/.config/kanata/payloads/type.sh ssrf2) @back)
+  pcmd (multi (cmd /home/neolex/.config/kanata/payloads/type.sh cmd)   @back)
+  ptpl (multi (cmd /home/neolex/.config/kanata/payloads/type.sh tmpl)  @back)
+  plog (multi (cmd /home/neolex/.config/kanata/payloads/type.sh log4j) @back)
+  poob (multi (cmd /home/neolex/.config/kanata/payloads/type.sh oob)   @back)
+)
 
-  ;; --- Caps+P sticky toggle pentest ---
-  pentog (switch
-    ((layer pentest)) (layer-switch base) break
-    () (layer-switch pentest) break))
+;; ---------- submenu switchers (sticky once entered) ----------
+(defalias
+  to-xss  (layer-switch xss)
+  to-sqli (layer-switch sqli)
+  to-trav (layer-switch trav)
+  to-ssrf (layer-switch ssrf)
+
+  ;; Caps = tap:Esc / hold:pentest layer
+  cesc (tap-hold 200 200 
+         (tap-dance 200 (esc (layer-switch creds)))
+         (layer-while-held pentest))
+)
 
 ;; ============================================================
-;; LAYER BASE
+;; LAYERS (28 keys each)
 ;; ============================================================
+
 (deflayer base
-  @cesc @pen
-  q  w  e  r  t  y  u  i  o  p
-  a  s  d  f  g  h  j  k  l
-  z  x  c  v  b  n  m
-  1  2  3  4  5  6  7  8  9  0)
+  @cesc
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _
+)
 
-;; ============================================================
-;; LAYER PENTEST  (Caps+P sticky, ou Menu maintenu)
-;; ============================================================
-;; Prefixes (puis touche du sous-mode) :
-;;   x  → xss-prefix     (b=blind, s=script, v=svg)
-;;   s  → sqli-prefix    (o=OR,    u=UNION)
-;;   r  → ssrf-prefix    (l=localhost, m=metadata)
-;;   t  → trav-prefix    (b=basic, e=encoded, s=semicolon /..;/)
-;; Touches directes (paie + exit pentest) :
-;;   o  → OOB neolex.dns
-;;   p  → SSTI {{7*7}}
-;;   c  → cmd ;id;
-;;   l  → log4shell ${jndi:ldap://...}
+;; While HOLDING Caps:
+;;   X -> xss submenu       S -> sqli submenu
+;;   T -> trav submenu      R -> ssrf submenu
+;;   C -> cmd injection     L -> log4j
+;;   M -> template          O -> oob
 (deflayer pentest
-  _    _
-  _    _    _    @rpfx @tpfx _    _    _    @eoo @etm
-  _    @spfx _   _    _    _    _    _    @elj
-  _    @xpfx @ecm _   _    _    _
-  _    _    _    _    _    _    _    _    _    _)
+  _
+  _ _ _ @to-ssrf @to-trav _ _ _ @poob _
+  _ @to-sqli _ _ _ _ _ _ @plog @ptpl
+  _ @to-xss @pcmd _ _ _ _
+)
 
-;; ============================================================
-;; LAYER XSS-PREFIX  (pentest + x, one-shot)
-;;   b → blind XSS (import xss.neolex.dev)
-;;   s → <script>alert(1)</script>
-;;   v → "><svg/onload=alert(1)>
-;; ============================================================
-(deflayer xss-prefix
-  _    _
-  _    _    _    _    _    _    _    _    _    _
-  _    @exs _    _    _    _    _    _    _
-  _    _    _    @exs2 @exb _    _
-  _    _    _    _    _    _    _    _    _    _)
+;; XSS submenu (sticky): S=simple D=variant B=blind
+(deflayer xss
+  @back
+  _ _ _ _ _ _ _ _ _ _
+  _ @pxs @pxs2 _ _ _ _ _ _ _
+  _ _ _ _ @pxb _ _
+)
 
-;; ============================================================
-;; LAYER SQLI-PREFIX  (pentest + s, one-shot)
-;;   o → ' OR '1'='1
-;;   u → 1' UNION SELECT NULL-- -
-;; ============================================================
-(deflayer sqli-prefix
-  _    _
-  _    _    _    _    _    _    @esq2 _    @esq _
-  _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _)
+;; SQLI submenu: S=or-trick  U=union
+(deflayer sqli
+  @back
+  _ _ _ _ _ _ @psa _ _ _
+  _ @pss _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _
+)
 
-;; ============================================================
-;; LAYER SSRF-PREFIX  (pentest + r, one-shot)
-;;   l → http://127.0.0.1:
-;;   m → http://169.254.169.254/latest/meta-data/
-;; ============================================================
-(deflayer ssrf-prefix
-  _    _
-  _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    @ess
-  _    _    _    _    _    _    @ess2
-  _    _    _    _    _    _    _    _    _    _)
+;; TRAV submenu: S=simple U=url-enc ","=/..;/
+(deflayer trav
+  @back
+  _ _ _ _ _ _ @ptr2 _ _ _
+  _ @ptr _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ @psem
+)
 
-;; ============================================================
-;; LAYER TRAV-PREFIX  (pentest + t, one-shot)
-;;   b → ../../../../etc/passwd
-;;   e → ..%2f..%2f..%2fetc%2fpasswd
-;;   s → /..;/
-;; ============================================================
-(deflayer trav-prefix
-  _    _
-  _    _    @etr2 _    _    _    _    _    _    _
-  _    @esm _    _    _    _    _    _    _
-  _    _    _    _    @etr _    _
-  _    _    _    _    _    _    _    _    _    _)
+;; SSRF submenu: L=localhost M=metadata O=oob
+(deflayer ssrf
+  @back
+  _ _ _ _ _ _ _ _ @poob _
+  _ _ _ _ _ _ _ _ @psr @psr2
+  _ _ _ _ _ _ _
+)
+
+(deflayer creds
+  @back
+  _ _ _ _ _ _ @pubuntu _ _ _
+  _ _ _ @pfd _ _ _ _ _ _
+  _ _ _ _ _ _ _
+)
