@@ -210,7 +210,16 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# i3 config
 	[[ ! -d ~/.config/i3 ]] && mkdir -p ~/.config/i3 || true
 	$(call ska-link,/opt/skillarch/config/i3/config,$$HOME/.config/i3/config)
-
+	# hyprland config (illogical-impulse / end-4)
+	mkdir -p ~/.cache
+	if [[ ! -d ~/.cache/dots-hyprland/.git ]]; then \
+		git clone --depth=1 https://github.com/end-4/dots-hyprland ~/.cache/dots-hyprland ; \
+	else \
+		git -C ~/.cache/dots-hyprland pull --ff-only || true ; \
+	fi
+	cd ~/.cache/dots-hyprland && yes | ./setup install || $(call WARN,dots-hyprland setup returned non-zero)
+	# skillarch quickshell overlay (Kanata layer indicator)
+	/opt/skillarch/config/quickshell/apply.sh || $(call WARN,quickshell overlay apply failed)
 	# polybar config
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
@@ -220,7 +229,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# rofi config
 	[[ ! -d ~/.config/rofi ]] && mkdir -p ~/.config/rofi || true
 
-  # local/bin
+	# local/bin
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-start,$$HOME/.local/bin/bugtime-start)
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-stop,$$HOME/.local/bin/bugtime-stop)
 	$(call ska-link,/opt/skillarch/config/bin/set-default-browser,$$HOME/.local/bin/set-default-browser)
