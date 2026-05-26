@@ -4,9 +4,9 @@ After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
-Environment="DISPLAY=:0"
-Environment="XAUTHORITY=%h/.Xauthority"
-ExecStart=/usr/bin/kanata --cfg %h/.config/kanata/kanata.kbd
+Environment="WAYLAND_DISPLAY=wayland-1"
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
+ExecStart=/usr/bin/kanata -c /home/neolex/.config/kanata/kanata.kbd -p 7878 --no-wait
 Restart=on-failure
 RestartSec=2
 

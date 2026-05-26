@@ -2,6 +2,15 @@
   process-unmapped-keys yes
   danger-enable-cmd yes
   concurrent-tap-hold yes
+  linux-dev-names-include (
+      "SteelSeries Arctis 7+"
+      "SIGMACHIP Trust Keyboard Consumer Control"
+      "SIGMACHIP Trust Keyboard"
+      "Generic USB Audio Consumer Control"
+      "SINOWEALTH Gaming KB  Keyboard"
+      "SINOWEALTH Gaming KB  Consumer Control"
+      "SINOWEALTH Gaming KB "
+    )
 )
 
 
@@ -13,7 +22,11 @@
 
 ;; ---------- helpers ----------
 (defalias
-  back (layer-switch base)
+  back        (layer-switch base)
+  lock-pent   (layer-switch pentest-locked)
+  cesc (tap-hold 200 200
+         (tap-dance 200 (esc (layer-switch creds)))
+         (layer-while-held pentest))
 )
 
 (defalias
@@ -47,11 +60,6 @@
   to-sqli (layer-switch sqli)
   to-trav (layer-switch trav)
   to-ssrf (layer-switch ssrf)
-
-  ;; Caps = tap:Esc / hold:pentest layer
-  cesc (tap-hold 200 200 
-         (tap-dance 200 (esc (layer-switch creds)))
-         (layer-while-held pentest))
 )
 
 ;; ============================================================
@@ -72,6 +80,13 @@
 ;;   M -> template          O -> oob
 (deflayer pentest
   _
+  _ _ _ @to-ssrf @to-trav _ _ _ @poob @lock-pent
+  _ @to-sqli _ _ _ _ _ _ @plog @ptpl
+  _ @to-xss @pcmd _ _ _ _
+)
+
+(deflayer pentest-locked
+  @back                                 ;; <-- tap Caps to leave
   _ _ _ @to-ssrf @to-trav _ _ _ @poob _
   _ @to-sqli _ _ _ _ _ _ @plog @ptpl
   _ @to-xss @pcmd _ _ _ _

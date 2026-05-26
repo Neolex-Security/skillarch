@@ -110,7 +110,6 @@ export BROWSER=/usr/bin/google-chrome-stable
 export EDITOR=/usr/bin/vim
 export PAGER=/usr/bin/bat
 export TERMINAL=/usr/bin/kitty
-export TERM=xterm
 export VISUAL=/usr/bin/vim
 source $ZSH/oh-my-zsh.sh
 source /opt/skillarch/config/aliases
@@ -133,3 +132,9 @@ eval "$(zoxide init zsh)"
 
 # direnv: per-project env loading (source ~/.envrc / ./.envrc; auto-unload on cd-out)
 eval "$(direnv hook zsh)"
+ if [ -z "$XDG_RUNTIME_DIR" ]; then
+    export XDG_RUNTIME_DIR=/run/user/$(id -u)
+  fi
+  if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && [ -S "$XDG_RUNTIME_DIR/bus" ]; then
+    export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
+  fi
