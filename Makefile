@@ -218,6 +218,14 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 		git -C ~/.cache/dots-hyprland pull --ff-only || true ; \
 	fi
 	cd ~/.cache/dots-hyprland && yes | ./setup install || $(call WARN,dots-hyprland setup returned non-zero)
+	# skillarch hyprland custom overrides (runs after dots-hyprland so we replace its defaults)
+	[[ ! -d ~/.config/hypr/custom ]] && mkdir -p ~/.config/hypr/custom || true
+	$(call ska-link,/opt/skillarch/config/hypr/custom/variables.lua,$$HOME/.config/hypr/custom/variables.lua)
+	$(call ska-link,/opt/skillarch/config/hypr/custom/rules.lua,$$HOME/.config/hypr/custom/rules.lua)
+	$(call ska-link,/opt/skillarch/config/hypr/custom/execs.lua,$$HOME/.config/hypr/custom/execs.lua)
+	$(call ska-link,/opt/skillarch/config/hypr/custom/general.lua,$$HOME/.config/hypr/custom/general.lua)
+	$(call ska-link,/opt/skillarch/config/hypr/custom/keybinds.lua,$$HOME/.config/hypr/custom/keybinds.lua)
+	$(call ska-link,/opt/skillarch/config/hypr/custom/env.lua,$$HOME/.config/hypr/custom/env.lua)
 	# skillarch quickshell overlay (Kanata layer indicator)
 	/opt/skillarch/config/quickshell/apply.sh || $(call WARN,quickshell overlay apply failed)
 	# polybar config
