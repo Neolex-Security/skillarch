@@ -218,6 +218,8 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 		git -C ~/.cache/dots-hyprland pull --ff-only || true ; \
 	fi
 	cd ~/.cache/dots-hyprland && yes | ./setup install || $(call WARN,dots-hyprland setup returned non-zero)
+	sed -i 's/^shell=fish$/shell=zsh/' ~/.config/foot/foot.ini
+
 	# skillarch hyprland custom overrides (runs after dots-hyprland so we replace its defaults)
 	[[ ! -d ~/.config/hypr/custom ]] && mkdir -p ~/.config/hypr/custom || true
 	$(call ska-link,/opt/skillarch/config/hypr/custom/variables.lua,$$HOME/.config/hypr/custom/variables.lua)
