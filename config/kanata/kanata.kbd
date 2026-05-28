@@ -32,6 +32,10 @@
 (defalias
   pubuntu (multi (cmd /home/neolex/.config/kanata/payloads/type.sh ubuntu) @back)
   pfd     (multi (cmd /home/neolex/.config/kanata/payloads/type.sh fd)     @back)
+  pmh     (multi (cmd /home/neolex/.config/kanata/payloads/type.sh hkmail) @back)
+  pmk     (multi (cmd /home/neolex/.config/kanata/payloads/type.sh kmail)  @back)
+  pmn     (multi (cmd /home/neolex/.config/kanata/payloads/type.sh nemail) @back)
+  ptel    (multi (cmd /home/neolex/.config/kanata/payloads/type.sh tel)    @back)
 )
 
 
@@ -124,9 +128,13 @@
   _ _ _ _ _ _ _
 )
 
+;; CREDS submenu:
+;;   h -> hascoet.kevin@gmail.com   k -> kevin@neolex.dev
+;;   n -> neolex@wearehackerone.com t -> 667649841
+;;   u -> Ubuntu29260?!             f -> FileDescriptor29260?!
 (deflayer creds
   @back
-  _ _ _ _ _ _ @pubuntu _ _ _
-  _ _ _ @pfd _ _ _ _ _ _
-  _ _ _ _ _ _ _
+  _ _ _ _ @ptel _ @pubuntu _ _ _
+  _ _ _ @pfd _ @pmh _ @pmk _ _
+  _ _ _ _ _ @pmn _
 )
