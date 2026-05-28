@@ -102,6 +102,8 @@ hl.bind("SUPER + code:26", hl.dsp.global("quickshell:overviewEmojiToggle"))
 
 hl.bind("SUPER + code:28", hl.dsp.exec_cmd(fileManager), { description = "App: File manager" })
 hl.bind("SUPER + code:33", hl.dsp.exec_cmd("gradia --screenshot"))
+hl.bind("SUPER + S", hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"),
+	{ description = "Audio: Switch output device" })
 hl.unbind("SUPER + Minus")
 hl.unbind("SUPER + Equal")
 
