@@ -288,6 +288,35 @@ install-offensive: sanity-check ## Install offensive & security tools
 	$(call INFO,Installing offensive tools...)
 	$(PACMAN_INSTALL) metasploit fx lazygit fq gitleaks jdk21-openjdk hashcat bettercap bore
 	for pkg in ffuf gau pdtm-bin waybackurls fabric-ai-bin caido-desktop caido-cli; do yay --noconfirm --needed -S "$$pkg" || $(call WARN,Failed to install $$pkg$(comma) continuing...); done
+	# Caido Desktop can abort in Electron's EGL path on NVIDIA/Wayland; force Xwayland + software rendering.
+	sudo tee /usr/local/bin/caido > /dev/null <<-'SHIM'
+		#!/usr/bin/env bash
+		export ELECTRON_OZONE_PLATFORM_HINT=x11
+		export XDG_SESSION_TYPE=x11
+		exec /opt/caido-desktop/caido --disable-gpu --disable-gpu-compositing --ozone-platform=x11 "$$@"
+	SHIM
+	sudo chmod +x /usr/local/bin/caido
+	# Desktop entry + icon — extract logo from app.asar (AUR pkg ships none on tarball installs).
+	command -v asar >/dev/null 2>&1 && [[ -f /opt/caido-desktop/resources/app.asar ]] && \
+		( tmp=$$(mktemp -d) && cd "$$tmp" && \
+		  asar extract-file /opt/caido-desktop/resources/app.asar packages/renderer/dist/logo-CTbDrodR.svg 2>/dev/null && \
+		  sudo install -Dm644 "$$tmp/logo-CTbDrodR.svg" /usr/share/icons/hicolor/scalable/apps/caido.svg && \
+		  sudo gtk-update-icon-cache -t -f /usr/share/icons/hicolor 2>/dev/null || true ) || true
+	sudo tee /usr/share/applications/caido.desktop > /dev/null <<-'DESKTOP'
+		[Desktop Entry]
+		Name=Caido
+		GenericName=HTTP Toolkit
+		Comment=Official desktop application for Caido
+		Exec=/usr/local/bin/caido %U
+		Terminal=false
+		Type=Application
+		Icon=caido
+		StartupWMClass=Caido
+		Categories=Network;
+		Keywords=proxy;http;security;pentest;bugbounty;
+	DESKTOP
+	sudo chmod 644 /usr/share/applications/caido.desktop
+	sudo update-desktop-database /usr/share/applications 2>/dev/null || true
 
 	# HExHTTP: HTTP header vuln/cache-poisoning scanner — clone + isolated venv + PATH shim.
 	# Upstream pyproject entrypoint is broken (hexhttp.py not packaged); bypass with a direct wrapper.
