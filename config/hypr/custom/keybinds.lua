@@ -111,6 +111,20 @@ hl.bind(
 hl.unbind("SUPER + Minus")
 hl.unbind("SUPER + Equal")
 
+-- Scratchpad (special workspace)
+hl.unbind("SUPER + Z")
+hl.unbind("SUPER + SHIFT + Z")
+hl.bind(
+	"SUPER + Z",
+	hl.dsp.workspace.toggle_special("special"),
+	{ description = "Workspace: Toggle scratchpad" }
+)
+hl.bind(
+	"SUPER + SHIFT + Z",
+	hl.dsp.window.move({ workspace = "special:special", follow = false }),
+	{ description = "Window: Send to scratchpad" }
+)
+
 --##! Screen
 --# Zoom
 local function zoomfunction(value)
