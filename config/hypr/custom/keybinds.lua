@@ -145,3 +145,10 @@ end, { repeating = true, description = "Screen: Zoom out" })
 hl.bind("SUPER + mouse_down", function()
 	zoomfunction(0.3)
 end, { repeating = true, description = "Screen: Zoom in" })
+
+-- Split ratio: SUPER + ':' is the opposite of SUPER + ';'
+hl.bind(
+	"SUPER + colon",
+	hl.dsp.layout("splitratio +0.1"),
+	{ repeating = true, description = "Window: Grow split (opposite of SUPER+;)" }
+)
