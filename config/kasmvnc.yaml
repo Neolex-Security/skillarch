@@ -1,20 +1,11 @@
 desktop:
   resolution:
-<<<<<<< HEAD
     width: 2560
     height: 1440
   allow_resize: true
 network:
   protocol: http
   websocket_port: 8444
-=======
-    width: 1920
-    height: 1080
-  allow_resize: true
-network:
-  protocol: http
-  websocket_port: 8443
->>>>>>> upstream
   interface: 127.0.0.1
   ssl:
     pem_certificate: /home/hacker/.vnc/self.pem
