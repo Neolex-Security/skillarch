@@ -110,7 +110,6 @@ install-cli-tools: sanity-check ## Install CLI tools & runtimes
 	$(call INFO,Installing CLI tools & runtimes...)
 	$(PACMAN_INSTALL) base-devel bison bzip2 ca-certificates cloc cmake dos2unix expect ffmpeg foremost gdb gnupg htop bottom hwinfo icu inotify-tools iproute2 jq llvm lsof ltrace make mlocate mplayer ncurses net-tools ngrep nmap openssh openssl parallel perl-image-exiftool pkgconf python-virtualenv re2c readline ripgrep rlwrap socat sqlite sshpass tmate tor traceroute trash-cli tree unzip vbindiff xclip xz yay zip veracrypt git-delta viu qsv asciinema htmlq neovim glow jless websocat superfile gron eza fastfetch bat sysstat cronie tree-sitter bc
 	sudo ln -sf /usr/bin/bat /usr/local/bin/batcat
-	bash -c "$$(curl -fsSL https://ollama.com/install.sh | sh)" || true
 	bash -c "$$(curl -fsSL https://gef.blah.cat/sh)" || true
 	[[ ! -f ~/.gdbinit-gef.py ]] && curl -fsSL -o ~/.gdbinit-gef.py https://raw.githubusercontent.com/hugsy/gef/main/gef.py && echo "source ~/.gdbinit-gef.py" >> ~/.gdbinit || echo "gef already installed"
 	# nvim config
@@ -236,17 +235,15 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
 	$(call ska-link,/opt/skillarch/config/polybar/launch.sh,$$HOME/.config/polybar/launch.sh)
-	$(call ska-link,/opt/skillarch/config/polybar/scripts/scroll_tidal_status.sh,$$HOME/.config/polybar/scripts/scroll_tidal_status.sh)
-	$(call ska-link,/opt/skillarch/config/polybar/scripts/tidal.sh,$$HOME/.config/polybar/scripts/tidal.sh)
-	# rofi config
-	[[ ! -d ~/.config/rofi ]] && mkdir -p ~/.config/rofi || true
-
 	# local/bin
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-start,$$HOME/.local/bin/bugtime-start)
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-stop,$$HOME/.local/bin/bugtime-stop)
 	$(call ska-link,/opt/skillarch/config/bin/set-default-browser,$$HOME/.local/bin/set-default-browser)
 	$(call ska-link,/opt/skillarch/config/bin/switch-audio-output,$$HOME/.local/bin/switch-audio-output)
 
+	# rofi config
+	[[ ! -d ~/.config/rofi ]] && mkdir -p ~/.config/rofi || true
+	$(call ska-link,/opt/skillarch/config/rofi/config.rasi,$$HOME/.config/rofi/config.rasi)
 	# picom config
 	$(call ska-link,/opt/skillarch/config/picom.conf,$$HOME/.config/picom.conf)
 
@@ -264,7 +261,6 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	chmod +x /opt/skillarch/config/kanata/type.sh /opt/skillarch/config/kanata/layer-listener.sh /opt/skillarch/config/kanata/layer-polybar.sh /opt/skillarch/config/kanata/layer-notify.py || true
 	[[ ! -d ~/.config/systemd/user ]] && mkdir -p ~/.config/systemd/user || true
 	$(call ska-link,/opt/skillarch/config/systemd/user/kanata.service,$$HOME/.config/systemd/user/kanata.service)
-
 	# touchpad config
 	[[ ! -d /etc/X11/xorg.conf.d ]] && sudo mkdir -p /etc/X11/xorg.conf.d || true
 	[[ -f /etc/X11/xorg.conf.d/30-touchpad.conf ]] && sudo mv /etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf.skabak || true
@@ -290,6 +286,7 @@ install-offensive: sanity-check ## Install offensive & security tools
 	$(call INFO,Installing offensive tools...)
 	$(PACMAN_INSTALL) metasploit fx lazygit fq gitleaks jdk21-openjdk hashcat bettercap bore
 	for pkg in ffuf gau pdtm-bin waybackurls fabric-ai-bin caido-desktop caido-cli; do yay --noconfirm --needed -S "$$pkg" || $(call WARN,Failed to install $$pkg$(comma) continuing...); done
+	
 	# Caido Desktop can abort in Electron's EGL path on NVIDIA/Wayland; force Xwayland + software rendering.
 	sudo tee /usr/local/bin/caido > /dev/null <<-'SHIM'
 		#!/usr/bin/env bash
