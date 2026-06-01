@@ -4,7 +4,7 @@ hl.on("hyprland.start", function()
 		"thunderbird",
 		"flamshot",
 		os.getenv("HOME") .. "/.config/kanata/layer-listener.sh",
-		"webcord",
+		"discord",
 		"google-chrome-stable",
 	}
 
