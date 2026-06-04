@@ -96,8 +96,11 @@ hl.unbind("SUPER + code:26")
 
 -- SUPER + Tab: back-and-forth between current and last focused workspace
 hl.unbind("SUPER + Tab")
-hl.bind("SUPER + Tab", hl.dsp.focus({ workspace = "previous" }),
-	{ description = "Workspace: Back-and-forth (previous)" })
+hl.bind(
+	"SUPER + Tab",
+	hl.dsp.focus({ workspace = "previous" }),
+	{ description = "Workspace: Back-and-forth (previous)" }
+)
 hl.bind("SUPER + code:26", hl.dsp.global("quickshell:overviewEmojiToggle"))
 
 hl.bind("SUPER + code:28", hl.dsp.exec_cmd(fileManager), { description = "App: File manager" })
@@ -114,11 +117,7 @@ hl.unbind("SUPER + Equal")
 -- Scratchpad (special workspace)
 hl.unbind("SUPER + Z")
 hl.unbind("SUPER + SHIFT + Z")
-hl.bind(
-	"SUPER + Z",
-	hl.dsp.workspace.toggle_special("special"),
-	{ description = "Workspace: Toggle scratchpad" }
-)
+hl.bind("SUPER + Z", hl.dsp.workspace.toggle_special("special"), { description = "Workspace: Toggle scratchpad" })
 hl.bind(
 	"SUPER + SHIFT + Z",
 	hl.dsp.window.move({ workspace = "special:special", follow = false }),
@@ -152,3 +151,8 @@ hl.bind(
 	hl.dsp.layout("splitratio +0.1"),
 	{ repeating = true, description = "Window: Grow split (opposite of SUPER+;)" }
 )
+
+hl.unbind("XF86AudioRaiseVolume")
+hl.unbind("XF86AudioLowerVolume")
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5"))
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
