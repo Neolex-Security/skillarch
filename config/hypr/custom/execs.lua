@@ -6,6 +6,7 @@ hl.on("hyprland.start", function()
 		os.getenv("HOME") .. "/.config/kanata/layer-listener.sh",
 		"discord",
 		"google-chrome-stable",
+		"synology-drive",
 	}
 
 	for _, app in ipairs(apps) do
