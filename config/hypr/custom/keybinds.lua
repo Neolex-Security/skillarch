@@ -101,6 +101,7 @@ hl.bind(
 	hl.dsp.focus({ workspace = "previous" }),
 	{ description = "Workspace: Back-and-forth (previous)" }
 )
+hl.unbind("SUPER + code:26")
 hl.bind("SUPER + code:26", hl.dsp.global("quickshell:overviewEmojiToggle"))
 
 hl.bind("SUPER + code:28", hl.dsp.exec_cmd(fileManager), { description = "App: File manager" })

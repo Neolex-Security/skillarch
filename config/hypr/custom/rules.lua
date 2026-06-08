@@ -17,3 +17,10 @@ hl.window_rule({
 	},
 	workspace = "1 silent",
 })
+
+hl.window_rule({
+	match = {
+		class = "^obsidian$",
+	},
+	workspace = "11 silent",
+})

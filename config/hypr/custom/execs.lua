@@ -7,6 +7,7 @@ hl.on("hyprland.start", function()
 		"discord",
 		"google-chrome-stable",
 		"synology-drive",
+		"obsidian",
 	}
 
 	for _, app in ipairs(apps) do
