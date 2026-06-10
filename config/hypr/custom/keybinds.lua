@@ -101,11 +101,11 @@ hl.bind(
 	hl.dsp.focus({ workspace = "previous" }),
 	{ description = "Workspace: Back-and-forth (previous)" }
 )
-hl.unbind("SUPER + code:26")
-hl.bind("SUPER + code:26", hl.dsp.global("quickshell:overviewEmojiToggle"))
+hl.unbind("SUPER + E")
+hl.bind("SUPER + E", hl.dsp.global("quickshell:overviewEmojiToggle"))
 
 hl.bind("SUPER + code:28", hl.dsp.exec_cmd(fileManager), { description = "App: File manager" })
-hl.bind("SUPER + code:33", hl.dsp.exec_cmd("gradia --screenshot"))
+hl.bind("SUPER + code:33", hl.dsp.exec_cmd("/usr/bin/gradia --screenshot"))
 hl.unbind("SUPER + S")
 hl.bind(
 	"SUPER + S",
