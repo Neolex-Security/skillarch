@@ -132,7 +132,7 @@ install-cli-tools: sanity-check ## Install CLI tools & runtimes
 	eval "$$(mise activate bash)" || true
 
 	# Install uv tools
-	for package in argcomplete bypass-url-parser exegol pre-commit sqlmap wafw00f yt-dlp semgrep defaultcreds-cheat-sheet; do
+	for package in argcomplete bypass-url-parser exegol pre-commit sqlmap wafw00f yt-dlp semgrep defaultcreds-cheat-sheet hyprwhspr; do
 		uv tool install "$$package" || {
 			$(call WARN,Retrying $$package install...)
 			uv tool install -q "$$package"
