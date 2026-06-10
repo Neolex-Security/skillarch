@@ -117,15 +117,7 @@ eval "$(register-python-argcomplete --no-defaults exegol)"
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
 
-# Created by `pipx` on 2025-03-03 15:05:01
-export PATH=$PATH:~/.local/bin
-export PATH=$PATH:~/.pdtm/go/bin
-export PATH=$PATH:~/Android/sdk/cmdline-tools/latest/bin
-export ANDROID_HOME="/home/neolex/Android/sdk"
-export ANDROID_AVD_HOME="/home/neolex/.config/.android/avd"
 source /home/neolex/.neozshrc
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
-export EDITOR="/usr/bin/nvim"
 unalias z
 eval "$(zoxide init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
