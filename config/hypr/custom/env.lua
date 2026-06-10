@@ -14,6 +14,6 @@ hl.env("qsScripts", os.getenv("HOME") .. "/.config/quickshell/ii/scripts")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 -- NVIDIA 555+ explicit sync regression workaround (fixes random Qt6 EGL segfaults)
 hl.env("__NV_DISABLE_EXPLICIT_SYNC", "1")
--- Force Qt Quick scene graph to Vulkan to bypass the legacy QOpenGLContext path
--- used by Qt5Compat.GraphicalEffects that crashes during EGLConfig negotiation.
-hl.env("QSG_RHI_BACKEND", "vulkan")
+-- OpenGL avoids Intel Y_TILED_CCS DMA-BUF import failure when NVIDIA Vulkan
+-- tries to import screencopy buffers allocated on the Intel GBM device.
+hl.env("QSG_RHI_BACKEND", "opengl")
