@@ -1,13 +1,4 @@
-require("hyprland.lib")
-require("hyprland.variables")
-if is_file_exists(HOME .. "/.config/hypr/custom/variables.lua") then
-	require("custom.variables")
-end
-
-local qsScripts = "$HOME/.config/quickshell/$qsConfig/scripts"
-local hyprScripts = "$HOME/.config/hypr/hyprland/scripts"
-local qsIpcCall = "qs -c $qsConfig ipc call"
-local qsIsAlive = qsIpcCall .. " TEST_ALIVE"
+workspaceGroupSize = 100
 hl.bind(
 	"CTRL+SUPER+ALT+Slash",
 	hl.dsp.exec_cmd("xdg-open ~/.config/hypr/custom/keybinds.lua"),
@@ -90,10 +81,6 @@ for i = 1, 10 do
 	end)
 end
 
-hl.bind("SUPER + code:51", hl.dsp.global("quickshell:overviewClipboardToggle"))
-hl.unbind("SUPER + code:28")
-hl.unbind("SUPER + code:26")
-
 -- SUPER + Tab: back-and-forth between current and last focused workspace
 hl.unbind("SUPER + Tab")
 hl.bind(
@@ -101,10 +88,7 @@ hl.bind(
 	hl.dsp.focus({ workspace = "previous" }),
 	{ description = "Workspace: Back-and-forth (previous)" }
 )
-hl.unbind("SUPER + E")
-hl.bind("SUPER + E", hl.dsp.global("quickshell:overviewEmojiToggle"))
 
-hl.bind("SUPER + code:28", hl.dsp.exec_cmd(fileManager), { description = "App: File manager" })
 hl.bind("SUPER + code:33", hl.dsp.exec_cmd("/usr/bin/gradia --screenshot"))
 hl.unbind("SUPER + S")
 hl.bind(
@@ -157,3 +141,16 @@ hl.unbind("XF86AudioRaiseVolume")
 hl.unbind("XF86AudioLowerVolume")
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.5"))
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
+
+hl.bind("SUPER + SHIFT + D ", hl.dsp.exec_cmd("hyprwhspr record toggle"))
+hl.bind(
+	"SUPER + asterisk",
+	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-cliphist"),
+	{ description = "Open clipboard manager" }
+)
+
+hl.bind(
+	"SUPER + SHIFT + RETURN",
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"),
+	{ description = "Open application launcher" }
+)

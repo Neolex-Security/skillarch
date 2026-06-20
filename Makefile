@@ -132,7 +132,7 @@ install-cli-tools: sanity-check ## Install CLI tools & runtimes
 	eval "$$(mise activate bash)" || true
 
 	# Install uv tools
-	for package in argcomplete bypass-url-parser exegol pre-commit sqlmap wafw00f yt-dlp semgrep defaultcreds-cheat-sheet hyprwhspr; do
+	for package in argcomplete bypass-url-parser exegol pre-commit sqlmap wafw00f yt-dlp semgrep defaultcreds-cheat-sheet ; do
 		uv tool install "$$package" || {
 			$(call WARN,Retrying $$package install...)
 			uv tool install -q "$$package"
@@ -178,7 +178,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	$(PACMAN_INSTALL) xorg-server cachyos-kde-settings plasma-meta i3-gaps i3blocks i3lock i3lock-fancy-git i3status dmenu feh rofi nm-connection-editor picom polybar kitty brightnessctl xorg-xhost
 	# KDE Plasma X11 — Plasma 6 + kwin_x11, also used by cloud VNC target
 	$(PACMAN_INSTALL) plasma-desktop plasma-x11-session kwin-x11 konsole alacritty
-	yay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git
+	ay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git hyprwhspr
 	# ── KDE Dark Theme (BreezeDark) ──
 	# plasma-apply-colorscheme needs a running Plasma session (D-Bus); during install
 	# it usually fails silently. Write kdeglobals + GTK configs directly as fallback.
@@ -273,7 +273,7 @@ install-gui-tools: sanity-check ## Install GUI apps (Chrome, VSCode, Ghidra, etc
 	[[ -f /.dockerenv ]] && sudo mkdir -p /var/lib/flatpak/repo || true
 	# Force refresh DBs — chaotic-aur rolls fast; stale local DB → 404 on package files (e.g. visual-studio-code-bin)
 	sudo pacman --noconfirm -Syy || true
-	$(PACMAN_INSTALL) vlc vlc-plugin-ffmpeg arandr blueman visual-studio-code-bin discord dunst filezilla flameshot ghex google-chrome gparted kdenlive kompare libreoffice-fresh meld okular qbittorrent torbrowser-launcher wireshark-qt ghidra signal-desktop dragon-drop-git emote guvcview audacity polkit-kde-agent kamoso thunar thunar-archive-plugin thunar-volman tumbler ffmpegthumbnailer gvfs gvfs-mtp file-roller
+	$(PACMAN_INSTALL) vlc vlc-plugin-ffmpeg arandr blueman visual-studio-code-bin discord dunst filezilla flameshot ghex google-chrome gparted kdenlive kompare libreoffice-fresh meld okular qbittorrent torbrowser-launcher wireshark-qt ghidra signal-desktop dragon-drop-git emote guvcview audacity polkit-kde-agent kamoso thunar thunar-archive-plugin thunar-volman tumbler ffmpegthumbnailer gvfs gvfs-mtp file-roller python-gobject python-cairo gtk4 gtk4-layer-shell
 	[[ ! -f /.dockerenv ]] && $(PACMAN_INSTALL) flatpak && flatpak install -y flathub com.obsproject.Studio || true
 	# Do not start services in docker
 
