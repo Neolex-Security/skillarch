@@ -226,7 +226,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	else \
 		git -C ~/.cache/dots-hyprland pull --ff-only || true ; \
 	fi
-	cd ~/.cache/dots-hyprland && yes i | ./setup install || $(call WARN,dots-hyprland setup returned non-zero)
+	cd ~/.cache/dots-hyprland && ./setup install --force || $(call WARN,dots-hyprland setup returned non-zero)
 
 	sed -i 's/^shell=fish$$/shell=zsh/' ~/.config/foot/foot.ini
 
