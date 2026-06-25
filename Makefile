@@ -219,15 +219,6 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# i3 config
 	[[ ! -d ~/.config/i3 ]] && mkdir -p ~/.config/i3 || true
 	$(call ska-link,/opt/skillarch/config/i3/config,$$HOME/.config/i3/config)
-	# hyprland config (illogical-impulse / end-4)
-	mkdir -p ~/.cache
-	if [[ ! -d ~/.cache/dots-hyprland/.git ]]; then \
-		git clone --depth=1 https://github.com/end-4/dots-hyprland ~/.cache/dots-hyprland ; \
-	else \
-		git -C ~/.cache/dots-hyprland pull --ff-only || true ; \
-	fi
-	cd ~/.cache/dots-hyprland && ./setup install --force || $(call WARN,dots-hyprland setup returned non-zero)
-
 	sed -i 's/^shell=fish$$/shell=zsh/' ~/.config/foot/foot.ini
 
 
