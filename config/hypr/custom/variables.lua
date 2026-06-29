@@ -1,8 +1,1 @@
--- Custom overrides (survives dotfiles updates)
-
--- Default terminal: kitty
-terminal = "~/.config/hypr/hyprland/scripts/launch_first_available.sh 'kitty -1' 'foot' 'alacritty' 'wezterm' 'konsole' 'kgx' 'uxterm' 'xterm'"
-
--- Disable workspace grouping: SUPER+number goes to the absolute workspace
--- (must exceed the highest workspace ID so workspace_in_group() is identity)
-workspaceGroupSize = 100
+/opt/skillarch/config/hypr/custom/variables.lua
