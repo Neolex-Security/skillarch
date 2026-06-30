@@ -91,6 +91,16 @@ hl.bind(
 	hl.dsp.window.resize({ x = 0, y = -100, relative = true }),
 	{ description = "Reduce window height" }
 )
+hl.bind(
+	mod .. " + semicolon",
+	hl.dsp.window.resize({ x = -100, y = 0, relative = true }),
+	{ description = "Reduce window width" }
+)
+hl.bind(
+	mod .. " + colon",
+	hl.dsp.window.resize({ x = 100, y = 0, relative = true }),
+	{ description = "Increase window width" }
+)
 hl.bind(mod .. " + G", hl.dsp.group.toggle(), { description = "Toggle window group" })
 hl.bind(mod .. " + ALT + left", hl.dsp.window.swap({ direction = "l" }), { description = "Swap tiled window left" })
 hl.bind(mod .. " + ALT + right", hl.dsp.window.swap({ direction = "r" }), { description = "Swap tiled window right" })
