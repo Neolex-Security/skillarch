@@ -14,13 +14,13 @@
 --
 -- NOTE: hypridle / hyprlock / hyprpaper keep their own (.conf) format and are unchanged.
 
-require("lua/env")
-require("lua/monitors")
-require("lua/input")
-require("lua/looknfeel")
-require("lua/animations")
-require("lua/layouts")
-require("lua/misc")
-require("lua/windowrules")
-require("lua/keybindings")
-require("lua/autostart")
+require("lua.env")
+require("lua.monitors")
+require("lua.input")
+require("lua.looknfeel")
+require("lua.animations")
+require("lua.layouts")
+require("lua.misc")
+require("lua.windowrules")
+require("lua.keybindings")
+require("lua.autostart")
