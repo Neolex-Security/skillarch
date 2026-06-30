@@ -202,10 +202,16 @@ for i, key in ipairs(wsKeys) do
 		hl.dsp.window.move({ workspace = i, follow = true }),
 		{ description = "Move window to workspace " .. i }
 	)
+	-- Second decade (11-20): same physical keys + CTRL.
 	hl.bind(
 		mod .. " + CTRL + " .. key,
-		hl.dsp.exec_cmd(HYPRSCRIPTS .. "/moveTo.sh " .. i),
-		{ description = "Move all windows to workspace " .. i }
+		hl.dsp.focus({ workspace = i + 10 }),
+		{ description = "Open workspace " .. (i + 10) }
+	)
+	hl.bind(
+		mod .. " + SHIFT + CTRL + " .. key,
+		hl.dsp.window.move({ workspace = i + 10, follow = true }),
+		{ description = "Move window to workspace " .. (i + 10) }
 	)
 end
 
