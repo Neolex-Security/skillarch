@@ -8,7 +8,7 @@
 
 - **OS**: CachyOS (Arch Linux, performance-tuned)
 - **Shell**: Zsh + Oh-My-Zsh + Powerlevel10k (`af-magic` theme)
-- **WM/DE**: i3-gaps + Polybar + Rofi + Picom + Kitty terminal + KDE Plasma X11
+- **WM/DE**: i3-gaps + Polybar + Rofi + Picom + Kitty terminal + KDE Plasma X11. Optional Wayland session via ML4W Hyprland dotfiles (deployed by `config/ml4w/install.sh`, pinned to release 2.10.1); the Kanata layer indicator is ported to its Waybar (`config/waybar/`). The Hyprland config itself is hardcoded in-repo at `config/hypr/` as a **full Lua config** (`hyprland.lua` + `lua/` modules, Hyprland ≥0.55 — preferred over `hyprland.conf`; Samsung Odyssey G9 monitor layout + AZERTY keybindings) and overrides the upstream hypr at install time. Only `colors.conf` (read at runtime by `lua/colors.lua` for ML4W theming) and the standalone daemon configs (`hypridle/hyprlock/hyprpaper.conf`) remain as `.conf`; the rest of the ML4W dirs (waybar, rofi, swaync…) still come from upstream.
 - **Editors**: Neovim (LazyVim), VS Code (`code`)
 - **Install root**: `/opt/skillarch/` — all dotfiles symlinked from here
 - **Data root**: `/DATA/` — long-lived user data
@@ -25,7 +25,7 @@ make install-base       # Repo setup, pacman config, chaotic-aur, /DATA dir
 make install-cli-tools  # CLI tools, mise runtimes (Python/Node/Go/Rust), uv tools, neovim+LazyVim
 make install-shell      # Zsh, oh-my-zsh, fzf, tmux, vim, dotfile symlinks
 make install-docker     # Docker + Docker Compose, user added to docker group
-make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, touchpad config
+make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, ML4W Hyprland, touchpad config
 make install-gui-tools  # Chrome, VSCode, Ghidra, Discord, VLC, Wireshark
 make install-offensive  # Metasploit, ffuf, pdtm tools, go binaries, GitHub releases, cloned tools
 make install-wordlists  # All wordlists to /opt/lists/

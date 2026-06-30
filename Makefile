@@ -219,19 +219,14 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# i3 config
 	[[ ! -d ~/.config/i3 ]] && mkdir -p ~/.config/i3 || true
 	$(call ska-link,/opt/skillarch/config/i3/config,$$HOME/.config/i3/config)
-	sed -i 's/^shell=fish$$/shell=zsh/' ~/.config/foot/foot.ini
 
-
-	# skillarch hyprland custom overrides (runs after dots-hyprland so we replace its defaults)
-	[[ ! -d ~/.config/hypr/custom ]] && mkdir -p ~/.config/hypr/custom || true
-	$(call ska-link,/opt/skillarch/config/hypr/custom/variables.lua,$$HOME/.config/hypr/custom/variables.lua)
-	$(call ska-link,/opt/skillarch/config/hypr/custom/rules.lua,$$HOME/.config/hypr/custom/rules.lua)
-	$(call ska-link,/opt/skillarch/config/hypr/custom/execs.lua,$$HOME/.config/hypr/custom/execs.lua)
-	$(call ska-link,/opt/skillarch/config/hypr/custom/general.lua,$$HOME/.config/hypr/custom/general.lua)
-	$(call ska-link,/opt/skillarch/config/hypr/custom/keybinds.lua,$$HOME/.config/hypr/custom/keybinds.lua)
-	$(call ska-link,/opt/skillarch/config/hypr/custom/env.lua,$$HOME/.config/hypr/custom/env.lua)
-	# skillarch quickshell overlay (Kanata layer indicator)
-	/opt/skillarch/config/quickshell/apply.sh || $(call WARN,quickshell overlay apply failed)
+	# ── ML4W Hyprland dotfiles — Waybar generation (mylinuxforwork/dotfiles @ 2.10.1) ──
+	# ML4W 2.11+ moved its whole shell to Quickshell (illogical-impulse); 2.10.1 is the last
+	# pure-Waybar release and the AUR package was removed, so we deploy from the release tag.
+	# Idempotent + reversible; skipped in Docker (no Wayland session).
+	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/ml4w/install.sh || $(call WARN,ML4W Waybar dotfiles install failed)
+	# skillarch Kanata layer indicator → ML4W Waybar (replaces the retired Quickshell overlay)
+	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/waybar/apply.sh || $(call WARN,waybar kanata indicator apply failed)
 	# polybar config
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
