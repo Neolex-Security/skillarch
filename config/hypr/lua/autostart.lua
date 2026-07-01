@@ -35,6 +35,12 @@ hl.on("hyprland.start", function()
 
     -- Apply settings from the ML4W Hyprland Settings app (was an `exec`, i.e. on every reload)
     hl.exec_cmd("~/.config/com.ml4w.hyprlandsettings/hyprctl.sh")
+
+    -- Application autostart (silent = launch into workspace without switching focus)
+    hl.exec_cmd("[workspace 1 silent] discord")
+    hl.exec_cmd("[workspace 1 silent] google-chrome-stable")
+    hl.exec_cmd("[workspace 10 silent] thunderbird")
+    hl.exec_cmd("[workspace 11 silent] obsidian")
 end)
 
 -- Cursor (was: conf/cursor.conf `exec-once = hyprctl setcursor`)
