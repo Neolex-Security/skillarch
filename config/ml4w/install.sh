@@ -44,7 +44,10 @@ fi
 for d in "${DIRS[@]}"; do
     [[ -d "$SRC/.config/$d" ]] || continue
     rm -rf "$TREE/.config/$d"
-    cp -a "$SRC/.config/$d" "$TREE/.config/$d"
+    # Non-fatal: a hiccup here (e.g. transient "File exists" on ml4w/settings)
+    # must not abort before the hypr override below, or Hyprland boots against a
+    # clobbered upstream config and loses the skillarch Lua snapshot.
+    cp -a "$SRC/.config/$d" "$TREE/.config/$d" || log "WARN: copy of $d failed, continuing"
 done
 
 # hypr is HARDCODED in skillarch — the repo snapshot is source of truth, not upstream.
