@@ -189,6 +189,9 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# KDE Plasma X11 - Plasma 6 + kwin_x11, also used by cloud VNC target
 	$(PACMAN_INSTALL) plasma-desktop plasma-x11-session kwin-x11 konsole alacritty
 	yay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git hyprwhspr
+	# ML4W Hyprland Wayland runtime — bar, notifs, wallpaper backends, idle/lock, clipboard.
+	# ML4W 2.10.1 ships configs, not binaries; the retired ml4w-hyprland AUR pkg used to pull these in.
+	$(PACMAN_INSTALL) waybar swaync swww hyprpaper hypridle hyprlock cliphist wl-clipboard
 	# plasma-apply-colorscheme needs a running Plasma session (D-Bs); during install
 	# it usually fails silently. Write kdeglobals + GTK configs directly as fallback.
 	plasma-apply-colorscheme BreezeDark 2>/dev/null || true
@@ -661,6 +664,10 @@ test-full: test ## Validate full Docker image install (runs test + extras)
 	}
 	$(call BOLD,\n--- GUI Binaries ---)
 	for bin in i3 kitty polybar rofi picom code; do
+		ska_check "$$bin" "which $$bin"
+	done
+	$(call BOLD,\n--- Hyprland Wayland Runtime ---)
+	for bin in waybar swaync swww hyprpaper hypridle hyprlock cliphist waypaper; do
 		ska_check "$$bin" "which $$bin"
 	done
 	$(call BOLD,\n--- GUI Config Symlinks ---)
