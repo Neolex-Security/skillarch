@@ -106,6 +106,11 @@ hl.bind(mod .. " + ALT + left", hl.dsp.window.swap({ direction = "l" }), { descr
 hl.bind(mod .. " + ALT + right", hl.dsp.window.swap({ direction = "r" }), { description = "Swap tiled window right" })
 hl.bind(mod .. " + ALT + up", hl.dsp.window.swap({ direction = "u" }), { description = "Swap tiled window up" })
 hl.bind(mod .. " + ALT + down", hl.dsp.window.swap({ direction = "d" }), { description = "Swap tiled window down" })
+-- Move active window in a direction (tiled: relayout, floating: reposition).
+hl.bind(mod .. " + SHIFT + left", hl.dsp.window.move({ direction = "l" }), { description = "Move window left" })
+hl.bind(mod .. " + SHIFT + right", hl.dsp.window.move({ direction = "r" }), { description = "Move window right" })
+hl.bind(mod .. " + SHIFT + up", hl.dsp.window.move({ direction = "u" }), { description = "Move window up" })
+hl.bind(mod .. " + SHIFT + down", hl.dsp.window.move({ direction = "d" }), { description = "Move window down" })
 hl.bind("ALT + Tab", function()
 	hl.dispatch(hl.dsp.window.cycle_next())
 	hl.dispatch(hl.dsp.window.bring_to_top())
@@ -147,38 +152,44 @@ hl.bind(
 	{ description = "Reload hyprland config" }
 )
 hl.bind(mod .. " + V", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
+hl.bind(mod .. " + asterisk", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
 hl.bind(
 	mod .. " + SHIFT + T",
 	hl.dsp.exec_cmd("~/.config/waybar/themeswitcher.sh"),
 	{ description = "Open waybar theme switcher" }
-)
-hl.bind(
-	mod .. " + SHIFT + S",
-	hl.dsp.exec_cmd("flatpak run com.ml4w.settings"),
-	{ description = "Open ML4W Settings app" }
 )
 hl.bind(mod .. " + ALT + G", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/gamemode.sh"), { description = "Toggle game mode" })
 hl.bind(mod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/power.sh lock"), { description = "Lock screen" })
 hl.bind(mod .. " + CTRL + H", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/hyprshade.sh"), { description = "Launch Hyprshade" })
 hl.bind("SHIFT + Tab", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus.sh"), { description = "Open Select Window Menu" })
 
--- Sidepad
+-- Sidepad (moved off SHIFT+arrows, which now move windows)
+hl.bind(mod .. " + A", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad"), { description = "Open Sidepad" })
 hl.bind(
-	mod .. " + SHIFT + right",
-	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad"),
-	{ description = "Open Sidepad" }
-)
-hl.bind(
-	mod .. " + SHIFT + left",
+	mod .. " + SHIFT + A",
 	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad --hide"),
 	{ description = "Close Sidepad" }
 )
-hl.bind(mod .. " + S", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad --init"), { description = "Init Sidepad" })
 hl.bind(
-	mod .. " + CTRL + S",
+	mod .. " + CTRL + P",
+	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad --init"),
+	{ description = "Init Sidepad" }
+)
+hl.bind(
+	mod .. " + ALT + A",
 	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad --select"),
 	{ description = "Select Sidepad" }
 )
+
+-- Scratchpad (special workspace "magic")
+hl.bind(mod .. " + Z", hl.dsp.workspace.toggle_special("magic"), { description = "Toggle scratchpad" })
+hl.bind(
+	mod .. " + SHIFT + Z",
+	hl.dsp.window.move({ workspace = "special:magic" }),
+	{ description = "Move window to scratchpad" }
+)
+
+hl.bind(mod .. " + S ", hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"))
 
 -- Workspaces (AZERTY top-row keysyms). For SHIFT binds Hyprland matches the
 -- unshifted base keysym, which on fr is the symbol (not the digit) -- so all
@@ -219,7 +230,7 @@ hl.bind(mod .. " + Tab", hl.dsp.focus({ workspace = "previous" }), { description
 hl.bind(mod .. " + CTRL + Tab", hl.dsp.focus({ workspace = "m-1" }), { description = "Previous workspace" })
 hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
 hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
-hl.bind(mod .. " + SHIFT + down", hl.dsp.focus({ workspace = "empty" }), { description = "Next empty workspace" })
+hl.bind(mod .. " + CTRL + E", hl.dsp.focus({ workspace = "empty" }), { description = "Next empty workspace" })
 
 -- Fn / multimedia keys
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -q s +10%"), { description = "Increase brightness" })
@@ -245,11 +256,6 @@ hl.bind(
 	{ description = "Toggle microphone" }
 )
 hl.bind("XF86Calculator", hl.dsp.exec_cmd("~/.config/ml4w/settings/calculator.sh"), { description = "Open calculator" })
-hl.bind(
-	"XF86Tools",
-	hl.dsp.exec_cmd("alacritty --class dotfiles-floating -e ~/.config/ml4w/apps/ML4W_Dotfiles_Settings-x86_64.AppImage"),
-	{ description = "Open ML4W Settings app" }
-)
 hl.bind(
 	"code:238",
 	hl.dsp.exec_cmd("brightnessctl -d smc::kbd_backlight s +10"),
