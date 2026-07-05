@@ -35,7 +35,25 @@ SRC="$CACHE/dotfiles"
 # 2) Only runtime dep that may be missing (the rest ship with any ML4W/Hyprland install).
 command -v waypaper >/dev/null 2>&1 || yay --noconfirm --needed -S waypaper || log "WARN: waypaper install failed"
 
-# 3) Deploy the Waybar config dirs into the ML4W stow tree.
+# 3) ML4W companion apps (Welcome/Settings/Sidebar/Calendar) — separate Flatpaks from a
+# custom remote, not Flathub. Without these the Waybar buttons that `flatpak run` them
+# (e.g. the ML4W Sidebar) silently no-op. See mylinuxforwork/dotfiles-{welcome,settings,sidebar,calendar}.
+if command -v flatpak >/dev/null 2>&1; then
+    ML4W_APPS_KEY="$HOME/.cache/ml4w-apps-public-key.asc"
+    wget -q -O "$ML4W_APPS_KEY" https://mylinuxforwork.github.io/ml4w-flatpak-repo/ml4w-apps-public-key.asc \
+        && sudo flatpak remote-add --if-not-exists ml4w-repo \
+            https://mylinuxforwork.github.io/ml4w-flatpak-repo/ml4w-apps.flatpakrepo \
+            --gpg-import="$ML4W_APPS_KEY" \
+        || log "WARN: ml4w-repo flatpak remote setup failed"
+    rm -f "$ML4W_APPS_KEY"
+    for app in com.ml4w.welcome com.ml4w.settings com.ml4w.sidebar com.ml4w.calendar; do
+        sudo flatpak install -y --noninteractive ml4w-repo "$app" || log "WARN: flatpak install $app failed"
+    done
+else
+    log "WARN: flatpak not found, skipping ML4W companion apps"
+fi
+
+# 4) Deploy the Waybar config dirs into the ML4W stow tree.
 mkdir -p "$TREE/.config"
 if [[ -d "$TREE/.config/quickshell" && ! -d "$TREE.skabak-quickshell" ]]; then
     log "backing up current Quickshell tree -> $TREE.skabak-quickshell"
@@ -65,7 +83,7 @@ fi
 # Retire the illogical-impulse Quickshell shell.
 rm -rf "$TREE/.config/quickshell"
 
-# 4) Symlink the tree dirs into ~/.config (ML4W-native relative links).
+# 5) Symlink the tree dirs into ~/.config (ML4W-native relative links).
 mkdir -p "$HOME/.config"
 for d in "${DIRS[@]}"; do
     [[ -d "$TREE/.config/$d" ]] || continue
