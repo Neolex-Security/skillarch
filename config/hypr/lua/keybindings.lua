@@ -161,7 +161,6 @@ hl.bind(
 hl.bind(mod .. " + ALT + G", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/gamemode.sh"), { description = "Toggle game mode" })
 hl.bind(mod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/power.sh lock"), { description = "Lock screen" })
 hl.bind(mod .. " + CTRL + H", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/hyprshade.sh"), { description = "Launch Hyprshade" })
-hl.bind("SHIFT + Tab", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus.sh"), { description = "Open Select Window Menu" })
 
 -- Sidepad (moved off SHIFT+arrows, which now move windows)
 hl.bind(mod .. " + A", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad"), { description = "Open Sidepad" })
