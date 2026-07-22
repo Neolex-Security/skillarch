@@ -129,3 +129,6 @@ eval "$(zoxide init zsh)"
 # Generated for pdtm. Do not edit.
 export PATH=$PATH:/home/neolex/.pdtm/go/bin
 
+
+# Mammouth Code
+export PATH="$HOME/.mammouth/bin:$PATH"
