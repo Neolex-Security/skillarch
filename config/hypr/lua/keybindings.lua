@@ -134,11 +134,6 @@ hl.bind(
 hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper --random"), { description = "Change the wallpaper" })
 hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper"), { description = "Open wallpaper selector" })
 hl.bind(
-	mod .. " + ALT + W",
-	hl.dsp.exec_cmd(HYPRSCRIPTS .. "/wallpaper-automation.sh"),
-	{ description = "Start random wallpaper script" }
-)
-hl.bind(
 	mod .. " + SHIFT + RETURN",
 	hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"),
 	{ description = "Open application launcher" }
@@ -162,6 +157,7 @@ hl.bind(mod .. " + ALT + G", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/gamemode.sh"), { d
 hl.bind(mod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/power.sh lock"), { description = "Lock screen" })
 hl.bind(mod .. " + CTRL + H", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/hyprshade.sh"), { description = "Launch Hyprshade" })
 
+hl.bind(mod .. " + W", hl.dsp.exec_cmd("~/.local/bin/set-default-browser"))
 -- Sidepad (moved off SHIFT+arrows, which now move windows)
 hl.bind(mod .. " + A", hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-sidepad"), { description = "Open Sidepad" })
 hl.bind(
