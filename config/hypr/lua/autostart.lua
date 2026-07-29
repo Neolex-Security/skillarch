@@ -3,47 +3,48 @@
 -- hl.exec_cmd runs via `sh -c`, so `~` expands and no `& disown` is needed.
 
 hl.on("hyprland.start", function()
-    -- Environment for xdg-desktop-portal-hyprland
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+	-- Environment for xdg-desktop-portal-hyprland
+	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
-    -- Start listeners
-    hl.exec_cmd("~/.config/ml4w/listeners.sh --startall")
+	-- Start listeners
+	hl.exec_cmd("~/.config/ml4w/listeners.sh --startall")
 
-    -- Polkit
-    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+	-- Polkit
+	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 
-    -- Wallpaper
-    hl.exec_cmd("~/.config/hypr/scripts/wallpaper-restore.sh")
+	-- Wallpaper
+	hl.exec_cmd("~/.config/hypr/scripts/wallpaper-restore.sh")
 
-    -- Notification daemon
-    hl.exec_cmd("swaync")
+	-- Notification daemon
+	hl.exec_cmd("swaync")
 
-    -- GTK settings
-    hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")
+	-- GTK settings
+	hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")
 
-    -- hypridle (also starts hyprlock)
-    hl.exec_cmd("hypridle")
+	-- hypridle (also starts hyprlock)
+	hl.exec_cmd("hypridle")
 
-    -- Clipboard history
-    hl.exec_cmd("wl-paste --watch cliphist store")
+	-- Clipboard history
+	hl.exec_cmd("wl-paste --watch cliphist store")
 
-    -- ML4W autostart
-    hl.exec_cmd("~/.config/ml4w/scripts/ml4w-autostart")
+	-- ML4W autostart
+	hl.exec_cmd("~/.config/ml4w/scripts/ml4w-autostart")
 
-    -- Autostart cleanup
-    hl.exec_cmd("~/.config/hypr/scripts/cleanup.sh")
+	-- Autostart cleanup
+	hl.exec_cmd("~/.config/hypr/scripts/cleanup.sh")
 
-    -- Apply settings from the ML4W Hyprland Settings app (was an `exec`, i.e. on every reload)
-    hl.exec_cmd("~/.config/com.ml4w.hyprlandsettings/hyprctl.sh")
+	-- Apply settings from the ML4W Hyprland Settings app (was an `exec`, i.e. on every reload)
+	hl.exec_cmd("~/.config/com.ml4w.hyprlandsettings/hyprctl.sh")
 
-    -- Application autostart (silent = launch into workspace without switching focus)
-    hl.exec_cmd("[workspace 1 silent] discord")
-    hl.exec_cmd("[workspace 1 silent] google-chrome-stable")
-    hl.exec_cmd("[workspace 10 silent] thunderbird")
-    hl.exec_cmd("[workspace 11 silent] obsidian")
+	-- Application autostart (silent = launch into workspace without switching focus)
+	hl.exec_cmd("[workspace 1 silent] discord")
+	hl.exec_cmd("[workspace 1 silent] brave")
+	hl.exec_cmd("[workspace special:scratchpad silent] tidal-hifi")
+	hl.exec_cmd("[workspace 10 silent] thunderbird")
+	hl.exec_cmd("[workspace 11 silent] obsidian")
 end)
 
 -- Cursor (was: conf/cursor.conf `exec-once = hyprctl setcursor`)
 hl.on("hyprland.start", function()
-    hl.exec_cmd("hyprctl setcursor")
+	hl.exec_cmd("hyprctl setcursor")
 end)
