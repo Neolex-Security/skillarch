@@ -293,7 +293,7 @@ make clean              # Docker-only: clear caches (pacman, yay, pip, mise, go,
 | `$mod+shift+a` | Move to scratchpad |
 | `$mod+a` | Show scratchpad |
 | `$mod+r` | Resize mode |
-| `$mod+1..0` | Switch workspace (AZERTY: `&éàçèù-_`) |
+| `$mod+1..0` | Switch workspace (US layout, top-row digits `1-0`) |
 | `$mod+Shift+1..0` | Move container to workspace |
 
 ### Audio/Brightness
@@ -489,7 +489,7 @@ dexr                                   # same, as root
 - `ska-help-bindings` — interactive fzf search of all i3 keybindings
 - `source ~/.myaliases` — private aliases for secrets/tokens (never commit this file)
 - Kitty rectangle select: `ctrl+alt+click/drag`
-- Keyboard layout is AZERTY by default; workspace numbers use `&éàçèù-_çà`
+- Keyboard layout is US by default (kanata remaps the physical AZERTY board to US positions); workspace numbers use the top-row digits `1-0`
 - picom transparency is disabled inside hypervisors (auto-detected via `/proc/cpuinfo`)
 - `make doctor` — check for broken symlinks, disk space, Docker health
 - `make list-tools` — print versions of all major tools
