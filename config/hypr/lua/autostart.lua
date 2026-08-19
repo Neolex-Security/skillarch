@@ -30,6 +30,9 @@ hl.on("hyprland.start", function()
 	-- ML4W autostart
 	hl.exec_cmd("~/.config/ml4w/scripts/ml4w-autostart")
 
+	-- Kanata layer listener (feeds Waybar/Polybar indicator via /tmp/kanata_layer)
+	hl.exec_cmd("~/.config/kanata/layer-listener.sh")
+
 	-- Autostart cleanup
 	hl.exec_cmd("~/.config/hypr/scripts/cleanup.sh")
 

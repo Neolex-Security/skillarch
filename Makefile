@@ -191,7 +191,14 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	yay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git hyprwhspr
 	# ML4W Hyprland Wayland runtime — bar, notifs, wallpaper backends, idle/lock, clipboard.
 	# ML4W 2.10.1 ships configs, not binaries; the retired ml4w-hyprland AUR pkg used to pull these in.
-	$(PACMAN_INSTALL) waybar swaync swww hyprpaper hypridle hyprlock cliphist wl-clipboard
+	# waybar 0.15.0 sends `dispatch workspace N`, which Hyprland's Lua configProvider
+	# rejects. waybar-git uses IPC::dispatch() / hl.dsp.* so bar clicks actually switch.
+	# --noconfirm keeps the default [y/N]=N on Conflicts, so drop stock waybar first.
+	if pacman -Q waybar >/dev/null 2>&1 && ! pacman -Q waybar-git >/dev/null 2>&1; then \
+		sudo pacman -R --noconfirm waybar || true; \
+	fi
+	$(PACMAN_INSTALL) waybar-git || $(PACMAN_INSTALL) waybar
+	$(PACMAN_INSTALL) swaync swww hyprpaper hypridle hyprlock cliphist wl-clipboard
 	# plasma-apply-colorscheme needs a running Plasma session (D-Bs); during install
 	# it usually fails silently. Write kdeglobals + GTK configs directly as fallback.
 	plasma-apply-colorscheme BreezeDark 2>/dev/null || true
@@ -228,8 +235,8 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# pure-Waybar release and the AUR package was removed, so we deploy from the release tag.
 	# Idempotent + reversible; skipped in Docker (no Wayland session).
 	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/ml4w/install.sh || $(call WARN,ML4W Waybar dotfiles install failed)
-	# skillarch Kanata layer indicator → ML4W Waybar (replaces the retired Quickshell overlay)
-	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/waybar/apply.sh || $(call WARN,waybar kanata indicator apply failed)
+	# skillarch Kanata indicator + Hyprland-Lua workspace click/scroll fix → ML4W Waybar
+	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/waybar/apply.sh || $(call WARN,waybar skillarch apply failed)
 	# polybar config
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
@@ -253,11 +260,10 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# kanata config + user service
 	[[ ! -d ~/.config/kanata ]] && mkdir -p ~/.config/kanata || true
 	$(call ska-link,/opt/skillarch/config/kanata/kanata.kbd,$$HOME/.config/kanata/kanata.kbd)
-	$(call ska-link,/opt/skillarch/config/kanata/type.sh,$$HOME/.config/kanata/type.sh)
 	$(call ska-link,/opt/skillarch/config/kanata/layer-listener.sh,$$HOME/.config/kanata/layer-listener.sh)
 	$(call ska-link,/opt/skillarch/config/kanata/layer-notify.py,$$HOME/.config/kanata/layer-notify.py)
 	$(call ska-link,/opt/skillarch/config/kanata/layer-polybar.sh,$$HOME/.config/kanata/layer-polybar.sh)
-	chmod +x /opt/skillarch/config/kanata/type.sh /opt/skillarch/config/kanata/layer-listener.sh /opt/skillarch/config/kanata/layer-polybar.sh /opt/skillarch/config/kanata/layer-notify.py || true
+	chmod +x /opt/skillarch/config/kanata/layer-listener.sh /opt/skillarch/config/kanata/layer-polybar.sh /opt/skillarch/config/kanata/layer-notify.py || true
 	[[ ! -d ~/.config/systemd/user ]] && mkdir -p ~/.config/systemd/user || true
 	$(call ska-link,/opt/skillarch/config/systemd/user/kanata.service,$$HOME/.config/systemd/user/kanata.service)
 	# touchpad config

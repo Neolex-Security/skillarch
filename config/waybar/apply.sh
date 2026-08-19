@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Inject the skillarch Kanata layer indicator into the ML4W Waybar config.
+# Patch ML4W Waybar for SkillArch:
+#   - Kanata layer indicator
+#   - Hyprland Lua dispatcher workspace scroll (stock `hyprctl dispatch workspace N`
+#     is invalid Lua: `hl.dispatch(workspace N)`). Clicks need waybar-git.
 # Idempotent: safe to re-run after every ml4w-hyprland-setup.
 
 SRC="$(cd "$(dirname "$0")" && pwd)"
@@ -78,4 +81,28 @@ if [[ -f "$STYLE" ]] && ! grep -q 'custom-kanata' "$STYLE"; then
 CSS
 fi
 
-echo "[skillarch] Kanata indicator applied. Reload Waybar: ~/.config/waybar/launch.sh"
+# 4) Workspace scroll: ML4W ships `hyprctl dispatch workspace r±1`, which Hyprland's
+#    Lua configProvider rejects. waybar-git still honours these custom on-scroll
+#    strings (and skips its own Lua-aware IPC::dispatch when they are set).
+if grep -q 'hyprctl dispatch workspace r' "$MODULES"; then
+    python3 - "$MODULES" <<'PY'
+from pathlib import Path
+import sys
+p = Path(sys.argv[1])
+src = p.read_text()
+src = src.replace(
+    '"on-scroll-up": "hyprctl dispatch workspace r-1"',
+    '"on-scroll-up": "hyprctl dispatch \'hl.dsp.focus({ workspace = \\"r-1\\" })\'"',
+)
+src = src.replace(
+    '"on-scroll-down": "hyprctl dispatch workspace r+1"',
+    '"on-scroll-down": "hyprctl dispatch \'hl.dsp.focus({ workspace = \\"r+1\\" })\'"',
+)
+p.write_text(src)
+print("[skillarch] patched hyprland/workspaces scroll to Lua dispatcher")
+PY
+else
+    echo "[skillarch] workspace scroll already Lua-safe (or absent)"
+fi
+
+echo "[skillarch] Waybar patches applied. Reload: ~/.config/waybar/launch.sh"
