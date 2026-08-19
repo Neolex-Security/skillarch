@@ -125,7 +125,11 @@ hl.bind(
 )
 hl.bind(mod .. " + Print", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/screenshot.sh"), { description = "Take a screenshot" })
 hl.bind(mod .. " + CTRL + S", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/screenshot.sh"), { description = "Take a screenshot" })
-hl.bind(mod .. " + P", hl.dsp.exec_cmd("/usr/bin/gradia --screenshot"), { description = "Screenshot with Gradia" })
+hl.bind(
+	mod .. " + P",
+	hl.dsp.exec_cmd("flatpak run be.alexandervanhee.gradia --screenshot"),
+	{ description = "Screenshot with Gradia" }
+)
 hl.bind(
 	mod .. " + SHIFT + Q",
 	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-wlogout.sh"),
