@@ -38,7 +38,7 @@ hl.on("hyprland.start", function()
 
 	-- Application autostart (silent = launch into workspace without switching focus)
 	hl.exec_cmd("[workspace 1 silent] discord")
-	hl.exec_cmd("[workspace 1 silent] brave")
+	hl.exec_cmd("[workspace 1 silent] google-chrome-stable")
 	hl.exec_cmd("[workspace special:scratchpad silent] tidal-hifi")
 	hl.exec_cmd("[workspace 10 silent] thunderbird")
 	hl.exec_cmd("[workspace 11 silent] obsidian")

@@ -211,6 +211,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	# GTK file managers (Thunar, Nautilus, etc.) and xdg-open read ~/.config/mimeapps.list.
 	# We use Thunar instead of Dolphin because KIO's portal-based launcher hangs under i3.
 	printf '%s\n' '[Default Applications]' 'image/png=org.gnome.eog.desktop' 'image/jpeg=org.gnome.eog.desktop' 'image/gif=org.gnome.eog.desktop' 'image/webp=org.gnome.eog.desktop' 'image/bmp=org.gnome.eog.desktop' 'image/tiff=org.gnome.eog.desktop' 'image/svg+xml=org.gnome.eog.desktop' 'video/mp4=vlc.desktop' 'video/x-matroska=vlc.desktop' 'video/webm=vlc.desktop' 'video/quicktime=vlc.desktop' 'video/x-msvideo=vlc.desktop' 'audio/mpeg=vlc.desktop' 'audio/ogg=vlc.desktop' 'audio/flac=vlc.desktop' 'audio/x-wav=vlc.desktop' 'audio/vnd.wave=vlc.desktop' 'application/pdf=google-chrome.desktop' 'text/html=google-chrome.desktop' 'x-scheme-handler/http=google-chrome.desktop' 'x-scheme-handler/https=google-chrome.desktop' 'x-scheme-handler/about=google-chrome.desktop' 'x-scheme-handler/unknown=google-chrome.desktop' 'x-scheme-handler/mailto=google-chrome.desktop' 'text/plain=org.kde.kate.desktop' 'inode/directory=thunar.desktop' > ~/.config/mimeapps.list
+	xdg-settings set default-web-browser google-chrome.desktop 2>/dev/null || true
 	# Pin default taskbar launchers (systemsettings, chrome, thunar, alacritty)
 	mkdir -p ~/.config
 	PLASMA_RC=~/.config/plasma-org.kde.plasma.desktop-appletsrc ; \
