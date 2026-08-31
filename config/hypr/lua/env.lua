@@ -35,7 +35,11 @@ hl.env("SDL_VIDEODRIVER", "wayland")
 
 -- XWayland
 hl.config({
-    xwayland = {
-        force_zero_scaling = true,
-    },
+	xwayland = {
+		force_zero_scaling = true,
+	},
 })
+
+-- Nvidia
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
