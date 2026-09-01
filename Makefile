@@ -241,6 +241,10 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
 	$(call ska-link,/opt/skillarch/config/polybar/launch.sh,$$HOME/.config/polybar/launch.sh)
+	mkdir -p ~/.config/polybar/scripts
+	for script in /opt/skillarch/config/polybar/scripts/*; do \
+		ln -sf "$$script" "$$HOME/.config/polybar/scripts/$$(basename "$$script")"; \
+	done
 	# local/bin
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-start,$$HOME/.local/bin/bugtime-start)
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-stop,$$HOME/.local/bin/bugtime-stop)
@@ -270,6 +274,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d /etc/X11/xorg.conf.d ]] && sudo mkdir -p /etc/X11/xorg.conf.d || true
 	[[ -f /etc/X11/xorg.conf.d/30-touchpad.conf ]] && sudo mv /etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf.skabak || true
 	sudo ln -sf /opt/skillarch/config/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+	hyprctl reload
 	$(call DONE,GUI & window manager installed!)
 
 install-gui-tools: sanity-check ## Install GUI apps (Chrome, VSCode, Ghidra, etc.)
