@@ -15,6 +15,11 @@ hl.on("hyprland.start", function()
 	-- Wallpaper
 	hl.exec_cmd("~/.config/hypr/scripts/wallpaper-restore.sh")
 
+	-- Desktop shell. Launch explicitly after Hyprland has finished creating its
+	-- socket instead of relying on Waypaper's wallpaper-change callback.
+	hl.exec_cmd("sleep 2 && ~/.config/waybar/launch.sh")
+	hl.exec_cmd("sleep 2 && ~/.config/nwg-dock-hyprland/launch.sh")
+
 	-- Notification daemon
 	hl.exec_cmd("swaync")
 
