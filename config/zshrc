@@ -135,3 +135,6 @@ export PATH="$HOME/.mammouth/bin:$PATH"
 
 # opencode
 export PATH=/home/neolex/.opencode/bin:$PATH
+
+
+eval "$(~/.local/bin/mise activate zsh)"
