@@ -188,7 +188,11 @@ hl.bind(
 	{ description = "Move window to scratchpad" }
 )
 
-hl.bind(mod .. " + S ", hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"))
+hl.bind(
+	mod .. " + S",
+	hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"),
+	{ description = "Switch audio output" }
+)
 
 -- Workspaces (AZERTY top-row keysyms). For SHIFT binds Hyprland matches the
 -- unshifted base keysym, which on fr is the symbol (not the digit) -- so all

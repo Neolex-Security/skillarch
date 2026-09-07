@@ -4,7 +4,9 @@
 
 hl.on("hyprland.start", function()
 	-- Environment for xdg-desktop-portal-hyprland
-	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+	hl.exec_cmd(
+		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+	)
 
 	-- Start listeners
 	hl.exec_cmd("~/.config/ml4w/listeners.sh --startall")

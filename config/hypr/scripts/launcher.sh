@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# -----------------------------------------------------
-# Load Launcher
-# -----------------------------------------------------
-launcher=$(cat $HOME/.config/ml4w/settings/launcher)
+launcher="rofi"
+launcher_setting="$HOME/.config/ml4w/settings/launcher"
+[[ -r "$launcher_setting" ]] && launcher="$(<"$launcher_setting")"
 
-# Use Walker
-_launch_walker() {
-    $HOME/.config/walker/launch.sh --height 500
-}
-
-# Use Rofi
-_launch_rofi() {
-    pkill rofi || rofi -show drun -replace -i  
-}
-
-if [ "$launcher" == "walker" ]; then
-    _launch_walker
-else
-    _launch_rofi
+if [[ "$launcher" == "walker" && -x "$HOME/.config/walker/launch.sh" ]]; then
+    exec "$HOME/.config/walker/launch.sh" --height 500
 fi
+
+# Rofi's own -replace mode safely replaces an existing launcher. Avoid pkill:
+# a stuck /proc entry can make procps scan forever and block the Hyprland bind.
+exec rofi -show drun -replace -i

@@ -2,6 +2,7 @@
 set -euo pipefail
 # Patch ML4W Waybar for SkillArch:
 #   - Kanata layer indicator
+#   - systemd-managed Waybar lifecycle (no killall/pkill process scans)
 #   - Hyprland Lua dispatcher workspace scroll (stock `hyprctl dispatch workspace N`
 #     is invalid Lua: `hl.dispatch(workspace N)`). Clicks need waybar-git.
 # Idempotent: safe to re-run after every ml4w-hyprland-setup.
@@ -16,6 +17,11 @@ if [[ ! -f "$MODULES" ]]; then
 fi
 
 install -Dm755 "$SRC/kanata.sh" "$WB/kanata.sh"
+install -Dm755 "$SRC/start.sh" "$WB/start.sh"
+install -Dm755 "$SRC/launch.sh" "$WB/launch.sh"
+install -Dm755 "$SRC/toggle.sh" "$WB/toggle.sh"
+install -Dm644 "$SRC/../systemd/user/waybar.service" "$HOME/.config/systemd/user/waybar.service"
+systemctl --user daemon-reload
 
 # 1) Module definition — insert into modules.json before its final closing brace.
 if ! grep -q '"custom/kanata"' "$MODULES"; then
