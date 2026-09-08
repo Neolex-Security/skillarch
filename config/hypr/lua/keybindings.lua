@@ -102,6 +102,7 @@ hl.bind(
 	{ description = "Increase window width" }
 )
 hl.bind(mod .. " + G", hl.dsp.group.toggle(), { description = "Toggle window group" })
+hl.bind(mod .. " + J", hl.dsp.layout("togglesplit"), { description = "Toggle split orientation" })
 hl.bind(mod .. " + ALT + left", hl.dsp.window.swap({ direction = "l" }), { description = "Swap tiled window left" })
 hl.bind(mod .. " + ALT + right", hl.dsp.window.swap({ direction = "r" }), { description = "Swap tiled window right" })
 hl.bind(mod .. " + ALT + up", hl.dsp.window.swap({ direction = "u" }), { description = "Swap tiled window up" })
