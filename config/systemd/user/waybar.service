@@ -1,0 +1,15 @@
+[Unit]
+Description=SkillArch Waybar
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.config/waybar/start.sh
+Restart=on-failure
+RestartSec=1
+KillMode=mixed
+TimeoutStopSec=1
+
+[Install]
+WantedBy=graphical-session.target
