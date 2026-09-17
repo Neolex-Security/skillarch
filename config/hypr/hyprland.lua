@@ -23,4 +23,20 @@ require("lua.layouts")
 require("lua.misc")
 require("lua.windowrules")
 require("lua.keybindings")
+-- Noctalia layer/window rules, persistent workspaces, IPC binds
+-- (after keybindings so its Super+S / Alt+Tab / media binds win when enabled)
+require("lua.noctalia_shell").setup()
 require("lua.autostart")
+
+-- Noctalia Color templates (written to ~/.config/hypr/noctalia.lua by the
+-- noctalia theme engine). pcall so a fresh install before first theme apply
+-- still boots Hyprland.
+pcall(function()
+	require("noctalia").apply_theme()
+end)
+
+-- >>> HYPRLAND VISUAL EDITOR (HVE) <<<
+pcall(function()
+	dofile(os.getenv("HOME") .. "/.cache/noctalia/HVE/overlay.lua")
+end)
+-- <<< HYPRLAND VISUAL EDITOR (HVE) <<<

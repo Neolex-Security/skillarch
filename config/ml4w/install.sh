@@ -94,5 +94,5 @@ done
 # Drop the now-dangling Quickshell link.
 [[ -L "$HOME/.config/quickshell" ]] && rm -f "$HOME/.config/quickshell"
 
-log "ML4W Waybar dotfiles deployed (tag $ML4W_TAG)."
-log "Relog into Hyprland to switch from the Quickshell bar to Waybar."
+log "ML4W helpers deployed (tag $ML4W_TAG); skillarch hypr Lua uses Noctalia by default."
+log "Relog into Hyprland. Set USE_NOCTALIA=false in lua/noctalia_shell.lua to fall back to Waybar."

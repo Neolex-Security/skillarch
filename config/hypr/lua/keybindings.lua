@@ -112,10 +112,14 @@ hl.bind(mod .. " + SHIFT + left", hl.dsp.window.move({ direction = "l" }), { des
 hl.bind(mod .. " + SHIFT + right", hl.dsp.window.move({ direction = "r" }), { description = "Move window right" })
 hl.bind(mod .. " + SHIFT + up", hl.dsp.window.move({ direction = "u" }), { description = "Move window up" })
 hl.bind(mod .. " + SHIFT + down", hl.dsp.window.move({ direction = "d" }), { description = "Move window down" })
-hl.bind("ALT + Tab", function()
-	hl.dispatch(hl.dsp.window.cycle_next())
-	hl.dispatch(hl.dsp.window.bring_to_top())
-end, { repeating = true, description = "Cycle between windows" })
+-- ALT+Tab: when Noctalia is enabled, lua/noctalia_shell.lua owns this bind
+-- (window-switcher). Fallback for Waybar mode:
+if not require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind("ALT + Tab", function()
+		hl.dispatch(hl.dsp.window.cycle_next())
+		hl.dispatch(hl.dsp.window.bring_to_top())
+	end, { repeating = true, description = "Cycle between windows" })
+end
 
 -- Actions
 hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"), { description = "Reload Hyprland configuration" })
@@ -138,11 +142,20 @@ hl.bind(
 )
 hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper --random"), { description = "Change the wallpaper" })
 hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper"), { description = "Open wallpaper selector" })
-hl.bind(
-	mod .. " + SHIFT + RETURN",
-	hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"),
-	{ description = "Open application launcher" }
-)
+-- Launcher: Noctalia panel when enabled, else ML4W rofi/walker script.
+if require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind(
+		mod .. " + SHIFT + RETURN",
+		hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"),
+		{ description = "Noctalia launcher" }
+	)
+else
+	hl.bind(
+		mod .. " + SHIFT + RETURN",
+		hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"),
+		{ description = "Open application launcher" }
+	)
+end
 hl.bind(mod .. " + SHIFT + K", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/keybindings.sh"), { description = "Show keybindings" })
 hl.bind(mod .. " + CTRL + B", hl.dsp.exec_cmd("~/.config/waybar/launch.sh"), { description = "Reload waybar" })
 hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/waybar/toggle.sh"), { description = "Toggle waybar" })
@@ -189,11 +202,20 @@ hl.bind(
 	{ description = "Move window to scratchpad" }
 )
 
-hl.bind(
-	mod .. " + S",
-	hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"),
-	{ description = "Switch audio output" }
-)
+-- SUPER+S is Noctalia control-center when enabled; audio switch moves to SHIFT+S.
+if require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind(
+		mod .. " + SHIFT + S",
+		hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"),
+		{ description = "Switch audio output" }
+	)
+else
+	hl.bind(
+		mod .. " + S",
+		hl.dsp.exec_cmd("~/.local/bin/switch-audio-output"),
+		{ description = "Switch audio output" }
+	)
+end
 
 -- Workspaces (AZERTY top-row keysyms). For SHIFT binds Hyprland matches the
 -- unshifted base keysym, which on fr is the symbol (not the digit) -- so all
@@ -236,20 +258,26 @@ hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { descripti
 hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
 hl.bind(mod .. " + CTRL + E", hl.dsp.focus({ workspace = "empty" }), { description = "Next empty workspace" })
 
--- Fn / multimedia keys
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -q s +10%"), { description = "Increase brightness" })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -q s 10%-"), { description = "Reduce brightness" })
-hl.bind(
-	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
-	{ description = "Increase volume" }
-)
-hl.bind(
-	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
-	{ description = "Reduce volume" }
-)
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { description = "Toggle mute" })
+-- Fn / multimedia keys (volume/brightness via Noctalia when enabled)
+if not require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -q s +10%"), { description = "Increase brightness" })
+	hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -q s 10%-"), { description = "Reduce brightness" })
+	hl.bind(
+		"XF86AudioRaiseVolume",
+		hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ +5%"),
+		{ description = "Increase volume" }
+	)
+	hl.bind(
+		"XF86AudioLowerVolume",
+		hl.dsp.exec_cmd("pactl set-sink-volume @DEFAULT_SINK@ -5%"),
+		{ description = "Reduce volume" }
+	)
+	hl.bind(
+		"XF86AudioMute",
+		hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+		{ description = "Toggle mute" }
+	)
+end
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { description = "Play / pause" })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl pause"), { description = "Pause" })
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { description = "Next track" })

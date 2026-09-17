@@ -2,6 +2,8 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- hl.exec_cmd runs via `sh -c`, so `~` expands and no `& disown` is needed.
 
+local noctalia = require("lua.noctalia_shell")
+
 hl.on("hyprland.start", function()
 	-- Environment for xdg-desktop-portal-hyprland
 	hl.exec_cmd(
@@ -11,19 +13,21 @@ hl.on("hyprland.start", function()
 	-- Start listeners
 	hl.exec_cmd("~/.config/ml4w/listeners.sh --startall")
 
-	-- Polkit
+	-- Polkit (Noctalia can also start its own agent asynchronously in daemon mode)
 	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 
 	-- Wallpaper
 	hl.exec_cmd("~/.config/hypr/scripts/wallpaper-restore.sh")
 
-	-- Desktop shell. Launch explicitly after Hyprland has finished creating its
-	-- socket instead of relying on Waypaper's wallpaper-change callback.
-	hl.exec_cmd("sleep 2 && ~/.config/waybar/launch.sh")
-	hl.exec_cmd("sleep 2 && ~/.config/nwg-dock-hyprland/launch.sh")
-
-	-- Notification daemon
-	hl.exec_cmd("swaync")
+	-- Desktop shell: Noctalia (bar/dock/notifs) or ML4W Waybar stack.
+	-- Toggle via lua/noctalia_shell.lua → USE_NOCTALIA
+	if noctalia.USE_NOCTALIA then
+		hl.exec_cmd("noctalia")
+	else
+		hl.exec_cmd("sleep 2 && ~/.config/waybar/launch.sh")
+		hl.exec_cmd("sleep 2 && ~/.config/nwg-dock-hyprland/launch.sh")
+		hl.exec_cmd("swaync")
+	end
 
 	-- GTK settings
 	hl.exec_cmd("~/.config/hypr/scripts/gtk.sh")

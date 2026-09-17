@@ -182,18 +182,19 @@ install-docker: sanity-check ## Install Docker & Docker Compose
 	[[ ! -f /.dockerenv ]] && sudo systemctl enable --now docker || true
 	$(call DONE,Docker installed!)
 
-install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
+install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma, Noctalia/Hyprland
 	$(call INFO,Installing GUI & window manager...)
 	[[ ! -f /etc/machine-id ]] && sudo systemd-machine-id-setup || true
 	$(PACMAN_INSTALL) xorg-server cachyos-kde-settings plasma-meta i3-gaps i3blocks i3lock i3lock-fancy-git i3status dmenu feh rofi nm-connection-editor picom polybar kitty brightnessctl xorg-xhost
 	# KDE Plasma X11 - Plasma 6 + kwin_x11, also used by cloud VNC target
 	$(PACMAN_INSTALL) plasma-desktop plasma-x11-session kwin-x11 konsole alacritty
 	yay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git hyprwhspr
-	# ML4W Hyprland Wayland runtime — bar, notifs, wallpaper backends, idle/lock, clipboard.
-	# ML4W 2.10.1 ships configs, not binaries; the retired ml4w-hyprland AUR pkg used to pull these in.
+	# Hyprland Wayland runtime — Noctalia is the default desktop shell (bar/dock/notifs).
+	# ML4W 2.10.1 still supplies wallpaper/idle helpers + Waybar fallback configs.
 	# waybar 0.15.0 sends `dispatch workspace N`, which Hyprland's Lua configProvider
-	# rejects. waybar-git uses IPC::dispatch() / hl.dsp.* so bar clicks actually switch.
-	# --noconfirm keeps the default [y/N]=N on Conflicts, so drop stock waybar first.
+	# rejects. waybar-git uses IPC::dispatch() / hl.dsp.* so bar clicks actually switch
+	# when USE_NOCTALIA=false. --noconfirm keeps the default [y/N]=N on Conflicts.
+	$(PACMAN_INSTALL) noctalia
 	if pacman -Q waybar >/dev/null 2>&1 && ! pacman -Q waybar-git >/dev/null 2>&1; then \
 		sudo pacman -R --noconfirm waybar || true; \
 	fi
@@ -230,13 +231,16 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/i3 ]] && mkdir -p ~/.config/i3 || true
 	$(call ska-link,/opt/skillarch/config/i3/config,$$HOME/.config/i3/config)
 
-	# ── ML4W Hyprland dotfiles — Waybar generation (mylinuxforwork/dotfiles @ 2.10.1) ──
-	# ML4W 2.11+ moved its whole shell to Quickshell (illogical-impulse); 2.10.1 is the last
-	# pure-Waybar release and the AUR package was removed, so we deploy from the release tag.
-	# Idempotent + reversible; skipped in Docker (no Wayland session).
-	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/ml4w/install.sh || $(call WARN,ML4W Waybar dotfiles install failed)
-	# skillarch Kanata indicator + Hyprland-Lua workspace click/scroll fix → ML4W Waybar
+	# ── ML4W Hyprland helpers + skillarch hypr Lua (Noctalia default shell) ──
+	# ML4W 2.10.1 still deploys wallpaper/rofi/idle helpers; skillarch overrides hypr/
+	# with the in-repo Lua snapshot (noctalia_shell.lua → USE_NOCTALIA=true by default).
+	# Waybar apply remains for the USE_NOCTALIA=false fallback. Skipped in Docker.
+	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/ml4w/install.sh || $(call WARN,ML4W Hyprland helpers install failed)
 	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/waybar/apply.sh || $(call WARN,waybar skillarch apply failed)
+	# Noctalia-generated color themes (kitty include is hard-required; tmux uses -q)
+	mkdir -p ~/.config/kitty/themes ~/.config/tmux/themes
+	[[ ! -f ~/.config/kitty/themes/noctalia.conf ]] && cp -f /opt/skillarch/config/kitty/themes/noctalia.conf ~/.config/kitty/themes/noctalia.conf || true
+	[[ ! -f ~/.config/tmux/themes/noctalia.conf ]] && cp -f /opt/skillarch/config/tmux/themes/noctalia.conf ~/.config/tmux/themes/noctalia.conf || true
 	# polybar config
 	[[ ! -d ~/.config/polybar ]] && mkdir -p ~/.config/polybar || true
 	$(call ska-link,/opt/skillarch/config/polybar/config.ini,$$HOME/.config/polybar/config.ini)
@@ -691,9 +695,10 @@ test-full: test ## Validate full Docker image install (runs test + extras)
 		ska_check "$$bin" "which $$bin"
 	done
 	$(call BOLD,\n--- Hyprland Wayland Runtime ---)
-	for bin in waybar swaync swww hyprpaper hypridle hyprlock cliphist waypaper; do
+	for bin in noctalia waybar swaync swww hyprpaper hypridle hyprlock cliphist waypaper; do
 		ska_check "$$bin" "which $$bin"
 	done
+	ska_check "noctalia_shell.lua" "[[ -f /opt/skillarch/config/hypr/lua/noctalia_shell.lua ]]"
 	$(call BOLD,\n--- GUI Config Symlinks ---)
 	ska_check "i3 config"      "[[ -L ~/.config/i3/config ]]"
 	ska_check "polybar config" "[[ -L ~/.config/polybar/config.ini ]]"

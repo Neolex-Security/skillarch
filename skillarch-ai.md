@@ -8,7 +8,7 @@
 
 - **OS**: CachyOS (Arch Linux, performance-tuned)
 - **Shell**: Zsh + Oh-My-Zsh + Powerlevel10k (`af-magic` theme)
-- **WM/DE**: i3-gaps + Polybar + Rofi + Picom + Kitty terminal + KDE Plasma X11. Optional Wayland session via ML4W Hyprland dotfiles (deployed by `config/ml4w/install.sh`, pinned to release 2.10.1); the Kanata layer indicator is ported to its Waybar (`config/waybar/`). The Hyprland config itself is hardcoded in-repo at `config/hypr/` as a **full Lua config** (`hyprland.lua` + `lua/` modules, Hyprland ≥0.55 — preferred over `hyprland.conf`; Samsung Odyssey G9 monitor layout + AZERTY keybindings) and overrides the upstream hypr at install time. Only `colors.conf` (read at runtime by `lua/colors.lua` for ML4W theming) and the standalone daemon configs (`hypridle/hyprlock/hyprpaper.conf`) remain as `.conf`; the rest of the ML4W dirs (waybar, rofi, swaync…) still come from upstream. The Wayland runtime binaries (`waybar-git` — stock `waybar` 0.15.0 cannot click-switch workspaces under Hyprland's Lua dispatcher, `swaync`, `swww`, `hyprpaper`, `hypridle`, `hyprlock`, `cliphist`, `wl-clipboard`) are installed by `install-gui` via pacman — ML4W 2.10.1 ships only configs, and the retired `ml4w-hyprland` AUR pkg used to pull these in. The ML4W companion GUI apps (Welcome, Settings, Sidebar, Calendar — `com.ml4w.*`) are separate Flatpaks from a custom remote (`ml4w-repo`, not Flathub); `config/ml4w/install.sh` adds that remote and installs them, since the Waybar buttons that `flatpak run` them (e.g. the Sidebar toggle) otherwise silently no-op.
+- **WM/DE**: i3-gaps + Polybar + Rofi + Picom + Kitty terminal + KDE Plasma X11. Optional Wayland session via Hyprland: **Noctalia** is the default desktop shell (bar / dock / notifications / launcher), toggled by `config/hypr/lua/noctalia_shell.lua` → `USE_NOCTALIA` (set `false` to fall back to ML4W Waybar + nwg-dock + swaync). ML4W helpers are still deployed by `config/ml4w/install.sh` (pinned to release 2.10.1) for wallpaper/idle/rofi and the Waybar fallback; Kanata indicator patches live under `config/waybar/`. The Hyprland config itself is hardcoded in-repo at `config/hypr/` as a **full Lua config** (`hyprland.lua` + `lua/` modules, Hyprland ≥0.55 — preferred over `hyprland.conf`; Samsung Odyssey G9 monitor layout + AZERTY keybindings) and overrides the upstream hypr at install time. Only `colors.conf` (read at runtime by `lua/colors.lua`) and the standalone daemon configs (`hypridle/hyprlock/hyprpaper.conf`) remain as `.conf`. Runtime packages installed by `install-gui`: `noctalia`, `waybar-git` (fallback), `swaync`, `swww`, `hyprpaper`, `hypridle`, `hyprlock`, `cliphist`, `wl-clipboard`. ML4W companion Flatpaks (`com.ml4w.*` via `ml4w-repo`) are still installed for the Waybar fallback buttons.
 - **Editors**: Neovim (LazyVim), VS Code (`code`)
 - **Install root**: `/opt/skillarch/` — all dotfiles symlinked from here
 - **Data root**: `/DATA/` — long-lived user data
@@ -25,7 +25,7 @@ make install-base       # Repo setup, pacman config, chaotic-aur, /DATA dir
 make install-cli-tools  # CLI tools, mise runtimes (Python/Node/Go/Rust), uv tools, neovim+LazyVim
 make install-shell      # Zsh, oh-my-zsh, fzf, tmux, vim, dotfile symlinks
 make install-docker     # Docker + Docker Compose, user added to docker group
-make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, ML4W Hyprland, touchpad config
+make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, Noctalia/Hyprland, touchpad config
 make install-gui-tools  # Chrome, VSCode, Ghidra, Discord, VLC, Wireshark
 make install-offensive  # Metasploit, ffuf, pdtm tools, go binaries, GitHub releases, cloned tools
 make install-wordlists  # All wordlists to /opt/lists/
@@ -305,6 +305,22 @@ make clean              # Docker-only: clear caches (pacman, yay, pip, mise, go,
 | `XF86AudioMicMute` | Toggle mic mute |
 | `XF86MonBrightnessUp/Down` | Brightness ±20% |
 | `$mod+Shift+l` | Set brightness to 1% |
+
+---
+
+## Hyprland + Noctalia (default Wayland shell)
+
+Default desktop shell on Hyprland is **Noctalia** (`USE_NOCTALIA=true` in `config/hypr/lua/noctalia_shell.lua`). Set that flag to `false` and reload to fall back to ML4W Waybar + nwg-dock + swaync. Personal Noctalia UI state lives in `~/.local/state/noctalia/` (not in the repo — may contain secrets).
+
+| Binding | Action |
+|---|---|
+| `$mod+Space` | Noctalia launcher |
+| `$mod+S` | Noctalia control center |
+| `$mod+comma` | Noctalia settings |
+| `$mod+Shift+Return` | Noctalia launcher (also) |
+| `$mod+Shift+S` | Switch audio output (moved off `$mod+S`) |
+| `Alt+Tab` | Noctalia window switcher |
+| `XF86Audio*` / `XF86MonBrightness*` | Volume / brightness via Noctalia OSD |
 
 ---
 
