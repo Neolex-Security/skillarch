@@ -157,8 +157,12 @@ else
 	)
 end
 hl.bind(mod .. " + SHIFT + K", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/keybindings.sh"), { description = "Show keybindings" })
-hl.bind(mod .. " + CTRL + B", hl.dsp.exec_cmd("~/.config/waybar/launch.sh"), { description = "Reload waybar" })
-hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/waybar/toggle.sh"), { description = "Toggle waybar" })
+if not require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind(mod .. " + CTRL + B", hl.dsp.exec_cmd("~/.config/waybar/launch.sh"), { description = "Reload waybar" })
+end
+if not require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/waybar/toggle.sh"), { description = "Toggle waybar" })
+end
 hl.bind(
 	mod .. " + CTRL + R",
 	hl.dsp.exec_cmd(HYPRSCRIPTS .. "/loadconfig.sh"),
