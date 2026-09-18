@@ -26,34 +26,6 @@ hl.window_rule({
     float = true, center = true, pin = true, size = { 1000, 700 },
 })
 
--- ML4W Calendar
-hl.window_rule({
-    name = "ml4w-calendar",
-    match = { class = "com.ml4w.calendar" },
-    float = true, move = { 21, 76 }, pin = true, size = { 400, 400 },
-})
-
--- ML4W Sidebar
-hl.window_rule({
-    name = "ml4w-sidebar",
-    match = { class = "com.ml4w.sidebar" },
-    float = true, move = { "monitor_w-window_w-21", 76 }, pin = true, size = { 400, 660 },
-})
-
--- ML4W Welcome
-hl.window_rule({
-    name = "ml4w-welcome",
-    match = { class = "com.ml4w.welcome" },
-    float = true, center = true, pin = true, size = { 700, 600 },
-})
-
--- ML4W Settings
-hl.window_rule({
-    name = "ml4w-settings",
-    match = { class = "com.ml4w.settings" },
-    float = true, move = { "monitor_w*0.5-window_w*0.5", 86 }, pin = true, size = { 800, 600 },
-})
-
 -- Blueman Manager
 hl.window_rule({
     name = "blueman-manager",

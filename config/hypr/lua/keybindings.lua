@@ -3,28 +3,28 @@
 
 local mod = "SUPER"
 local HYPRSCRIPTS = "~/.config/hypr/scripts"
-local SCRIPTS = "~/.config/ml4w/scripts"
+local SCRIPTS = "~/.config/hypr/scripts"
 
 -- Applications
 hl.bind(
 	mod .. " + RETURN",
-	hl.dsp.exec_cmd("~/.config/ml4w/settings/terminal.sh"),
+	hl.dsp.exec_cmd("~/.config/hypr/settings/terminal.sh"),
 	{ description = "Open the terminal" }
 )
-hl.bind(mod .. " + B", hl.dsp.exec_cmd("~/.config/ml4w/settings/browser.sh"), { description = "Open the browser" })
+hl.bind(mod .. " + B", hl.dsp.exec_cmd("~/.config/hypr/settings/browser.sh"), { description = "Open the browser" })
 hl.bind(
 	mod .. " + E",
-	hl.dsp.exec_cmd("~/.config/ml4w/settings/filemanager.sh"),
+	hl.dsp.exec_cmd("~/.config/hypr/settings/filemanager.sh"),
 	{ description = "Open the filemanager" }
 )
 hl.bind(
 	mod .. " + SHIFT + E",
-	hl.dsp.exec_cmd("~/.config/ml4w/settings/emojipicker.sh"),
+	hl.dsp.exec_cmd("~/.config/hypr/settings/emojipicker.sh"),
 	{ description = "Open the emoji picker" }
 )
 hl.bind(
 	mod .. " + SHIFT + C",
-	hl.dsp.exec_cmd("~/.config/ml4w/settings/calculator.sh"),
+	hl.dsp.exec_cmd("~/.config/hypr/settings/calculator.sh"),
 	{ description = "Open the calculator" }
 )
 
@@ -122,62 +122,50 @@ if not require("lua.noctalia_shell").USE_NOCTALIA then
 end
 
 -- Actions
-hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"), { description = "Reload Hyprland configuration" })
-hl.bind(
-	mod .. " + CTRL + A",
-	hl.dsp.exec_cmd(HYPRSCRIPTS .. "/toggle-animations.sh"),
-	{ description = "Toggle animations" }
-)
-hl.bind(mod .. " + Print", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/screenshot.sh"), { description = "Take a screenshot" })
-hl.bind(mod .. " + CTRL + S", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/screenshot.sh"), { description = "Take a screenshot" })
-hl.bind(
-	mod .. " + P",
-	hl.dsp.exec_cmd("flatpak run be.alexandervanhee.gradia --screenshot"),
-	{ description = "Screenshot with Gradia" }
-)
-hl.bind(
-	mod .. " + SHIFT + Q",
-	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-wlogout.sh"),
-	{ description = "Start wlogout" }
-)
-hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper --random"), { description = "Change the wallpaper" })
-hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper"), { description = "Open wallpaper selector" })
--- Launcher: Noctalia panel when enabled, else ML4W rofi/walker script.
-if require("lua.noctalia_shell").USE_NOCTALIA then
+	hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"), { description = "Reload Hyprland configuration" })
 	hl.bind(
-		mod .. " + SHIFT + RETURN",
-		hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"),
-		{ description = "Noctalia launcher" }
+		mod .. " + CTRL + A",
+		hl.dsp.exec_cmd(HYPRSCRIPTS .. "/toggle-animations.sh"),
+		{ description = "Toggle animations" }
 	)
-else
+	hl.bind(mod .. " + Print", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/screenshot.sh"), { description = "Take a screenshot" })
+	hl.bind(mod .. " + CTRL + S", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/screenshot.sh"), { description = "Take a screenshot" })
 	hl.bind(
-		mod .. " + SHIFT + RETURN",
-		hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"),
-		{ description = "Open application launcher" }
+		mod .. " + P",
+		hl.dsp.exec_cmd("flatpak run be.alexandervanhee.gradia --screenshot"),
+		{ description = "Screenshot with Gradia" }
 	)
-end
-hl.bind(mod .. " + SHIFT + K", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/keybindings.sh"), { description = "Show keybindings" })
-if not require("lua.noctalia_shell").USE_NOCTALIA then
-	hl.bind(mod .. " + CTRL + B", hl.dsp.exec_cmd("~/.config/waybar/launch.sh"), { description = "Reload waybar" })
-end
-if not require("lua.noctalia_shell").USE_NOCTALIA then
-	hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/waybar/toggle.sh"), { description = "Toggle waybar" })
-end
-hl.bind(
-	mod .. " + CTRL + R",
-	hl.dsp.exec_cmd(HYPRSCRIPTS .. "/loadconfig.sh"),
-	{ description = "Reload hyprland config" }
-)
-hl.bind(mod .. " + V", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
-hl.bind(mod .. " + asterisk", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
-hl.bind(
-	mod .. " + SHIFT + T",
-	hl.dsp.exec_cmd("~/.config/waybar/themeswitcher.sh"),
-	{ description = "Open waybar theme switcher" }
-)
-hl.bind(mod .. " + ALT + G", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/gamemode.sh"), { description = "Toggle game mode" })
-hl.bind(mod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/power.sh lock"), { description = "Lock screen" })
-hl.bind(mod .. " + CTRL + H", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/hyprshade.sh"), { description = "Launch Hyprshade" })
+	hl.bind(
+		mod .. " + SHIFT + Q",
+		hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-wlogout.sh"),
+		{ description = "Start wlogout" }
+	)
+	hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper --random"), { description = "Change the wallpaper" })
+	hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper"), { description = "Open wallpaper selector" })
+	-- Launcher: Noctalia panel when enabled, else ML4W rofi/walker script.
+	if require("lua.noctalia_shell").USE_NOCTALIA then
+		hl.bind(
+			mod .. " + SHIFT + RETURN",
+			hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"),
+			{ description = "Noctalia launcher" }
+		)
+	else
+		hl.bind(
+			mod .. " + SHIFT + RETURN",
+			hl.dsp.exec_cmd("~/.config/hypr/scripts/launcher.sh"),
+			{ description = "Open application launcher" }
+		)
+	end
+	hl.bind(mod .. " + SHIFT + K", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/keybindings.sh"), { description = "Show keybindings" })
+	hl.bind(mod .. " + CTRL + R",
+		hl.dsp.exec_cmd(HYPRSCRIPTS .. "/loadconfig.sh"),
+		{ description = "Reload hyprland config" }
+	)
+	hl.bind(mod .. " + V", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
+	hl.bind(mod .. " + asterisk", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
+	hl.bind(mod .. " + ALT + G", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/gamemode.sh"), { description = "Toggle game mode" })
+	hl.bind(mod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/power.sh lock"), { description = "Lock screen" })
+	hl.bind(mod .. " + CTRL + H", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/hyprshade.sh"), { description = "Launch Hyprshade" })
 
 hl.bind(mod .. " + W", hl.dsp.exec_cmd("~/.local/bin/set-default-browser"))
 -- Sidepad (moved off SHIFT+arrows, which now move windows)

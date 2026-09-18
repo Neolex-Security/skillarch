@@ -8,7 +8,6 @@ while true; do
     if [[ -n "$layer" ]]; then
       echo "$layer" > "$LAYER_FILE"
       polybar-msg action "#kanata.hook.0" 2>/dev/null
-      systemctl --user kill --signal=SIGRTMIN+1 waybar.service 2>/dev/null || true
     fi
   done
   sleep 2

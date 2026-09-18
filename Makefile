@@ -191,14 +191,9 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	yay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git hyprwhspr
 	# Hyprland Wayland runtime — Noctalia is the default desktop shell (bar/dock/notifs).
 	# ML4W 2.10.1 still supplies wallpaper/idle helpers + Waybar fallback configs.
-	# waybar 0.15.0 sends `dispatch workspace N`, which Hyprland's Lua configProvider
-	# rejects. waybar-git uses IPC::dispatch() / hl.dsp.* so bar clicks actually switch
-	# when USE_NOCTALIA=false. --noconfirm keeps the default [y/N]=N on Conflicts.
+# Hyprland Wayland runtime — Noctalia is the default desktop shell (bar/dock/notifs).
+	# ML4W 2.10.1 still supplies wallpaper/idle helpers + Waybar fallback configs.
 	$(PACMAN_INSTALL) noctalia
-	if pacman -Q waybar >/dev/null 2>&1 && ! pacman -Q waybar-git >/dev/null 2>&1; then \
-		sudo pacman -R --noconfirm waybar || true; \
-	fi
-	$(PACMAN_INSTALL) waybar-git || $(PACMAN_INSTALL) waybar
 	$(PACMAN_INSTALL) swaync swww hyprpaper hypridle hyprlock cliphist wl-clipboard
 	# plasma-apply-colorscheme needs a running Plasma session (D-Bs); during install
 	# it usually fails silently. Write kdeglobals + GTK configs directly as fallback.
@@ -232,11 +227,8 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	$(call ska-link,/opt/skillarch/config/i3/config,$$HOME/.config/i3/config)
 
 	# ── ML4W Hyprland helpers + skillarch hypr Lua (Noctalia default shell) ──
-	# ML4W 2.10.1 still deploys wallpaper/rofi/idle helpers; skillarch overrides hypr/
-	# with the in-repo Lua snapshot (noctalia_shell.lua → USE_NOCTALIA=true by default).
-	# Waybar apply remains for the USE_NOCTALIA=false fallback. Skipped in Docker.
-	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/ml4w/install.sh || $(call WARN,ML4W Hyprland helpers install failed)
-	[[ ! -f /.dockerenv ]] && /opt/skillarch/config/waybar/apply.sh || $(call WARN,waybar skillarch apply failed)
+
+	
 	# Noctalia-generated color themes (kitty include is hard-required; tmux uses -q)
 	mkdir -p ~/.config/kitty/themes ~/.config/tmux/themes
 	[[ ! -f ~/.config/kitty/themes/noctalia.conf ]] && cp -f /opt/skillarch/config/kitty/themes/noctalia.conf ~/.config/kitty/themes/noctalia.conf || true
@@ -695,7 +687,7 @@ test-full: test ## Validate full Docker image install (runs test + extras)
 		ska_check "$$bin" "which $$bin"
 	done
 	$(call BOLD,\n--- Hyprland Wayland Runtime ---)
-	for bin in noctalia waybar swaync swww hyprpaper hypridle hyprlock cliphist waypaper; do
+	for bin in noctalia swaync swww hyprpaper hypridle hyprlock cliphist waypaper; do
 		ska_check "$$bin" "which $$bin"
 	done
 	ska_check "noctalia_shell.lua" "[[ -f /opt/skillarch/config/hypr/lua/noctalia_shell.lua ]]"
