@@ -241,6 +241,21 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	for script in /opt/skillarch/config/polybar/scripts/*; do \
 		ln -sf "$$script" "$$HOME/.config/polybar/scripts/$$(basename "$$script")"; \
 	done
+
+	# hypr config (Noctalia default shell)
+	[[ ! -d ~/.config/hypr ]] && mkdir -p ~/.config/hypr || true
+	$(call ska-link,/opt/skillarch/config/hypr/hyprland.lua,$$HOME/.config/hypr/hyprland.lua)
+	$(call ska-link,/opt/skillarch/config/hypr/colors.conf,$$HOME/.config/hypr/colors.conf)
+	$(call ska-link,/opt/skillarch/config/hypr/hypridle.conf,$$HOME/.config/hypr/hypridle.conf)
+	$(call ska-link,/opt/skillarch/config/hypr/hyprlock.conf,$$HOME/.config/hypr/hyprlock.conf)
+	$(call ska-link,/opt/skillarch/config/hypr/hyprpaper.conf,$$HOME/.config/hypr/hyprpaper.conf)
+	for dir in lua scripts assets effects; do \
+		mkdir -p $$HOME/.config/hypr/$$dir && \
+		for f in /opt/skillarch/config/hypr/$$dir/*; do \
+			ln -sf "$$f" "$$HOME/.config/hypr/$$dir/$$(basename "$$f")"; \
+		done; \
+	done
+
 	# local/bin
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-start,$$HOME/.local/bin/bugtime-start)
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-stop,$$HOME/.local/bin/bugtime-stop)
