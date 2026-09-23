@@ -159,7 +159,11 @@ hl.bind(
 	{ description = "Reload hyprland config" }
 )
 hl.bind(mod .. " + V", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
-hl.bind(mod .. " + asterisk", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
+hl.bind(
+	mod .. " + asterisk",
+	hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"),
+	{ description = "Open clipboard manager" }
+)
 hl.bind(mod .. " + ALT + G", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/gamemode.sh"), { description = "Toggle game mode" })
 hl.bind(mod .. " + SHIFT + L", hl.dsp.exec_cmd("~/.config/hypr/scripts/power.sh lock"), { description = "Lock screen" })
 hl.bind(mod .. " + CTRL + H", hl.dsp.exec_cmd(HYPRSCRIPTS .. "/hyprshade.sh"), { description = "Launch Hyprshade" })
