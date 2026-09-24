@@ -8,7 +8,7 @@
 
 - **OS**: CachyOS (Arch Linux, performance-tuned)
 - **Shell**: Zsh + Oh-My-Zsh + Powerlevel10k (`af-magic` theme)
-- **WM/DE**: i3-gaps + Polybar + Rofi + Picom + Kitty terminal + KDE Plasma X11. Optional Wayland session via Hyprland: **Noctalia** is the default desktop shell (bar / dock / notifications / launcher), toggled by `config/hypr/lua/noctalia_shell.lua` → `USE_NOCTALIA` (set `false` to fall back to nwg-dock + swaync). The Hyprland config itself is hardcoded in-repo at `config/hypr/` as a **full Lua config** (`hyprland.lua` + `lua/` modules, Hyprland ≥0.55 — preferred over `hyprland.conf`; Samsung Odyssey G9 monitor layout + AZERTY keybindings) and overrides the upstream hypr at install time. Only `colors.conf` (read at runtime by `lua/colors.lua`) and the standalone daemon configs (`hypridle/hyprlock/hyprpaper.conf`) remain as `.conf`. Runtime packages installed by `install-gui`: `noctalia`, `swaync`, `swww`, `hyprpaper`, `hypridle`, `hyprlock`, `cliphist`, `wl-clipboard`.
+- **WM/DE**: i3-gaps + Polybar + Rofi + Picom + Kitty terminal + KDE Plasma X11. Optional Wayland via **Hyprland** (default) or **Umbriel** (dual-session, pick at Noctalia Greeter). **Noctalia** is the desktop shell on both. Hyprland config: `config/hypr/` (Lua). Umbriel config: `config/umbriel/config.toml` (`make install-umbriel`). Toggle Noctalia on Hyprland via `lua/noctalia_shell.lua` → `USE_NOCTALIA`.
 - **Editors**: Neovim (LazyVim), VS Code (`code`)
 - **Install root**: `/opt/skillarch/` — all dotfiles symlinked from here
 - **Data root**: `/DATA/` — long-lived user data
@@ -25,7 +25,8 @@ make install-base       # Repo setup, pacman config, chaotic-aur, /DATA dir
 make install-cli-tools  # CLI tools, mise runtimes (Python/Node/Go/Rust), uv tools, neovim+LazyVim
 make install-shell      # Zsh, oh-my-zsh, fzf, tmux, vim, dotfile symlinks
 make install-docker     # Docker + Docker Compose, user added to docker group
-make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, Noctalia/Hyprland, touchpad config
+make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, Noctalia/Hyprland (+ optional Umbriel dual-session)
+make install-umbriel    # Umbriel compositor beside Hyprland — pick at Noctalia Greeter login
 make install-gui-tools  # Chrome, VSCode, Ghidra, Discord, VLC, Wireshark
 make install-offensive  # Metasploit, ffuf, pdtm tools, go binaries, GitHub releases, cloned tools
 make install-wordlists  # All wordlists to /opt/lists/
@@ -321,6 +322,25 @@ Default desktop shell on Hyprland is **Noctalia** (`USE_NOCTALIA=true` in `confi
 | `$mod+Shift+S` | Switch audio output (moved off `$mod+S`) |
 | `Alt+Tab` | Noctalia window switcher |
 | `XF86Audio*` / `XF86MonBrightness*` | Volume / brightness via Noctalia OSD |
+
+## Umbriel dual-session (optional Wayland compositor)
+
+Additive session next to Hyprland — **does not replace** it. `make install-umbriel` (also pulled from `install-gui`) installs `umbriel-git` + `xwayland-satellite` and links `config/umbriel/config.toml` → `~/.config/umbriel/config.toml`. Noctalia Greeter discovers `/usr/share/wayland-sessions/umbriel.desktop`; pick **Umbriel** at login. Default greeter session stays Hyprland (no greetd config change).
+
+- Layout default: **scrolling** (ultrawide-friendly); G9: DP-1 on, HDMI-A-1 `enabled = false`
+- Shell: Noctalia via `general.autostart` + same IPC binds as Hyprland
+- Colors: optional include of `noctalia.toml` (written by Noctalia theme apply)
+- Validate: `umbriel validate` · list sessions: `noctalia-greeter sessions`
+
+| Binding | Action |
+|---|---|
+| `$mod+Space` / `$mod+Shift+Return` | Noctalia launcher |
+| `$mod+S` | Noctalia control center |
+| `$mod+comma` | Noctalia settings |
+| `$mod+O` / hot corner TL | Overview |
+| `$mod+R` | Cycle column width |
+| `$mod+Z` / `$mod+Shift+Z` | Scratchpad toggle / move |
+| `$mod+1..9` | Workspaces (US digits after kanata) |
 
 ---
 

@@ -1,0 +1,193 @@
+# SkillArch Umbriel config — dual-session with Hyprland (greetd / Noctalia Greeter).
+# Hyprland stays the default Wayland session; pick "Umbriel" at the greeter to try this.
+#
+# Docs: https://docs.noctalia.dev/umbriel/
+# Noctalia integration: https://docs.noctalia.dev/noctalia/compositor-settings/umbriel/
+#
+# Defining [keybinds] replaces Umbriel's built-in set — keep this table complete.
+# Validate: umbriel validate
+# Outputs:  umbriel outputs
+
+[include.optional]
+files = ["noctalia.toml"]
+
+[general]
+autostart = ["noctalia"]
+# Super on DRM / native session; Alt when nested inside another compositor.
+mod_key = "Super"
+
+# Samsung Odyssey G9 (LC49G95T): prefer DisplayPort, disable HDMI duplicate.
+# Omit mode → preferred advertised mode. Pin with e.g. mode = "5120x1440@120" after
+# `umbriel outputs` if the wrong mode is selected.
+# Re-run `umbriel outputs` if connector names differ on another machine.
+[output.DP-1]
+position = [0, 0]
+scale = 1.0
+# Vertical workspace axis → horizontal scrolling strip (best for ultrawide).
+workspace_axis = "vertical"
+min_workspaces = 10
+
+[output.HDMI-A-1]
+enabled = false
+
+[appearance]
+prefer_no_csd = true
+border_width = 2
+corner_radius = 10
+
+[appearance.blur]
+enabled = true
+optimized = true
+passes = 3
+radius = 3
+noise = 0.02
+brightness = 0.9
+contrast = 0.9
+saturation = 1.1
+
+[input.keyboard]
+# Kanata remaps the physical AZERTY board to US positions — match Hyprland.
+layout = "us"
+numlock_toggle = true
+
+# Ultrawide-friendly default: scrolling strip; dwindle/master available per workspace.
+[layout]
+gap = 5
+extent_presets = [0.333, 0.5, 0.667]
+mode = "scrolling"
+
+[layout.scrolling]
+default_extent_fraction = 0.5
+
+[hot_corners.top_left]
+enabled = true
+delay_ms = 500
+action = "overview-open"
+
+# ── Keybinds (aligned with SkillArch Hyprland + Noctalia where possible) ──
+[keybinds]
+
+# Applications (names mirror config/hypr/settings/*)
+"Mod+Return" = { action = "spawn:kitty", repeat = false }
+"Mod+B" = { action = "spawn:zen-browser", repeat = false }
+"Mod+E" = { action = "spawn:thunar", repeat = false }
+"Mod+Shift+E" = { action = "spawn:emote", repeat = false }
+"Mod+Shift+C" = { action = "spawn:gnome-calculator", repeat = false }
+"XF86Calculator" = { action = "spawn:gnome-calculator", repeat = false }
+
+# Noctalia shell (same as Hyprland noctalia_shell.lua)
+"Mod+Space" = { action = "spawn:noctalia msg panel-toggle launcher", repeat = false }
+"Mod+Shift+Return" = { action = "spawn:noctalia msg panel-toggle launcher", repeat = false }
+"Mod+S" = { action = "spawn:noctalia msg panel-toggle control-center", repeat = false }
+"Mod+Comma" = { action = "spawn:noctalia msg settings-toggle", repeat = false }
+"Alt+Tab" = { action = "spawn:noctalia msg window-switcher", repeat = false }
+"Mod+asterisk" = { action = "spawn:noctalia msg panel-toggle clipboard", repeat = false }
+"Mod+Shift+A" = { action = "spawn:noctalia msg screenshot-annotate", repeat = false }
+"Mod+Ctrl+A" = { action = "spawn:noctalia msg annotate", repeat = false }
+
+"XF86AudioRaiseVolume" = "spawn:noctalia msg volume-up"
+"XF86AudioLowerVolume" = "spawn:noctalia msg volume-down"
+"XF86AudioMute" = "spawn:noctalia msg volume-mute"
+"XF86MonBrightnessUp" = "spawn:noctalia msg brightness-up"
+"XF86MonBrightnessDown" = "spawn:noctalia msg brightness-down"
+"XF86AudioPlay" = "spawn:playerctl play-pause"
+"XF86AudioPause" = "spawn:playerctl pause"
+"XF86AudioNext" = "spawn:playerctl next"
+"XF86AudioPrev" = "spawn:playerctl previous"
+"XF86AudioMicMute" = "spawn:pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+
+# Focus / move (scrolling: left/right = columns)
+"Mod+Left" = "window-focus-left"
+"Mod+Right" = "window-focus-right"
+"Mod+Up" = "window-focus-up"
+"Mod+Down" = "window-focus-down"
+"Mod+H" = "window-focus-left"
+"Mod+L" = "window-focus-right"
+"Mod+K" = "window-focus-up"
+"Mod+J" = "window-focus-down"
+"Mod+F1" = "window-focus-next"
+"Mod+Shift+Left" = "column-move-left"
+"Mod+Shift+Right" = "column-move-right"
+"Mod+Shift+Up" = "window-move-up"
+"Mod+Shift+Down" = "window-move-down"
+"Mod+WheelUp" = "window-focus-left"
+"Mod+WheelDown" = "window-focus-right"
+
+# Window state
+"Mod+Q" = { action = "window-close", repeat = false }
+"Mod+T" = { action = "window-toggle-floating", repeat = false }
+"Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
+"Mod+M" = { action = "window-toggle-maximize-to-edges", repeat = false }
+"Mod+P" = { action = "window-toggle-pinned", repeat = false }
+"Mod+R" = "window-cycle-primary-extent"
+"Mod+Shift+R" = "window-cycle-primary-extent-back"
+# consume (Mod+Comma is Noctalia settings)
+"Mod+Period" = "window-consume-right"
+"Mod+Shift+Period" = "window-consume-left"
+"Mod+O" = { action = "overview-toggle", repeat = false }
+
+# Scratchpad (Hyprland uses Mod+Z on special:magic)
+"Mod+Z" = "scratchpad-toggle"
+"Mod+Shift+Z" = { action = "window-move-to-scratchpad", repeat = false }
+"Mod+Ctrl+Z" = { action = "window-restore-from-scratchpad", repeat = false }
+"Mod+Tab" = "scratchpad-focus-next"
+
+# Session / misc
+"Mod+Escape" = "session-quit"
+"Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle", allow_when_inhibited = true, repeat = false }
+"Mod+Shift+Q" = { action = "spawn:bash /opt/skillarch/config/hypr/scripts/wlogout.sh", repeat = false }
+"Mod+Shift+L" = { action = "spawn:bash /opt/skillarch/config/hypr/scripts/power.sh lock", repeat = false }
+"Mod+Shift+S" = { action = "spawn:/opt/skillarch/config/bin/switch-audio-output", repeat = false }
+"Mod+W" = { action = "spawn:/opt/skillarch/config/bin/set-default-browser", repeat = false }
+"Mod+Ctrl+W" = { action = "spawn:waypaper --random", repeat = false }
+"Mod+Shift+W" = { action = "spawn:waypaper", repeat = false }
+"Mod+Print" = { action = "spawn:noctalia msg screenshot", repeat = false }
+"Mod+Ctrl+S" = { action = "spawn:noctalia msg screenshot", repeat = false }
+
+# Workspaces 1–9 (US digits after kanata remap)
+"Mod+1" = "workspace-switch:1"
+"Mod+2" = "workspace-switch:2"
+"Mod+3" = "workspace-switch:3"
+"Mod+4" = "workspace-switch:4"
+"Mod+5" = "workspace-switch:5"
+"Mod+6" = "workspace-switch:6"
+"Mod+7" = "workspace-switch:7"
+"Mod+8" = "workspace-switch:8"
+"Mod+9" = "workspace-switch:9"
+"Mod+Shift+1" = "window-move-to-workspace:1"
+"Mod+Shift+2" = "window-move-to-workspace:2"
+"Mod+Shift+3" = "window-move-to-workspace:3"
+"Mod+Shift+4" = "window-move-to-workspace:4"
+"Mod+Shift+5" = "window-move-to-workspace:5"
+"Mod+Shift+6" = "window-move-to-workspace:6"
+"Mod+Shift+7" = "window-move-to-workspace:7"
+"Mod+Shift+8" = "window-move-to-workspace:8"
+"Mod+Shift+9" = "window-move-to-workspace:9"
+
+# ── Window / layer rules (Noctalia first-class) ──
+[[window_rule]]
+blur = true
+blur_optimized = true
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.Noctalia$"
+default_floating = true
+default_floating_size_px = { width = 1080, height = 920 }
+
+[[window_rule]]
+match.app_id = "^dev.noctalia.UmbrielSharePicker$"
+default_floating = true
+default_floating_size_px = { width = 800, height = 600 }
+
+[[window_rule]]
+match.title = "^(Picture-in-Picture|Picture in picture)$"
+default_floating = true
+default_maximize = false
+default_position = { x = 20, y = 20, anchor = "bottom_right" }
+
+[[layer_rule]]
+match.namespace = "^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd|window-switcher|desktop-widget-[^\"]*)$"
+blur = true
+blur_ignore_alpha = 0.5
+blur_popups = true
+blur_optimized = false
