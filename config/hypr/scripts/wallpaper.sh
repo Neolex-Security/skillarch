@@ -5,11 +5,10 @@
 # |__/|__/\_,_/_/_/ .__/\_,_/ .__/\__/_/   
 #                /_/       /_/             
 
-# Source library.sh
-source $HOME/.config/ml4w/library.sh
+# Shared helpers
+source "$HOME/.config/hypr/scripts/lib.sh"
 
 # Notifications
-source "$HOME/.config/ml4w/scripts/ml4w-notification-handler"
 APP_NAME="Waypaper"
 NOTIFICATION_ICON="preferences-desktop-wallpaper-symbolic"
 
@@ -17,7 +16,7 @@ NOTIFICATION_ICON="preferences-desktop-wallpaper-symbolic"
 # Check to use wallpaper cache
 # -----------------------------------------------------
 
-if [ -f ~/.config/ml4w/settings/wallpaper_cache ]; then
+if [ -f ~/.config/hypr/settings/wallpaper_cache ]; then
     use_cache=1
     _writeLog "Using Wallpaper Cache"
 else
@@ -28,10 +27,10 @@ fi
 # -----------------------------------------------------
 # Create cache folder
 # -----------------------------------------------------
-ml4w_cache_folder="$HOME/.cache/ml4w/hyprland-dotfiles"
+cache_folder="$HOME/.cache/hypr"
 
-if [ ! -d $ml4w_cache_folder ]; then
-    mkdir -p $ml4w_cache_folder
+if [ ! -d $cache_folder ]; then
+    mkdir -p $cache_folder
 fi
 
 # -----------------------------------------------------
@@ -41,25 +40,25 @@ fi
 force_generate=0
 
 # Cache for generated wallpapers with effects
-generatedversions="$ml4w_cache_folder/wallpaper-generated"
+generatedversions="$cache_folder/wallpaper-generated"
 if [ ! -d $generatedversions ]; then
     mkdir -p $generatedversions
 fi
 
 # Will be set when waypaper is running
-waypaperrunning=$ml4w_cache_folder/waypaper-running
+waypaperrunning=$cache_folder/waypaper-running
 if [ -f $waypaperrunning ]; then
     rm $waypaperrunning
     exit
 fi
 
-cachefile="$ml4w_cache_folder/current_wallpaper"
-blurredwallpaper="$ml4w_cache_folder/blurred_wallpaper.png"
-squarewallpaper="$ml4w_cache_folder/square_wallpaper.png"
-rasifile="$ml4w_cache_folder/current_wallpaper.rasi"
-blurfile="$HOME/.config/ml4w/settings/blur.sh"
-defaultwallpaper="$HOME/.config/ml4w/wallpapers/default.jpg"
-wallpapereffect="$HOME/.config/ml4w/settings/wallpaper-effect.sh"
+cachefile="$cache_folder/current_wallpaper"
+blurredwallpaper="$cache_folder/blurred_wallpaper.png"
+squarewallpaper="$cache_folder/square_wallpaper.png"
+rasifile="$cache_folder/current_wallpaper.rasi"
+blurfile="$HOME/.config/hypr/settings/blur.sh"
+defaultwallpaper="$HOME/.config/hypr/assets/blank.png"
+wallpapereffect="$HOME/.config/hypr/settings/wallpaper-effect.sh"
 blur="50x30"
 blur=$(cat $blurfile)
 

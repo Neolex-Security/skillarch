@@ -2,7 +2,7 @@
 -- Docs: https://docs.noctalia.dev/noctalia/compositor-settings/hyprland/
 --
 -- Toggle USE_NOCTALIA in this file (and reload) to switch between Noctalia and
--- the ML4W Waybar / nwg-dock / swaync stack. Autostart reads the same flag.
+-- the Waybar / nwg-dock / swaync stack. Autostart reads the same flag.
 
 local M = {}
 

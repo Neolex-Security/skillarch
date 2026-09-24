@@ -1,4 +1,4 @@
--- Environment variables  (was: conf/environments/default.conf + env block in conf/ml4w.conf)
+-- Environment variables
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
 -- XDG Desktop Portal

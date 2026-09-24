@@ -2,7 +2,7 @@
 set -euo pipefail
 
 launcher="rofi"
-launcher_setting="$HOME/.config/ml4w/settings/launcher"
+launcher_setting="$HOME/.config/hypr/settings/launcher"
 [[ -r "$launcher_setting" ]] && launcher="$(<"$launcher_setting")"
 
 if [[ "$launcher" == "walker" && -x "$HOME/.config/walker/launch.sh" ]]; then

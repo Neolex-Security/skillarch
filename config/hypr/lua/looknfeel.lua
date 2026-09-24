@@ -1,5 +1,5 @@
 -- General + decoration  (was: conf/windows/default.conf + conf/decorations/default.conf)
--- Border colors are read live from colors.conf so ML4W theming keeps working.
+-- Border colors are read live from colors.conf so theme/wallpaper recoloring keeps working.
 -- Gaps / rounding / blur / shadow tuned for Noctalia:
 -- https://docs.noctalia.dev/noctalia/compositor-settings/hyprland/
 -- See https://wiki.hypr.land/Configuring/Basics/Variables/

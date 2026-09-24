@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of installed browsers (modify as needed)
-browsers=("zen.desktop","google-chrome.desktop" "chromium.desktop" "firefox.desktop")
+browsers=("zen.desktop" "google-chrome.desktop" "chromium.desktop" "firefox.desktop")
 
 # Use Rofi to select a browser
 chosen=$(printf "%s\n" "${browsers[@]}" | rofi -dmenu -p "Choose default browser")

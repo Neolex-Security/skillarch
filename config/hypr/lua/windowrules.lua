@@ -1,4 +1,4 @@
--- Window & layer rules  (was: rules in conf/ml4w.conf; conf/windowrules/default.conf had only comments)
+-- Window & layer rules
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 
 -- SwayNC layers (blur + ignore near-transparent pixels; replaces old ignorezero/ignorealpha)

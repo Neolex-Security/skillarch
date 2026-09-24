@@ -1,4 +1,4 @@
--- Reads the ML4W-generated colors.conf at runtime so theme / wallpaper
+-- Reads the generated colors.conf at runtime so theme / wallpaper
 -- recoloring keeps working even though the main config is now Lua.
 -- Returns a table like { primary = "rgba(ffb59dff)", on_primary = "rgba(55200cff)", ... }
 

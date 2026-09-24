@@ -190,9 +190,6 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	$(PACMAN_INSTALL) plasma-desktop plasma-x11-session kwin-x11 konsole alacritty
 	yay --noconfirm --needed -S rofi-power-menu i3-battery-popup-git hyprwhspr
 	# Hyprland Wayland runtime — Noctalia is the default desktop shell (bar/dock/notifs).
-	# ML4W 2.10.1 still supplies wallpaper/idle helpers + Waybar fallback configs.
-# Hyprland Wayland runtime — Noctalia is the default desktop shell (bar/dock/notifs).
-	# ML4W 2.10.1 still supplies wallpaper/idle helpers + Waybar fallback configs.
 	$(PACMAN_INSTALL) noctalia
 	$(PACMAN_INSTALL) swaync swww hyprpaper hypridle hyprlock cliphist wl-clipboard
 	# plasma-apply-colorscheme needs a running Plasma session (D-Bs); during install
@@ -226,9 +223,8 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/i3 ]] && mkdir -p ~/.config/i3 || true
 	$(call ska-link,/opt/skillarch/config/i3/config,$$HOME/.config/i3/config)
 
-	# ── ML4W Hyprland helpers + skillarch hypr Lua (Noctalia default shell) ──
+	# ── skillarch Hyprland helpers + Lua config (Noctalia default shell) ──
 
-	
 	# Noctalia-generated color themes (kitty include is hard-required; tmux uses -q)
 	mkdir -p ~/.config/kitty/themes ~/.config/tmux/themes
 	[[ ! -f ~/.config/kitty/themes/noctalia.conf ]] && cp -f /opt/skillarch/config/kitty/themes/noctalia.conf ~/.config/kitty/themes/noctalia.conf || true
@@ -249,7 +245,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	$(call ska-link,/opt/skillarch/config/hypr/hypridle.conf,$$HOME/.config/hypr/hypridle.conf)
 	$(call ska-link,/opt/skillarch/config/hypr/hyprlock.conf,$$HOME/.config/hypr/hyprlock.conf)
 	$(call ska-link,/opt/skillarch/config/hypr/hyprpaper.conf,$$HOME/.config/hypr/hyprpaper.conf)
-	for dir in lua scripts assets effects; do \
+	for dir in lua scripts settings assets effects; do \
 		mkdir -p $$HOME/.config/hypr/$$dir && \
 		for f in /opt/skillarch/config/hypr/$$dir/*; do \
 			ln -sf "$$f" "$$HOME/.config/hypr/$$dir/$$(basename "$$f")"; \

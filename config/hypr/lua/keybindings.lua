@@ -133,12 +133,12 @@ hl.bind(
 )
 hl.bind(
 	mod .. " + SHIFT + Q",
-	hl.dsp.exec_cmd("~/.config/ml4w/scripts/ml4w-wlogout.sh"),
+	hl.dsp.exec_cmd("~/.config/hypr/scripts/wlogout.sh"),
 	{ description = "Start wlogout" }
 )
 hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper --random"), { description = "Change the wallpaper" })
 hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper"), { description = "Open wallpaper selector" })
--- Launcher: Noctalia panel when enabled, else ML4W rofi/walker script.
+-- Launcher: Noctalia panel when enabled, else rofi/walker script.
 if require("lua.noctalia_shell").USE_NOCTALIA then
 	hl.bind(
 		mod .. " + SHIFT + RETURN",
@@ -158,7 +158,7 @@ hl.bind(
 	hl.dsp.exec_cmd(HYPRSCRIPTS .. "/loadconfig.sh"),
 	{ description = "Reload hyprland config" }
 )
-hl.bind(mod .. " + V", hl.dsp.exec_cmd(SCRIPTS .. "/ml4w-cliphist"), { description = "Open clipboard manager" })
+hl.bind(mod .. " + V", hl.dsp.exec_cmd(SCRIPTS .. "/cliphist.sh"), { description = "Open clipboard manager" })
 hl.bind(
 	mod .. " + asterisk",
 	hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"),
@@ -258,7 +258,7 @@ hl.bind(
 	hl.dsp.exec_cmd("pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
 	{ description = "Toggle microphone" }
 )
-hl.bind("XF86Calculator", hl.dsp.exec_cmd("~/.config/ml4w/settings/calculator.sh"), { description = "Open calculator" })
+hl.bind("XF86Calculator", hl.dsp.exec_cmd("~/.config/hypr/settings/calculator.sh"), { description = "Open calculator" })
 hl.bind(
 	"code:238",
 	hl.dsp.exec_cmd("brightnessctl -d smc::kbd_backlight s +10"),
