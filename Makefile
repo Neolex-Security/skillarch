@@ -1,7 +1,7 @@
 .ONESHELL:
 SHELL := /bin/bash
 .SHELLFLAGS := -eu -c
-.PHONY: help install sanity-check install-base install-cli-tools install-shell install-docker install-gui install-gui-tools install-offensive install-wordlists install-hardening cloud cloud-export update docker-build docker-build-full docker-run docker-run-full clean test test-lite test-full doctor list-tools backup
+.PHONY: help install sanity-check install-base install-cli-tools install-shell install-docker install-gui install-umbriel install-gui-tools install-offensive install-wordlists install-hardening cloud cloud-export update docker-build docker-build-full docker-run docker-run-full clean test test-lite test-full doctor list-tools backup
 
 # -- Colors & UX Helpers --
 C_RST   := \033[0m
@@ -281,8 +281,35 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d /etc/X11/xorg.conf.d ]] && sudo mkdir -p /etc/X11/xorg.conf.d || true
 	[[ -f /etc/X11/xorg.conf.d/30-touchpad.conf ]] && sudo mv /etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf.skabak || true
 	sudo ln -sf /opt/skillarch/config/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
+	# Optional Umbriel dual-session (greetd picker) — Hyprland remains default
+	$(MAKE) install-umbriel || $(call WARN,install-umbriel failed — Hyprland session still available)
 	hyprctl reload
 	$(call DONE,GUI & window manager installed!)
+
+install-umbriel: sanity-check ## Optional Umbriel Wayland session (alongside Hyprland; pick at Noctalia Greeter)
+	$(call INFO,Installing Umbriel dual-session (additive$(comma) Hyprland stays default)...)
+	# AUR compositor + X11 bridge. Portal backend is a hard dep of umbriel-git.
+	# Skip rebuild when already present — umbriel-git always rebuilds with --needed.
+	if ! command -v umbriel >/dev/null 2>&1; then \
+		yay --noconfirm --needed -S umbriel-git || $(call WARN,Failed to install umbriel-git); \
+	else \
+		$(call OK,umbriel already installed); \
+	fi
+	if ! command -v xwayland-satellite >/dev/null 2>&1; then \
+		yay --noconfirm --needed -S xwayland-satellite || $(call WARN,Failed to install xwayland-satellite); \
+	else \
+		$(call OK,xwayland-satellite already installed); \
+	fi
+	mkdir -p $$HOME/.config/umbriel
+	$(call ska-link,/opt/skillarch/config/umbriel/config.toml,$$HOME/.config/umbriel/config.toml)
+	# noctalia.toml is written by Noctalia theme apply (optional include in config.toml)
+	if command -v umbriel >/dev/null 2>&1; then \
+		umbriel validate -c /opt/skillarch/config/umbriel/config.toml || $(call WARN,umbriel validate reported issues); \
+		$(call OK,Umbriel ready — logout and pick "Umbriel" in Noctalia Greeter (default stays Hyprland)); \
+	else \
+		$(call WARN,umbriel binary not on PATH — AUR install may have failed); \
+	fi
+	$(call DONE,Umbriel dual-session installed!)
 
 install-gui-tools: sanity-check ## Install GUI apps (Chrome, VSCode, Ghidra, etc.)
 	$(call INFO,Installing GUI applications...)
@@ -702,6 +729,13 @@ test-full: test ## Validate full Docker image install (runs test + extras)
 		ska_check "$$bin" "which $$bin"
 	done
 	ska_check "noctalia_shell.lua" "[[ -f /opt/skillarch/config/hypr/lua/noctalia_shell.lua ]]"
+	$(call BOLD,\n--- Umbriel Dual-Session (optional) ---)
+	ska_check "umbriel config" "[[ -f /opt/skillarch/config/umbriel/config.toml ]]"
+	ska_check "umbriel" "which umbriel"
+	ska_check "umbriel session" "[[ -f /usr/share/wayland-sessions/umbriel.desktop ]]"
+	ska_check "umbriel config link" "[[ -L ~/.config/umbriel/config.toml ]]"
+	ska_check "umbriel validate" "umbriel validate -c /opt/skillarch/config/umbriel/config.toml"
+	ska_check "xwayland-satellite" "which xwayland-satellite"
 	$(call BOLD,\n--- GUI Config Symlinks ---)
 	ska_check "i3 config"      "[[ -L ~/.config/i3/config ]]"
 	ska_check "polybar config" "[[ -L ~/.config/polybar/config.ini ]]"
