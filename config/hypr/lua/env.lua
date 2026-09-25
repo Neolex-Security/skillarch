@@ -43,3 +43,9 @@ hl.config({
 -- Nvidia
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
+
+-- User binaries (needed by Noctalia plugins and other session processes)
+local _path = os.getenv("PATH") or ""
+if not _path:find("/home/neolex/.local/bin", 1, true) then
+	hl.env("PATH", "/home/neolex/.local/bin:" .. _path)
+end

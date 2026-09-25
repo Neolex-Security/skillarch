@@ -12,7 +12,7 @@
 files = ["~/.config/umbriel/noctalia.toml"]
 
 [general]
-autostart = ["noctalia"]
+autostart = ["noctalia,zen-browser"]
 # Super on DRM / native session; Alt when nested inside another compositor.
 mod_key = "Super"
 
@@ -22,10 +22,14 @@ mod_key = "Super"
 # Re-run `umbriel outputs` if connector names differ on another machine.
 [output.DP-1]
 position = [0, 0]
-scale = 1.0
+scale = 1.25
+mode = "5120x1440@120"
 # Vertical workspace axis → horizontal scrolling strip (best for ultrawide).
-workspace_axis = "vertical"
-min_workspaces = 10
+workspace_axis = "horizontal"
+# Static 10 workspaces. min_workspaces (dynamic) kept the last workspace empty,
+# which slid any window placed on the last one back by one. Static lets a window
+# live on workspace 10.
+workspaces = 10
 
 [output.HDMI-A-1]
 enabled = false
@@ -47,14 +51,14 @@ saturation = 1.1
 
 [input.keyboard]
 # Kanata remaps the physical AZERTY board to US positions — match Hyprland.
-layout = "us"
+layout = "fr"
 numlock_toggle = true
 
-# Ultrawide-friendly default: scrolling strip; dwindle/master available per workspace.
+# Ultrawide-friendly default scrolling strip; dwindle/master available per workspace.
 [layout]
 gap = 5
 extent_presets = [0.333, 0.5, 0.667]
-mode = "scrolling"
+mode = "dwindle"
 
 [layout.scrolling]
 default_extent_fraction = 0.5
@@ -119,7 +123,9 @@ action = "overview-open"
 "Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
 "Mod+M" = { action = "window-toggle-maximize-to-edges", repeat = false }
 "Mod+P" = { action = "window-toggle-pinned", repeat = false }
-"Mod+R" = "window-cycle-primary-extent"
+# Mod+R enters the resize submap (see [keybinds] resize section below).
+# Mod+Shift+R keeps the quick extent-cycle for when you don't want the submap.
+"Mod+R" = { action = "submap:resize", repeat = false }
 "Mod+Shift+R" = "window-cycle-primary-extent-back"
 # consume (Mod+Comma is Noctalia settings)
 "Mod+Period" = "window-consume-right"
@@ -127,12 +133,13 @@ action = "overview-open"
 "Mod+O" = { action = "overview-toggle", repeat = false }
 
 # Scratchpad (Hyprland uses Mod+Z on special:magic)
-"Mod+Z" = "scratchpad-toggle"
-"Mod+Shift+Z" = { action = "window-move-to-scratchpad", repeat = false }
-"Mod+Ctrl+Z" = { action = "window-restore-from-scratchpad", repeat = false }
-"Mod+Tab" = "scratchpad-focus-next"
+"Mod+Z" = "scratchpad-toggle:music"
+"Mod+Shift+Z" = { action = "window-move-to-scratchpad:music", repeat = false }
+"Mod+Ctrl+Z" = { action = "window-restore-from-scratchpad:music", repeat = false }
+"Mod+Ctrl+Tab" = "scratchpad-focus-next:music"
 
 # Session / misc
+"Mod+Shift+K" = { action = "cheatsheet-toggle", repeat = false }
 "Mod+Escape" = "session-quit"
 "Mod+Shift+Escape" = { action = "shortcuts-inhibit-toggle", allow_when_inhibited = true, repeat = false }
 "Mod+Shift+Q" = { action = "spawn:bash /opt/skillarch/config/hypr/scripts/wlogout.sh", repeat = false }
@@ -141,33 +148,95 @@ action = "overview-open"
 "Mod+W" = { action = "spawn:/opt/skillarch/config/bin/set-default-browser", repeat = false }
 "Mod+Ctrl+W" = { action = "spawn:waypaper --random", repeat = false }
 "Mod+Shift+W" = { action = "spawn:waypaper", repeat = false }
-"Mod+Print" = { action = "spawn:noctalia msg screenshot", repeat = false }
-"Mod+Ctrl+S" = { action = "spawn:noctalia msg screenshot", repeat = false }
+"Print" = { action = "spawn:/home/neolex/.local/bin/gradia --screenshot", repeat = false }
+"Mod+Ctrl+S" = { action = "spawn:/home/neolex/.local/bin/gradia --screenshot", repeat = false }
 
-# Workspaces 1–9 (US digits after kanata remap)
+"Mod+A" = { action = "spawn:noctalia msg panel-toggle alexander/mimir:chat", repeat = false }
+# Workspaces — AZERTY fr top row: unshifted emits the symbol, Shift emits the digit
+# (same convention as config/hypr/lua/keybindings.lua). Umbriel matches the keysym
+# produced by the active layout, so both forms are bound: symbols for fr, digits
+# for a us layout. Kanata only remaps the letter rows, not the number row.
+"Mod+ampersand" = "workspace-switch:1"
 "Mod+1" = "workspace-switch:1"
+"Mod+eacute" = "workspace-switch:2"
 "Mod+2" = "workspace-switch:2"
+"Mod+quotedbl" = "workspace-switch:3"
 "Mod+3" = "workspace-switch:3"
+"Mod+apostrophe" = "workspace-switch:4"
 "Mod+4" = "workspace-switch:4"
+"Mod+parenleft" = "workspace-switch:5"
 "Mod+5" = "workspace-switch:5"
+"Mod+minus" = "workspace-switch:6"
 "Mod+6" = "workspace-switch:6"
+"Mod+egrave" = "workspace-switch:7"
 "Mod+7" = "workspace-switch:7"
+"Mod+underscore" = "workspace-switch:8"
 "Mod+8" = "workspace-switch:8"
+"Mod+ccedilla" = "workspace-switch:9"
 "Mod+9" = "workspace-switch:9"
+"Mod+agrave" = "workspace-switch:10"
+"Mod+0" = "workspace-switch:10"
+
+"Mod+Shift+ampersand" = "window-move-to-workspace:1"
 "Mod+Shift+1" = "window-move-to-workspace:1"
+"Mod+Shift+eacute" = "window-move-to-workspace:2"
 "Mod+Shift+2" = "window-move-to-workspace:2"
+"Mod+Shift+quotedbl" = "window-move-to-workspace:3"
 "Mod+Shift+3" = "window-move-to-workspace:3"
+"Mod+Shift+apostrophe" = "window-move-to-workspace:4"
 "Mod+Shift+4" = "window-move-to-workspace:4"
+"Mod+Shift+parenleft" = "window-move-to-workspace:5"
 "Mod+Shift+5" = "window-move-to-workspace:5"
+"Mod+Shift+minus" = "window-move-to-workspace:6"
 "Mod+Shift+6" = "window-move-to-workspace:6"
+"Mod+Shift+egrave" = "window-move-to-workspace:7"
 "Mod+Shift+7" = "window-move-to-workspace:7"
+"Mod+Shift+underscore" = "window-move-to-workspace:8"
 "Mod+Shift+8" = "window-move-to-workspace:8"
+"Mod+Shift+ccedilla" = "window-move-to-workspace:9"
 "Mod+Shift+9" = "window-move-to-workspace:9"
+"Mod+Shift+agrave" = "window-move-to-workspace:10"
+"Mod+Shift+0" = "window-move-to-workspace:10"
+
+# Layout-proof workspace navigation (vertical axis on DP-1).
+"Mod+Ctrl+Down" = "workspace-next"
+"Mod+Ctrl+Up" = "workspace-previous"
+"Mod+Tab" = "workspace-focus-last"
+
+# ── Resize submap (enter with Mod+R) ──
+# Bare keys are grabbed only while the submap is active; they must be scoped with
+# the "submap[resize]," key prefix. Arrows or hjkl resize; Escape/Return leave.
+# primary extent = width (scrolling axis), secondary extent = height in a column.
+"submap[resize],Right" = "window-modify-primary-extent:0.05"
+"submap[resize],Left"  = "window-modify-primary-extent:-0.05"
+"submap[resize],Down"  = "window-modify-secondary-extent:0.05"
+"submap[resize],Up"    = "window-modify-secondary-extent:-0.05"
+"submap[resize],l" = "window-modify-primary-extent:0.05"
+"submap[resize],h" = "window-modify-primary-extent:-0.05"
+"submap[resize],j" = "window-modify-secondary-extent:0.05"
+"submap[resize],k" = "window-modify-secondary-extent:-0.05"
+"submap[resize],Escape" = "submap:reset"
+"submap[resize],Return" = "submap:reset"
+
+[[scratchpad]]
+name = "music"
+
 
 # ── Window / layer rules (Noctalia first-class) ──
 [[window_rule]]
 blur = true
 blur_optimized = true
+
+ [[window_rule]]
+ match.app_id = "Spotify"
+ default_scratchpad = "music"
+
+
+[[window_rule]]
+match.app_id = "org.mozilla.Thunderbird"
+# String = exact workspace name; int = global position (the disabled HDMI-A-1
+# still owns position 1, which shifted int 10 onto DP-1's workspace 9).
+default_workspace = "10"
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
@@ -191,3 +260,6 @@ blur = true
 blur_ignore_alpha = 0.5
 blur_popups = true
 blur_optimized = false
+
+[include]
+files = ["noctalia.toml"]
