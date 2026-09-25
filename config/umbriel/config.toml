@@ -9,7 +9,7 @@
 # Outputs:  umbriel outputs
 
 [include.optional]
-files = ["noctalia.toml"]
+files = ["~/.config/umbriel/noctalia.toml"]
 
 [general]
 autostart = ["noctalia"]
