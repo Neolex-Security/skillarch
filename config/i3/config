@@ -65,7 +65,8 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec /usr/bin/kitty
-bindsym $mod+Shift+Return exec /usr/bin/google-chrome-stable
+bindsym $mod+Shift+Return exec /usr/bin/zen-browser
+
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -239,12 +240,13 @@ exec --no-startup-id /usr/bin/nitrogen --restore
 exec --no-startup-id thunderbird
 exec --no-startup-id obsidian
 exec --no-startup-id discord
-exec --no-startup-id google-chrome-stable
+exec --no-startup-id zen-browser
 exec --no-startup-id caido
 exec --no-startup-id chromium
 exec --no-startup-id synology-drive
 # window to workspace
 assign [class="obsidian"] 11
+assign [class="zen"] 1
 assign [class="Google-chrome"] 1
 assign [class="discord"] 1
 assign [class="Chromium"] 2

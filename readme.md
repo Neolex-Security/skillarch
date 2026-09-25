@@ -127,6 +127,7 @@ make help
 - Keyboard layout is US by default (kanata remaps the AZERTY board to US positions); workspace bindings use the top-row digits
 - Hyprland (Wayland) defaults to **Noctalia** for bar/dock/notifs/launcher (`config/hypr/lua/noctalia_shell.lua` → `USE_NOCTALIA=true`). Set `false` to fall back to the Waybar + nwg-dock + swaync stack. Your Noctalia UI prefs stay in `~/.local/state/noctalia/` (not committed).
 - **Umbriel dual-session** (optional): `make install-umbriel` installs Umbriel + `config/umbriel/config.toml` beside Hyprland. Noctalia Greeter already lists both — pick **Umbriel** at login to try the scrolling layout; Hyprland stays the usual default. Does not change `/etc/greetd/config.toml`.
+- Default browser is **Zen** (`zen.desktop` / `BROWSER=zen-browser`). Chrome stays installed — `gog` or `$mod+Shift+b` (`set-default-browser`) to switch.
 - Kitty visual/rectangle select is done with `ctrl+alt+click/drag`, you're welcome!
 - The docker `latest` is actually the `lite` image with everything CLI related
 - The docker `full` image contains GUI stuff and wordlists
@@ -252,7 +253,8 @@ bindsym $mod+m exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Term & Apps
 bindsym $mod+Return exec /usr/bin/kitty
-bindsym $mod+Shift+Return exec /usr/bin/google-chrome-stable
+bindsym $mod+Shift+Return exec /usr/bin/zen-browser
+
 bindsym $mod+Shift+Q kill
 bindsym $mod+space exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+space exec --no-startup-id rofi -show run
@@ -336,7 +338,7 @@ bindsym $mod+c exec code
 
 ```bash
 # Pacman Packages
-arandr asciinema base-devel bat bettercap bison blueman bore bottom brightnessctl bzip2 ca-certificates cloc cmake visual-studio-code-bin curl discord dmenu docker docker-compose dos2unix dragon-drop-git dunst emote eza expect fastfetch feh ffmpeg filezilla flameshot foremost fq fx gdb ghex ghidra git git-delta gitleaks glow gnupg google-chrome gparted gron guvcview hashcat htmlq htop hwinfo xorg-server i3-gaps i3blocks i3lock i3lock-fancy-git i3status icu inotify-tools iproute2 jless jq kdenlive kitty kompare lazygit libedit libffi libjpeg-turbo libpcap libpng libreoffice-fresh libxml2 libzip llvm lsof ltrace make meld metasploit mise mlocate mplayer ncurses neovim net-tools ngrep nm-connection-editor nmap okular opensnitch openssh openssl parallel perl-image-exiftool php-gd picom pkgconf polybar postgresql-libs python-virtualenv qbittorrent re2c readline ripgrep rlwrap rofi signal-desktop socat sqlite sshpass superfile sysstat tmate tmux tor torbrowser-launcher traceroute trash-cli tree unzip vbindiff veracrypt vim viu vlc vlc-plugin-ffmpeg flatpak websocat wget wireshark-qt xclip qsv xz yay zip zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting zsh-theme-powerlevel10k cronie tree-sitter audacity xorg-xhost archlinux-keyring jdk21-openjdk polkit-kde-agent kamoso plasma-desktop plasma-x11-session kwin-x11 konsole alacritty thunar thunar-archive-plugin thunar-volman tumbler ffmpegthumbnailer gvfs gvfs-mtp file-roller swaync swww hyprpaper hypridle hyprlock cliphist noctalia wl-clipboard
+arandr asciinema base-devel bat bettercap bison blueman bore bottom brightnessctl bzip2 ca-certificates cloc cmake visual-studio-code-bin curl discord dmenu docker docker-compose dos2unix dragon-drop-git dunst emote eza expect fastfetch feh ffmpeg filezilla flameshot foremost fq fx gdb ghex ghidra git git-delta gitleaks glow gnupg zen-browser-bin google-chrome gparted gron guvcview hashcat htmlq htop hwinfo xorg-server i3-gaps i3blocks i3lock i3lock-fancy-git i3status icu inotify-tools iproute2 jless jq kdenlive kitty kompare lazygit libedit libffi libjpeg-turbo libpcap libpng libreoffice-fresh libxml2 libzip llvm lsof ltrace make meld metasploit mise mlocate mplayer ncurses neovim net-tools ngrep nm-connection-editor nmap okular opensnitch openssh openssl parallel perl-image-exiftool php-gd picom pkgconf polybar postgresql-libs python-virtualenv qbittorrent re2c readline ripgrep rlwrap rofi signal-desktop socat sqlite sshpass superfile sysstat tmate tmux tor torbrowser-launcher traceroute trash-cli tree unzip vbindiff veracrypt vim viu vlc vlc-plugin-ffmpeg flatpak websocat wget wireshark-qt xclip qsv xz yay zip zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting zsh-theme-powerlevel10k cronie tree-sitter audacity xorg-xhost archlinux-keyring jdk21-openjdk polkit-kde-agent kamoso plasma-desktop plasma-x11-session kwin-x11 konsole alacritty thunar thunar-archive-plugin thunar-volman tumbler ffmpegthumbnailer gvfs gvfs-mtp file-roller swaync swww hyprpaper hypridle hyprlock cliphist noctalia wl-clipboard
 
 # Yay packages
 ffuf gau waybackurls fswebcam caido-desktop caido-cli i3-battery-popup-git rofi-power-menu fabric-ai-bin

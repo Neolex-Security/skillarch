@@ -27,7 +27,7 @@ make install-shell      # Zsh, oh-my-zsh, fzf, tmux, vim, dotfile symlinks
 make install-docker     # Docker + Docker Compose, user added to docker group
 make install-gui        # i3, polybar, kitty, rofi, picom, KDE Plasma, Noctalia/Hyprland (+ optional Umbriel dual-session)
 make install-umbriel    # Umbriel compositor beside Hyprland — pick at Noctalia Greeter login
-make install-gui-tools  # Chrome, VSCode, Ghidra, Discord, VLC, Wireshark
+make install-gui-tools  # Zen (default browser) + Chrome, VSCode, Ghidra, Discord, VLC, Wireshark
 make install-offensive  # Metasploit, ffuf, pdtm tools, go binaries, GitHub releases, cloned tools
 make install-wordlists  # All wordlists to /opt/lists/
 make install-hardening  # opensnitch (installed, opt-in)
@@ -249,7 +249,7 @@ make clean              # Docker-only: clear caches (pacman, yay, pip, mise, go,
 | Binding | Action |
 |---|---|
 | `$mod+Return` | Open Kitty terminal |
-| `$mod+Shift+Return` | Open Google Chrome |
+| `$mod+Shift+Return` | Open Zen Browser (Chrome via `gog` / `$mod+Shift+b`) |
 | `$mod+space` | Rofi app launcher (drun) |
 | `$mod+Shift+space` | Rofi run launcher |
 | `$mod+Control+space` | Rofi window switcher |

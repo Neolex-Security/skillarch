@@ -207,16 +207,17 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	echo -e '[Settings]\ngtk-theme-name=Breeze-Dark\ngtk-icon-theme-name=breeze-dark\ngtk-application-prefer-dark-theme=true' > ~/.config/gtk-4.0/settings.ini
 	echo "export QT_QPA_PLATFORMTHEME=kde" > ~/.xprofile # Ensures Qt apps read kdeglobals under i3 (not just Plasma)
 	echo "export XDG_SESSION_TYPE=x11" >> ~/.xprofile # Ensure other other apps rely on x11 instead of wayland
-	# -- MIME defaults: image=eog, video/audio=vlc, pdf/html=chrome, text=kate, dir=thunar --
+	# -- MIME defaults: image=eog, video/audio=vlc, pdf/html=zen, text=kate, dir=thunar --
+	# Zen is the default browser; Chrome stays installed (gog / set-default-browser).
 	# GTK file managers (Thunar, Nautilus, etc.) and xdg-open read ~/.config/mimeapps.list.
 	# We use Thunar instead of Dolphin because KIO's portal-based launcher hangs under i3.
-	printf '%s\n' '[Default Applications]' 'image/png=org.gnome.eog.desktop' 'image/jpeg=org.gnome.eog.desktop' 'image/gif=org.gnome.eog.desktop' 'image/webp=org.gnome.eog.desktop' 'image/bmp=org.gnome.eog.desktop' 'image/tiff=org.gnome.eog.desktop' 'image/svg+xml=org.gnome.eog.desktop' 'video/mp4=vlc.desktop' 'video/x-matroska=vlc.desktop' 'video/webm=vlc.desktop' 'video/quicktime=vlc.desktop' 'video/x-msvideo=vlc.desktop' 'audio/mpeg=vlc.desktop' 'audio/ogg=vlc.desktop' 'audio/flac=vlc.desktop' 'audio/x-wav=vlc.desktop' 'audio/vnd.wave=vlc.desktop' 'application/pdf=google-chrome.desktop' 'text/html=google-chrome.desktop' 'x-scheme-handler/http=google-chrome.desktop' 'x-scheme-handler/https=google-chrome.desktop' 'x-scheme-handler/about=google-chrome.desktop' 'x-scheme-handler/unknown=google-chrome.desktop' 'x-scheme-handler/mailto=google-chrome.desktop' 'text/plain=org.kde.kate.desktop' 'inode/directory=thunar.desktop' > ~/.config/mimeapps.list
-	xdg-settings set default-web-browser google-chrome.desktop 2>/dev/null || true
-	# Pin default taskbar launchers (systemsettings, chrome, thunar, alacritty)
+	printf '%s\n' '[Default Applications]' 'image/png=org.gnome.eog.desktop' 'image/jpeg=org.gnome.eog.desktop' 'image/gif=org.gnome.eog.desktop' 'image/webp=org.gnome.eog.desktop' 'image/bmp=org.gnome.eog.desktop' 'image/tiff=org.gnome.eog.desktop' 'image/svg+xml=org.gnome.eog.desktop' 'video/mp4=vlc.desktop' 'video/x-matroska=vlc.desktop' 'video/webm=vlc.desktop' 'video/quicktime=vlc.desktop' 'video/x-msvideo=vlc.desktop' 'audio/mpeg=vlc.desktop' 'audio/ogg=vlc.desktop' 'audio/flac=vlc.desktop' 'audio/x-wav=vlc.desktop' 'audio/vnd.wave=vlc.desktop' 'application/pdf=zen.desktop' 'text/html=zen.desktop' 'x-scheme-handler/http=zen.desktop' 'x-scheme-handler/https=zen.desktop' 'x-scheme-handler/about=zen.desktop' 'x-scheme-handler/unknown=zen.desktop' 'x-scheme-handler/mailto=zen.desktop' 'text/plain=org.kde.kate.desktop' 'inode/directory=thunar.desktop' > ~/.config/mimeapps.list
+	unset BROWSER; xdg-settings set default-web-browser zen.desktop 2>/dev/null || true
+	# Pin default taskbar launchers (systemsettings, zen, thunar, alacritty)
 	mkdir -p ~/.config
 	PLASMA_RC=~/.config/plasma-org.kde.plasma.desktop-appletsrc ; \
 	if [[ -f "$$PLASMA_RC" ]]; then \
-		sed -i 's|^launchers=.*|launchers=applications:systemsettings.desktop,applications:google-chrome.desktop,applications:thunar.desktop,applications:Alacritty.desktop|' "$$PLASMA_RC" ; \
+		sed -i 's|^launchers=.*|launchers=applications:systemsettings.desktop,applications:zen.desktop,applications:thunar.desktop,applications:Alacritty.desktop|' "$$PLASMA_RC" ; \
 	fi
 
 	# i3 config
@@ -317,13 +318,15 @@ install-gui-tools: sanity-check ## Install GUI apps (Chrome, VSCode, Ghidra, etc
 	[[ -f /.dockerenv ]] && sudo mkdir -p /var/lib/flatpak/repo || true
 	# Force refresh DBs - chaotic-aur rolls fast; stale local DB → 404 on package files (e.g. visual-studio-code-bin)
 	sudo pacman --noconfirm -Syy || true
-	$(PACMAN_INSTALL) vlc vlc-plugin-ffmpeg arandr blueman visual-studio-code-bin discord dunst filezilla flameshot ghex google-chrome gparted kdenlive kompare libreoffice-fresh meld okular qbittorrent torbrowser-launcher wireshark-qt ghidra signal-desktop dragon-drop-git emote guvcview audacity polkit-kde-agent kamoso thunar thunar-archive-plugin thunar-volman tumbler ffmpegthumbnailer gvfs gvfs-mtp file-roller python-gobject python-cairo gtk4 gtk4-layer-shell
+	# zen-browser-bin = default browser; google-chrome stays available (alias gog / set-default-browser)
+	$(PACMAN_INSTALL) vlc vlc-plugin-ffmpeg arandr blueman visual-studio-code-bin discord dunst filezilla flameshot ghex zen-browser-bin google-chrome gparted kdenlive kompare libreoffice-fresh meld okular qbittorrent torbrowser-launcher wireshark-qt ghidra signal-desktop dragon-drop-git emote guvcview audacity polkit-kde-agent kamoso thunar thunar-archive-plugin thunar-volman tumbler ffmpegthumbnailer gvfs gvfs-mtp file-roller python-gobject python-cairo gtk4 gtk4-layer-shell
 	[[ ! -f /.dockerenv ]] && $(PACMAN_INSTALL) flatpak && flatpak install -y flathub com.obsproject.Studio be.alexandervanhee.gradia || true
 	# Do not start services in docker
 
 	xargs -I{} code --install-extension {} --force < config/extensions.txt
 	for pkg in fswebcam; do yay --noconfirm --needed -S "$$pkg" || $(call WARN,Failed to install $$pkg$(comma) continuing...); done
 	sudo ln -sf /usr/bin/google-chrome-stable /usr/local/bin/gog
+	unset BROWSER; xdg-settings set default-web-browser zen.desktop 2>/dev/null || true
 	# Flameshot 14 dropped native X11 capture in favor of xdg-desktop-portal,
 	# which has no working Screenshot backend under i3/X11. Force legacy mode.
 	mkdir -p ~/.config/flameshot
