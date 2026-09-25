@@ -298,7 +298,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	sudo ln -sf /opt/skillarch/config/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/30-touchpad.conf
 	# Optional Umbriel dual-session (greetd picker) — Hyprland remains default
 	$(MAKE) install-umbriel || $(call WARN,install-umbriel failed — Hyprland session still available)
-	hyprctl reload
+	hyprctl reload 2>/dev/null || true
 	$(call DONE,GUI & window manager installed!)
 
 install-umbriel: sanity-check ## Optional Umbriel Wayland session (alongside Hyprland; pick at Noctalia Greeter)
