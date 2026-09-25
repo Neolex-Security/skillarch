@@ -1,12 +1,11 @@
 -- Noctalia shell integration for Hyprland.
 -- Docs: https://docs.noctalia.dev/noctalia/compositor-settings/hyprland/
 --
--- Toggle USE_NOCTALIA in this file (and reload) to switch between Noctalia and
--- the Waybar / nwg-dock / swaync stack. Autostart reads the same flag.
+-- Toggle USE_NOCTALIA in this file (and reload) to control Noctalia bindings.
 
 local M = {}
 
--- Set to false to fall back to Waybar + nwg-dock + swaync.
+-- Set to false to disable Noctalia bindings.
 M.USE_NOCTALIA = true
 
 local mod = "SUPER"

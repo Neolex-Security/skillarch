@@ -2,8 +2,6 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 -- hl.exec_cmd runs via `sh -c`, so `~` expands and no `& disown` is needed.
 
-local noctalia = require("lua.noctalia_shell")
-
 hl.on("hyprland.start", function()
 	-- Environment for xdg-desktop-portal-hyprland
 	hl.exec_cmd(

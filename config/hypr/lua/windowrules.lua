@@ -33,20 +33,6 @@ hl.window_rule({
     float = true, center = true, size = { 800, 600 },
 })
 
--- nwg-look
-hl.window_rule({
-    name = "nwg-look",
-    match = { class = "nwg-look" },
-    float = true, center = true, size = { 700, 600 },
-})
-
--- nwg-displays
-hl.window_rule({
-    name = "nwg-displays",
-    match = { class = "nwg-displays" },
-    float = true, center = true, size = { 900, 600 },
-})
-
 -- Mission Center
 hl.window_rule({
     name = "missioncenter",

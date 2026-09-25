@@ -1,4 +1,4 @@
--- Monitors  (was: conf/monitors/nwg-displays.conf -> monitors.conf)
+-- Monitors
 -- Samsung Odyssey G9 (LC49G95T): single physical screen on HDMI + DP.
 -- Disable the HDMI duplicate, keep DisplayPort (120Hz).
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/

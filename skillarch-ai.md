@@ -311,7 +311,7 @@ make clean              # Docker-only: clear caches (pacman, yay, pip, mise, go,
 
 ## Hyprland + Noctalia (default Wayland shell)
 
-Default desktop shell on Hyprland is **Noctalia** (`USE_NOCTALIA=true` in `config/hypr/lua/noctalia_shell.lua`). Set that flag to `false` and reload to fall back to the Waybar + nwg-dock + swaync stack. Personal Noctalia UI state lives in `~/.local/state/noctalia/` (not in the repo — may contain secrets).
+Default desktop shell on Hyprland is **Noctalia** (`USE_NOCTALIA=true` in `config/hypr/lua/noctalia_shell.lua`). Personal Noctalia UI state lives in `~/.local/state/noctalia/` (not in the repo — may contain secrets).
 
 | Binding | Action |
 |---|---|

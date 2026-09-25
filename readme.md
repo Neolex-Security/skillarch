@@ -125,7 +125,7 @@ make help
 
 - If `make install` or `ska-update-simple` loop on a y/n question, fix your pacman config first! 😉
 - Keyboard layout is US by default (kanata remaps the AZERTY board to US positions); workspace bindings use the top-row digits
-- Hyprland (Wayland) defaults to **Noctalia** for bar/dock/notifs/launcher (`config/hypr/lua/noctalia_shell.lua` → `USE_NOCTALIA=true`). Set `false` to fall back to the Waybar + nwg-dock + swaync stack. Your Noctalia UI prefs stay in `~/.local/state/noctalia/` (not committed).
+- Hyprland (Wayland) uses **Noctalia** for bar/dock/notifs/launcher (`config/hypr/lua/noctalia_shell.lua` → `USE_NOCTALIA=true`). Your Noctalia UI prefs stay in `~/.local/state/noctalia/` (not committed).
 - **Umbriel dual-session** (optional): `make install-umbriel` installs Umbriel + `config/umbriel/config.toml` beside Hyprland. Noctalia Greeter already lists both — pick **Umbriel** at login to try the scrolling layout; Hyprland stays the usual default. Does not change `/etc/greetd/config.toml`.
 - Default browser is **Zen** (`zen.desktop` / `BROWSER=zen-browser`). Chrome stays installed — `gog` or `$mod+Shift+b` (`set-default-browser`) to switch.
 - Kitty visual/rectangle select is done with `ctrl+alt+click/drag`, you're welcome!
