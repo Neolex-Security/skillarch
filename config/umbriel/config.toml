@@ -12,7 +12,7 @@
 files = ["~/.config/umbriel/noctalia.toml"]
 
 [general]
-autostart = ["noctalia,zen-browser"]
+autostart = ["noctalia","zen-browser"]
 # Super on DRM / native session; Alt when nested inside another compositor.
 mod_key = "Super"
 
@@ -234,9 +234,11 @@ blur_optimized = true
 
 [[window_rule]]
 match.app_id = "org.mozilla.Thunderbird"
-# String = exact workspace name; int = global position (the disabled HDMI-A-1
-# still owns position 1, which shifted int 10 onto DP-1's workspace 9).
-default_workspace = "10"
+# Integer position scoped to DP-1 by default_output. Unscoped it counts the
+# disabled HDMI-A-1's workspace and lands one short; a string is an exact
+# workspace-name lookup, which the static inventory does not resolve here.
+default_output = "DP-1"
+default_workspace = 10
 
 [[window_rule]]
 match.app_id = "^dev.noctalia.Noctalia$"
