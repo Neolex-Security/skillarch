@@ -1,5 +1,11 @@
+
+ZSH_DISABLE_COMPFIX="true"
+
 # Add your custom config here
 # Ensure uv tools (~/.local/bin), pdtm tools, and go binaries are on PATH
+zstyle ':omz:plugins:ssh-agent' lazy yes
+zstyle ':omz:plugins:ssh-agent' identities id_ed25519
+
 
 
 
@@ -123,7 +129,5 @@ unalias z
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="$PATH:$HOME/.local/bin"
 
-
 eval "$(mise activate zsh)"
-
 
