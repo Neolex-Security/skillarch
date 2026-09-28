@@ -26,10 +26,10 @@ scale = 1.25
 mode = "5120x1440@120"
 # Vertical workspace axis → horizontal scrolling strip (best for ultrawide).
 workspace_axis = "horizontal"
-# Static 10 workspaces. min_workspaces (dynamic) kept the last workspace empty,
+# Static 20 workspaces. min_workspaces (dynamic) kept the last workspace empty,
 # which slid any window placed on the last one back by one. Static lets a window
-# live on workspace 10.
-workspaces = 10
+# live on workspace 20.
+workspaces = 20
 
 [output.HDMI-A-1]
 enabled = false
@@ -196,6 +196,49 @@ action = "overview-open"
 "Mod+Shift+9" = "window-move-to-workspace:9"
 "Mod+Shift+agrave" = "window-move-to-workspace:10"
 "Mod+Shift+0" = "window-move-to-workspace:10"
+
+# Second decade (11-20): same top-row keys + Ctrl.
+"Mod+Ctrl+ampersand" = "workspace-switch:11"
+"Mod+Ctrl+1" = "workspace-switch:11"
+"Mod+Ctrl+eacute" = "workspace-switch:12"
+"Mod+Ctrl+2" = "workspace-switch:12"
+"Mod+Ctrl+quotedbl" = "workspace-switch:13"
+"Mod+Ctrl+3" = "workspace-switch:13"
+"Mod+Ctrl+apostrophe" = "workspace-switch:14"
+"Mod+Ctrl+4" = "workspace-switch:14"
+"Mod+Ctrl+parenleft" = "workspace-switch:15"
+"Mod+Ctrl+5" = "workspace-switch:15"
+"Mod+Ctrl+minus" = "workspace-switch:16"
+"Mod+Ctrl+6" = "workspace-switch:16"
+"Mod+Ctrl+egrave" = "workspace-switch:17"
+"Mod+Ctrl+7" = "workspace-switch:17"
+"Mod+Ctrl+underscore" = "workspace-switch:18"
+"Mod+Ctrl+8" = "workspace-switch:18"
+"Mod+Ctrl+ccedilla" = "workspace-switch:19"
+"Mod+Ctrl+9" = "workspace-switch:19"
+"Mod+Ctrl+agrave" = "workspace-switch:20"
+"Mod+Ctrl+0" = "workspace-switch:20"
+
+"Mod+Ctrl+Shift+ampersand" = "window-move-to-workspace:11"
+"Mod+Ctrl+Shift+1" = "window-move-to-workspace:11"
+"Mod+Ctrl+Shift+eacute" = "window-move-to-workspace:12"
+"Mod+Ctrl+Shift+2" = "window-move-to-workspace:12"
+"Mod+Ctrl+Shift+quotedbl" = "window-move-to-workspace:13"
+"Mod+Ctrl+Shift+3" = "window-move-to-workspace:13"
+"Mod+Ctrl+Shift+apostrophe" = "window-move-to-workspace:14"
+"Mod+Ctrl+Shift+4" = "window-move-to-workspace:14"
+"Mod+Ctrl+Shift+parenleft" = "window-move-to-workspace:15"
+"Mod+Ctrl+Shift+5" = "window-move-to-workspace:15"
+"Mod+Ctrl+Shift+minus" = "window-move-to-workspace:16"
+"Mod+Ctrl+Shift+6" = "window-move-to-workspace:16"
+"Mod+Ctrl+Shift+egrave" = "window-move-to-workspace:17"
+"Mod+Ctrl+Shift+7" = "window-move-to-workspace:17"
+"Mod+Ctrl+Shift+underscore" = "window-move-to-workspace:18"
+"Mod+Ctrl+Shift+8" = "window-move-to-workspace:18"
+"Mod+Ctrl+Shift+ccedilla" = "window-move-to-workspace:19"
+"Mod+Ctrl+Shift+9" = "window-move-to-workspace:19"
+"Mod+Ctrl+Shift+agrave" = "window-move-to-workspace:20"
+"Mod+Ctrl+Shift+0" = "window-move-to-workspace:20"
 
 # Layout-proof workspace navigation (vertical axis on DP-1).
 "Mod+Ctrl+Down" = "workspace-next"
