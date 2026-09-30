@@ -12,7 +12,7 @@
 files = ["~/.config/umbriel/noctalia.toml"]
 
 [general]
-autostart = ["noctalia","zen-browser"]
+autostart = ["noctalia","zen-browser","thunderbird","obsidian"]
 # Super on DRM / native session; Alt when nested inside another compositor.
 mod_key = "Super"
 
@@ -273,6 +273,9 @@ blur_optimized = true
  match.app_id = "Spotify"
  default_scratchpad = "music"
 
+[[window_rule]]
+match.app_id = "md.obsidian.Obsidian"
+default_workspace = 11
 
 [[window_rule]]
 match.app_id = "org.mozilla.Thunderbird"
@@ -307,3 +310,6 @@ blur_optimized = false
 
 [input.focus]
 follows_mouse = true
+
+[include]
+files = ["noctalia.toml"]
