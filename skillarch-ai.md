@@ -525,7 +525,7 @@ dexr                                   # same, as root
 - `ska-help-bindings` — interactive fzf search of all i3 keybindings
 - `source ~/.myaliases` — private aliases for secrets/tokens (never commit this file)
 - Kitty rectangle select: `ctrl+alt+click/drag`
-- Keyboard layout is US by default (kanata remaps the physical AZERTY board to US positions); workspace numbers use the top-row digits `1-0`
+- Keyboard layout is US by default (kanata remaps the physical AZERTY board to US positions); workspace numbers use the top-row digits `1-0`. Kanata runs as the `kanata.service` user unit from the `kanata-git` (cmd-enabled) AUR build — the plain `kanata` pkg rejects the `(cmd ...)` payloads in `kanata.kbd`. Caps tap → Esc; Caps hold → pentest layer.
 - picom transparency is disabled inside hypervisors (auto-detected via `/proc/cpuinfo`)
 - `make doctor` — check for broken symlinks, disk space, Docker health
 - `make list-tools` — print versions of all major tools

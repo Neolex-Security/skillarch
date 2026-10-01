@@ -3,6 +3,7 @@
   danger-enable-cmd yes
   concurrent-tap-hold yes
   linux-dev-names-include (
+      "AT Translated Set 2 keyboard"
       "SteelSeries Arctis 7+"
       "SIGMACHIP Trust Keyboard Consumer Control"
       "SIGMACHIP Trust Keyboard"

@@ -283,6 +283,10 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	[[ ! -d ~/.config/kitty ]] && mkdir -p ~/.config/kitty || true
 	$(call ska-link,/opt/skillarch/config/kitty/kitty.conf,$$HOME/.config/kitty/kitty.conf)
 
+	# kanata — cmd build required: kanata.kbd uses (cmd ...) payloads, which the
+	# plain `kanata` pkg rejects (compiled without the cmd feature). kanata-git is the
+	# cmd-enabled build and replaces `kanata` if it's already installed.
+	for pkg in kanata-git; do yay --noconfirm --needed -S "$$pkg" || $(call WARN,Failed to install $$pkg$(comma) continuing...); done
 	# kanata config + user service
 	[[ ! -d ~/.config/kanata ]] && mkdir -p ~/.config/kanata || true
 	$(call ska-link,/opt/skillarch/config/kanata/kanata.kbd,$$HOME/.config/kanata/kanata.kbd)
