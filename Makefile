@@ -322,6 +322,7 @@ install-umbriel: sanity-check ## Optional Umbriel Wayland session (alongside Hyp
 	fi
 	mkdir -p $$HOME/.config/umbriel
 	$(call ska-link,/opt/skillarch/config/umbriel/config.toml,$$HOME/.config/umbriel/config.toml)
+	$(call ska-link,/opt/skillarch/config/umbriel/noctalia.toml,$$HOME/.config/umbriel/noctalia.toml)
 	# noctalia.toml is written by Noctalia theme apply (optional include in config.toml)
 	if command -v umbriel >/dev/null 2>&1; then \
 		umbriel validate -c /opt/skillarch/config/umbriel/config.toml || $(call WARN,umbriel validate reported issues); \
