@@ -9,6 +9,7 @@
 # Outputs:  umbriel outputs
 
 [include.optional]
+# Both entries resolved to the same path → "include cycle or duplicate skipped".
 files = ["~/.config/umbriel/noctalia.toml"]
 
 [general]
@@ -121,6 +122,12 @@ action = "overview-open"
 "Mod+WheelUp" = "window-focus-left"
 "Mod+WheelDown" = "window-focus-right"
 
+# DDC/CI: the G9 only answers DDC on the HDMI bus (/dev/i2c-2), never on DP-1,
+# so Noctalia's own brightness backend has no display to bind. Script drives
+# ddcutil on bus 2 and raises Noctalia's OSD.
+"Mod+F9" = { action = "spawn:/opt/skillarch/config/bin/ddc-brightness down 10", repeat = true }
+"Mod+F10" = { action = "spawn:/opt/skillarch/config/bin/ddc-brightness up 10", repeat = true }
+"Mod+F12" =  { action = "spawn:voxtype record toggle", repeat = false }
 # Window state
 "Mod+Q" = { action = "window-close", repeat = false }
 "Mod+T" = { action = "window-toggle-floating", repeat = false }

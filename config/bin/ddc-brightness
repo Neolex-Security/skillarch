@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# DDC/CI brightness for the Odyssey G9 (LC49G95T).
+#
+# The panel only answers DDC on the HDMI i2c bus (card1-HDMI-A-1 = /dev/i2c-2)
+# while the picture runs over DP-1; /dev/i2c-3 (card1-DP-1) returns "DDC
+# communication failed". Noctalia therefore finds no ddcutil display for the
+# active output and `noctalia msg brightness-*` answers "brightness control
+# unavailable". Drive ddcutil directly on the working bus and reuse its OSD.
+#
+# usage: ddc-brightness {up|down|set|get} [value]
+set -euo pipefail
+
+BUS=${DDC_BUS:-2}
+CACHE="${XDG_RUNTIME_DIR:-/tmp}/ddc-brightness.$BUS"
+
+cur=$(cat "$CACHE" 2>/dev/null || true)
+if [[ ! $cur =~ ^[0-9]+$ ]]; then
+  cur=$(ddcutil --bus "$BUS" getvcp 10 --brief 2>/dev/null | awk '{print $4}')
+fi
+if [[ ! $cur =~ ^[0-9]+$ ]]; then
+  echo "ddcutil: no DDC response on bus $BUS" >&2
+  exit 1
+fi
+
+step=${2:-5}
+case ${1:-get} in
+  up)   new=$((cur + step)) ;;
+  down) new=$((cur - step)) ;;
+  set)  new=$step ;;
+  get)  echo "$cur"; exit 0 ;;
+  *)    echo "usage: ${0##*/} {up|down|set|get} [value]" >&2; exit 2 ;;
+esac
+
+new=$(( new < 0 ? 0 : new > 100 ? 100 : new ))
+
+ddcutil --bus "$BUS" setvcp 10 "$new" --noverify
+printf '%s' "$new" >"$CACHE"
+noctalia msg brightness-osd "$new" >/dev/null 2>&1 || true

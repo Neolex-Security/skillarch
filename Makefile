@@ -272,6 +272,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	$(call ska-link,/opt/skillarch/config/bin/bugtime-stop,$$HOME/.local/bin/bugtime-stop)
 	$(call ska-link,/opt/skillarch/config/bin/set-default-browser,$$HOME/.local/bin/set-default-browser)
 	$(call ska-link,/opt/skillarch/config/bin/switch-audio-output,$$HOME/.local/bin/switch-audio-output)
+	$(call ska-link,/opt/skillarch/config/bin/ddc-brightness,$$HOME/.local/bin/ddc-brightness)
 
 	# rofi config
 	[[ ! -d ~/.config/rofi ]] && mkdir -p ~/.config/rofi || true
