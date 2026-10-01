@@ -80,7 +80,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=245"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-agent colored-man-pages docker extract fzf npm terraform tmux zsh-autosuggestions zsh-completions zsh-syntax-highlighting z)
+plugins=(git ssh-agent colored-man-pages docker extract fzf npm terraform tmux zsh-autosuggestions zsh-completions zsh-syntax-highlighting z mise)
 
 # source $ZSH/oh-my-zsh.sh
 
@@ -132,3 +132,8 @@ export PATH="$PATH:$HOME/.local/bin"
 eval "$(mise activate zsh)"
 
 eval "$(zoxide init zsh)"
+
+
+# Generated for pdtm. Do not edit.
+export PATH="$PATH:$HOME/.pdtm/go/bin"
+
