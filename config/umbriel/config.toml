@@ -34,6 +34,10 @@ workspaces = 20
 [output.HDMI-A-1]
 enabled = false
 
+# Laptop panel: same static 20 workspaces (no wildcard output section, so set per connector).
+[output.eDP-1]
+workspaces = 20
+
 [appearance]
 prefer_no_csd = true
 border_width = 2
@@ -312,4 +316,4 @@ blur_optimized = false
 follows_mouse = true
 
 [include]
-files = ["noctalia.toml"]
+files = []
