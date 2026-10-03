@@ -273,6 +273,7 @@ install-gui: sanity-check ## Install i3, polybar, kitty, rofi, picom, KDE Plasma
 	$(call ska-link,/opt/skillarch/config/bin/set-default-browser,$$HOME/.local/bin/set-default-browser)
 	$(call ska-link,/opt/skillarch/config/bin/switch-audio-output,$$HOME/.local/bin/switch-audio-output)
 	$(call ska-link,/opt/skillarch/config/bin/ddc-brightness,$$HOME/.local/bin/ddc-brightness)
+	$(call ska-link,/opt/skillarch/config/bin/monitor-input,$$HOME/.local/bin/monitor-input)
 
 	# rofi config
 	[[ ! -d ~/.config/rofi ]] && mkdir -p ~/.config/rofi || true
@@ -320,12 +321,18 @@ install-umbriel: sanity-check ## Optional Umbriel Wayland session (alongside Hyp
 	else \
 		$(call OK,xwayland-satellite already installed); \
 	fi
+	# wl-mirror: monitor-input paints DP-1 onto HDMI-A-1 so the same session
+	# shows on both of the G9's inputs. Umbriel cannot clone an output.
+	$(PACMAN_INSTALL) wl-mirror || $(call WARN,Failed to install wl-mirror)
 	mkdir -p $$HOME/.config/umbriel
 	$(call ska-link,/opt/skillarch/config/umbriel/config.toml,$$HOME/.config/umbriel/config.toml)
 	$(call ska-link,/opt/skillarch/config/umbriel/noctalia.toml,$$HOME/.config/umbriel/noctalia.toml)
 	# noctalia.toml is written by Noctalia theme apply (optional include in config.toml)
+	# hdmi-on.toml holds [output.HDMI-A-1].enabled, flipped by monitor-input at
+	# runtime. Seeded only when absent so a live toggle state survives re-runs.
+	[[ -f $$HOME/.config/umbriel/hdmi-on.toml ]] || printf '[output.HDMI-A-1]\nenabled = false\n' > $$HOME/.config/umbriel/hdmi-on.toml
 	if command -v umbriel >/dev/null 2>&1; then \
-		umbriel validate -c /opt/skillarch/config/umbriel/config.toml || $(call WARN,umbriel validate reported issues); \
+		umbriel config validate -c /opt/skillarch/config/umbriel/config.toml || $(call WARN,umbriel validate reported issues); \
 		$(call OK,Umbriel ready — logout and pick "Umbriel" in Noctalia Greeter (default stays Hyprland)); \
 	else \
 		$(call WARN,umbriel binary not on PATH — AUR install may have failed); \
@@ -763,8 +770,11 @@ test-full: test ## Validate full Docker image install (runs test + extras)
 	ska_check "umbriel" "which umbriel"
 	ska_check "umbriel session" "[[ -f /usr/share/wayland-sessions/umbriel.desktop ]]"
 	ska_check "umbriel config link" "[[ -L ~/.config/umbriel/config.toml ]]"
-	ska_check "umbriel validate" "umbriel validate -c /opt/skillarch/config/umbriel/config.toml"
+	ska_check "umbriel validate" "umbriel config validate -c /opt/skillarch/config/umbriel/config.toml"
 	ska_check "xwayland-satellite" "which xwayland-satellite"
+	ska_check "wl-mirror" "which wl-mirror"
+	ska_check "monitor-input" "which monitor-input"
+	ska_check "ddc-brightness" "which ddc-brightness"
 	$(call BOLD,\n--- GUI Config Symlinks ---)
 	ska_check "i3 config"      "[[ -L ~/.config/i3/config ]]"
 	ska_check "polybar config" "[[ -L ~/.config/polybar/config.ini ]]"

@@ -10,7 +10,7 @@
 
 [include.optional]
 # Both entries resolved to the same path → "include cycle or duplicate skipped".
-files = ["~/.config/umbriel/noctalia.toml"]
+files = ["~/.config/umbriel/noctalia.toml", "~/.config/umbriel/hdmi-on.toml", "noctalia.toml"]
 
 [general]
 autostart = ["noctalia","zen-browser","thunderbird","obsidian"]
@@ -32,8 +32,9 @@ workspace_axis = "horizontal"
 # live on workspace 20.
 workspaces = 20
 
-[output.HDMI-A-1]
-enabled = false
+# [output.HDMI-A-1] lives in ~/.config/umbriel/hdmi-on.toml so monitor-input can
+# flip it without dirtying the repo. Main-config values win over includes, so the
+# key cannot stay here.
 
 # Laptop panel: same static 20 workspaces (no wildcard output section, so set per connector).
 [output.eDP-1]
@@ -127,6 +128,10 @@ action = "overview-open"
 # ddcutil on bus 2 and raises Noctalia's OSD.
 "Mod+F9" = { action = "spawn:/opt/skillarch/config/bin/ddc-brightness down 10", repeat = true }
 "Mod+F10" = { action = "spawn:/opt/skillarch/config/bin/ddc-brightness up 10", repeat = true }
+# Flips the G9 between DP and HDMI over DDC. Enables [output.HDMI-A-1] on the
+# way out so the panel keeps a signal and stays reachable for the way back;
+# with the KVM on the Mac the return is the joystick, then `monitor-input dp`.
+"Mod+F11" = { action = "spawn:/opt/skillarch/config/bin/monitor-input toggle", repeat = false }
 "Mod+F12" =  { action = "spawn:voxtype record toggle", repeat = false }
 # Window state
 "Mod+Q" = { action = "window-close", repeat = false }
@@ -305,6 +310,14 @@ default_floating_size_px = { width = 1080, height = 920 }
 match.app_id = "^dev.noctalia.UmbrielSharePicker$"
 default_floating = true
 default_floating_size_px = { width = 800, height = 600 }
+
+# wl-mirror paints DP-1 onto the HDMI output so the same session shows on both
+# inputs. Its own --fullscreen-output flag is ignored here: umbriel tiles the
+# window on the focused output instead, so the placement is pinned by rule.
+[[window_rule]]
+match.app_id = "^at.yrlf.wl_mirror$"
+default_output = "HDMI-A-1"
+default_fullscreen = true
 
 [[window_rule]]
 match.title = "^(Picture-in-Picture|Picture in picture)$"

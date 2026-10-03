@@ -325,12 +325,14 @@ Default desktop shell on Hyprland is **Noctalia** (`USE_NOCTALIA=true` in `confi
 
 ## Umbriel dual-session (optional Wayland compositor)
 
-Additive session next to Hyprland — **does not replace** it. `make install-umbriel` (also pulled from `install-gui`) installs `umbriel-git` + `xwayland-satellite` and links `config/umbriel/config.toml` → `~/.config/umbriel/config.toml`. Noctalia Greeter discovers `/usr/share/wayland-sessions/umbriel.desktop`; pick **Umbriel** at login. Default greeter session stays Hyprland (no greetd config change).
+Additive session next to Hyprland — **does not replace** it. `make install-umbriel` (also pulled from `install-gui`) installs `umbriel-git` + `xwayland-satellite` + `wl-mirror` and links `config/umbriel/config.toml` → `~/.config/umbriel/config.toml`. Noctalia Greeter discovers `/usr/share/wayland-sessions/umbriel.desktop`; pick **Umbriel** at login. Default greeter session stays Hyprland (no greetd config change).
 
-- Layout default: **scrolling** (ultrawide-friendly); G9: DP-1 on, HDMI-A-1 `enabled = false`
+- Layout default: **scrolling** (ultrawide-friendly); G9: DP-1 on, HDMI-A-1 off
+- `[output.HDMI-A-1].enabled` lives in `~/.config/umbriel/hdmi-on.toml`, an optional include flipped at runtime by `monitor-input` — a value in `config.toml` would win over the include
 - Shell: Noctalia via `general.autostart` + same IPC binds as Hyprland
 - Colors: optional include of `noctalia.toml` (written by Noctalia theme apply)
-- Validate: `umbriel validate` · list sessions: `noctalia-greeter sessions`
+- Validate: `umbriel config validate` · list sessions: `noctalia-greeter sessions` · inspect: `umbriel outputs|windows|workspaces`
+- `umbriel msg output-enable|output-disable|output-toggle` are listed by `msg --help` but **not implemented** in 0.1.0 (`error: unknown action`) — drive outputs through the config include instead
 
 | Binding | Action |
 |---|---|
@@ -341,6 +343,8 @@ Additive session next to Hyprland — **does not replace** it. `make install-umb
 | `$mod+R` | Cycle column width |
 | `$mod+Z` / `$mod+Shift+Z` | Scratchpad toggle / move |
 | `$mod+1..9` | Workspaces (US digits after kanata) |
+| `$mod+F9` / `$mod+F10` | Brightness ±10 (`ddc-brightness`, DDC/CI on the HDMI i2c bus) |
+| `$mod+F11` | Flip the G9 between DP and HDMI (`monitor-input toggle`) |
 
 ---
 

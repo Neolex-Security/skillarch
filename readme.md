@@ -127,6 +127,7 @@ make help
 - Keyboard layout is US by default (kanata remaps the AZERTY board to US positions); workspace bindings use the top-row digits
 - Hyprland (Wayland) uses **Noctalia** for bar/dock/notifs/launcher (`config/hypr/lua/noctalia_shell.lua` → `USE_NOCTALIA=true`). Your Noctalia UI prefs stay in `~/.local/state/noctalia/` (not committed).
 - **Umbriel dual-session** (optional): `make install-umbriel` installs Umbriel + `config/umbriel/config.toml` beside Hyprland. Noctalia Greeter already lists both — pick **Umbriel** at login to try the scrolling layout; Hyprland stays the usual default. Does not change `/etc/greetd/config.toml`.
+- On the Samsung G9, `$mod+F9`/`$mod+F10` set brightness and `$mod+F11` flips the panel between its DP and HDMI inputs, both over DDC/CI. The HDMI side mirrors the DP session with `wl-mirror`, so the same desktop shows on either input.
 - Default browser is **Zen** (`zen.desktop` / `BROWSER=zen-browser`). Chrome stays installed — `gog` or `$mod+Shift+b` (`set-default-browser`) to switch.
 - Kitty visual/rectangle select is done with `ctrl+alt+click/drag`, you're welcome!
 - The docker `latest` is actually the `lite` image with everything CLI related
