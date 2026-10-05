@@ -9,8 +9,7 @@
 # Outputs:  umbriel outputs
 
 [include.optional]
-# Both entries resolved to the same path → "include cycle or duplicate skipped".
-files = ["~/.config/umbriel/noctalia.toml", "~/.config/umbriel/hdmi-on.toml", "noctalia.toml"]
+files = ["~/.config/umbriel/noctalia.toml", "~/.config/umbriel/hdmi-on.toml"]
 
 [general]
 autostart = ["noctalia","zen-browser","thunderbird","obsidian"]
