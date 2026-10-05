@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# Flip the G9 between its DP and HDMI inputs over DDC/CI (VCP 0x60), keeping the
+# same session visible on both.
+#
+# Samsung's write codes and read codes for VCP 0x60 differ and follow no
+# standard. Measured on this panel with a live signal on each input:
+#   DP-1 (driven by Linux)  write 0x10  reads x04
+#   HDMI                    write 0x12  reads x01
+#   DP-2 (unused)           write 0x0f  reads x03
+#
+# Umbriel cannot clone an output, and disabling DP-1 does not carry its static
+# `workspaces = 20` across, so a handover loses the session. Instead DP-1 keeps
+# rendering and wl-mirror paints a live copy of it fullscreen on HDMI-A-1.
+# Keyboard and pointer stay on DP-1, which is what the mirror shows. The DP and
+# HDMI modes share an aspect ratio (5120/1440 = 3840/1080 = 3.556), so the scale
+# is exact.
+#
+# The HDMI output must be enabled before switching: the DDC channel rides the
+# HDMI i2c bus and the panel kills it the moment its selected input has no
+# signal. ~/.config/umbriel/hdmi-on.toml holds that key as an optional include,
+# because a value in config.toml wins over includes, and umbriel reloads on
+# file change.
+#
+# With the KVM routed to the Mac Mini the i2c path is cut at the switch: the
+# panel shows macOS, the mirror runs for nothing, and the way back is the
+# joystick followed by `monitor-input dp`.
+#
+# usage: monitor-input {toggle|hdmi|dp|get}
+set -euo pipefail
+
+BUS=${DDC_BUS:-2}
+INCLUDE="$HOME/.config/umbriel/hdmi-on.toml"
+SRC=${MIRROR_SRC:-DP-1}
+DST=${MIRROR_DST:-HDMI-A-1}
+DP_WRITE=0x10;   DP_READ=x04
+HDMI_WRITE=0x12; HDMI_READ=x01
+
+read_input() {
+  timeout 10 ddcutil --bus "$BUS" getvcp 60 --brief 2>/dev/null | awk '$1=="VCP"{print $4}'
+}
+
+hdmi_output() {   # $1 = true|false ; umbriel picks the change up on its own
+  printf '[output.%s]\nenabled = %s\n' "$DST" "$1" >"$INCLUDE"
+  sleep 1
+}
+
+mirror_start() {
+  pgrep -f "wl-mirror .*$SRC" >/dev/null && return 0
+  setsid -f wl-mirror --fullscreen-output "$DST" "$SRC" >/dev/null 2>&1
+  sleep 1
+}
+
+mirror_stop() { pkill -f "wl-mirror .*$SRC" || true; }
+
+to_hdmi() {
+  hdmi_output true
+  mirror_start
+  ddcutil --bus "$BUS" setvcp 60 "$HDMI_WRITE" --noverify
+}
+
+to_dp() {
+  ddcutil --bus "$BUS" setvcp 60 "$DP_WRITE" --noverify || true
+  sleep 1
+  mirror_stop
+  hdmi_output false
+}
+
+case ${1:-get} in
+  hdmi) to_hdmi ;;
+  dp)   to_dp ;;
+  get)
+    case $(read_input) in
+      "$DP_READ")   echo "DP" ;;
+      "$HDMI_READ") echo "HDMI" ;;
+      "")           echo "pas de reponse DDC (KVM sur le Mac, ou dalle en veille)" ;;
+      *)            echo "autre entree" ;;
+    esac
+    ;;
+  toggle)
+    cur=$(read_input)
+    [[ -n $cur ]] || { echo "pas de reponse DDC: retour au joystick" >&2; exit 1; }
+    if [[ $cur == "$DP_READ" ]]; then to_hdmi; else to_dp; fi
+    ;;
+  *) echo "usage: ${0##*/} {toggle|hdmi|dp|get}" >&2; exit 2 ;;
+esac
