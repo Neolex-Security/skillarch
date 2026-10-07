@@ -1,0 +1,4 @@
+#!/bin/sh
+
+region=$(slurp) || exit 0
+grim -g "$region" - | flatpak run be.alexandervanhee.gradia

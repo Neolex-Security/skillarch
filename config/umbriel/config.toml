@@ -137,7 +137,8 @@ action = "overview-open"
 "Mod+T" = { action = "window-toggle-floating", repeat = false }
 "Mod+F" = { action = "window-toggle-fullscreen", repeat = false }
 "Mod+M" = { action = "window-toggle-maximize-to-edges", repeat = false }
-"Mod+P" = { action = "window-toggle-pinned", repeat = false }
+"Mod+P" = { action = "spawn:/opt/skillarch/config/bin/gradia-region", repeat = false }
+"Mod+Shift+P" = { action = "window-toggle-pinned", repeat = false }
 # Mod+R enters the resize submap (see [keybinds] resize section below).
 # Mod+Shift+R keeps the quick extent-cycle for when you don't want the submap.
 "Mod+R" = { action = "submap:resize", repeat = false }
