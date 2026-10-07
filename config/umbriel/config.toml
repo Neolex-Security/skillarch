@@ -94,9 +94,9 @@ action = "overview-open"
 "Mod+Shift+A" = { action = "spawn:noctalia msg screenshot-annotate", repeat = false }
 "Mod+Ctrl+A" = { action = "spawn:noctalia msg annotate", repeat = false }
 
-"XF86AudioRaiseVolume" = "spawn:noctalia msg volume-up"
-"XF86AudioLowerVolume" = "spawn:noctalia msg volume-down"
-"XF86AudioMute" = "spawn:noctalia msg volume-mute"
+"XF86AudioRaiseVolume" = { action = "spawn:noctalia msg volume-up", repeat = false, cooldown_ms = 30 }
+"XF86AudioLowerVolume" = { action = "spawn:noctalia msg volume-down", repeat = false, cooldown_ms = 30 }
+"XF86AudioMute" = { action = "spawn:noctalia msg volume-mute", repeat = false }
 "XF86MonBrightnessUp" = "spawn:noctalia msg brightness-up"
 "XF86MonBrightnessDown" = "spawn:noctalia msg brightness-down"
 "XF86AudioPlay" = "spawn:playerctl play-pause"
