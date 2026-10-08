@@ -9,7 +9,7 @@
 # Outputs:  umbriel outputs
 
 [include.optional]
-files = ["~/.config/umbriel/noctalia.toml", "~/.config/umbriel/hdmi-on.toml"]
+files = ["noctalia.toml", "hdmi-on.toml"]
 
 [general]
 autostart = ["noctalia","zen-browser","thunderbird","obsidian"]
