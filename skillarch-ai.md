@@ -351,7 +351,7 @@ Additive session next to Hyprland — **does not replace** it. `make install-umb
 ## Installed Tools
 
 ### CLI & Productivity (pacman)
-`bat`, `eza`, `fzf`, `ripgrep`, `fd`, `jq`, `glow`, `jless`, `gron`, `htmlq`, `qsv`, `viu`, `superfile`, `fastfetch`, `asciinema`, `bottom`, `htop`, `tmux`, `git-delta`, `lazygit`, `fq`, `fx`, `websocat`, `cloc`, `tree`, `rlwrap`, `parallel`, `tmate`, `trash-cli`, `sysstat`, `inotify-tools`
+`bat`, `eza`, `fzf`, `ripgrep`, `fd`, `jq`, `glow`, `jless`, `gron`, `htmlq`, `qsv`, `viu`, `superfile`, `fastfetch`, `asciinema`, `bottom`, `htop`, `tmux`, `git-delta`, `lazygit`, `fq`, `fx`, `websocat`, `cloc`, `tree`, `rlwrap`, `parallel`, `tmate`, `trash-cli`, `sysstat`, `inotify-tools`, `opencode`
 
 ### Security / Offensive (pacman)
 `metasploit` (msfconsole, msfvenom), `hashcat`, `bettercap`, `nmap`, `wireshark-qt`, `ghidra`, `gdb+gef`, `gitleaks`, `opensnitch`, `bore` (TCP NAT tunnel — `bore local <PORT> --to bore.pub`)

@@ -143,12 +143,13 @@ install-cli-tools: sanity-check ## Install CLI tools & runtimes
 	$(call ska-link,/opt/skillarch/config/nvim/init.lua,$$HOME/.config/nvim/init.lua)
 	nvim --headless +"Lazy! sync" +qa >/dev/null # Download and update plugins
 
-	# Install mise (official installer -> ~/.local/bin/mise) and all php-build dependencies
-	$(PACMAN_INSTALL) libedit libffi libjpeg-turbo libpcap libpng libxml2 libzip postgresql-libs php-gd
+	# Install mise (official installer -> ~/.local/bin/mise) and all php-build dependencies.
+	# opencode 2.0 comes from pacman, not from mise.
+	$(PACMAN_INSTALL) libedit libffi libjpeg-turbo libpcap libpng libxml2 libzip opencode postgresql-libs php-gd
 	# Re-running upgrades mise in place (skipped when already on the latest version).
 	curl -fsSL https://mise.run | MISE_INSTALL_HELP=0 MISE_INSTALL_SKIP_IF_EXISTS=1 sh
 	mise --version
-	for package in uv usage pdm rust terraform golang python nodejs opencode; do \
+	for package in uv usage pdm rust terraform golang python nodejs; do \
 		for attempt in 1 2 3; do \
 			mise use -g "$$package@latest" && break || { \
 				$(call WARN,mise install $$package failed (attempt $$attempt/3)$(comma) retrying in 5s...) ; \
