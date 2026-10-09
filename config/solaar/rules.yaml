@@ -1,5 +1,0 @@
-%YAML 1.3
----
-- Key: [Forward Button, pressed]
-- Execute: [/usr/bin/voxtype, record, toggle]
-...
