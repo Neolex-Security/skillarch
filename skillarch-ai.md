@@ -384,6 +384,8 @@ Additive session next to Hyprland — **does not replace** it. `make install-umb
 | `/opt/HExHTTP` | c0dejump/HExHTTP | HTTP header vuln / cache-poisoning scanner (isolated venv, `hexhttp -u https://target.tld/`) |
 
 ### Runtimes (mise)
+`mise` itself is installed by the official script (`curl -fsSL https://mise.run | sh`) into `~/.local/bin/mise` - not from pacman. Re-running `make install-cli-tools` upgrades it.
+
 `python` (latest), `nodejs` (latest), `golang` (latest), `rust` (latest), `uv`, `pdm`, `terraform`
 
 ---

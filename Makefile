@@ -38,6 +38,10 @@ endef
 
 PACMAN_INSTALL := sudo pacman -S --noconfirm --needed
 
+# mise is installed by https://mise.run into ~/.local/bin (see install-cli-tools).
+# Prepend it once so every recipe - including recursive $(MAKE) calls - finds mise.
+export PATH := $(if $(findstring $(HOME)/.local/bin,$(PATH)),$(PATH),$(HOME)/.local/bin:$(PATH))
+
 help: ## Show this help message
 	@echo 'Welcome to SkillArch! <3'
 	echo ''
@@ -139,9 +143,11 @@ install-cli-tools: sanity-check ## Install CLI tools & runtimes
 	$(call ska-link,/opt/skillarch/config/nvim/init.lua,$$HOME/.config/nvim/init.lua)
 	nvim --headless +"Lazy! sync" +qa >/dev/null # Download and update plugins
 
-	# Install mise and all php-build dependencies
-	$(PACMAN_INSTALL) mise libedit libffi libjpeg-turbo libpcap libpng libxml2 libzip postgresql-libs php-gd
-	# mise self-update # Currently broken, wait for upstream fix, pinged on 17/03/2025
+	# Install mise (official installer -> ~/.local/bin/mise) and all php-build dependencies
+	$(PACMAN_INSTALL) libedit libffi libjpeg-turbo libpcap libpng libxml2 libzip postgresql-libs php-gd
+	# Re-running upgrades mise in place (skipped when already on the latest version).
+	curl -fsSL https://mise.run | MISE_INSTALL_HELP=0 MISE_INSTALL_SKIP_IF_EXISTS=1 sh
+	mise --version
 	for package in uv usage pdm rust terraform golang python nodejs opencode; do \
 		for attempt in 1 2 3; do \
 			mise use -g "$$package@latest" && break || { \
@@ -687,6 +693,7 @@ test: ## Validate installation (smoke tests)
 	ska_check "nvim init"  "[[ -L ~/.config/nvim/init.lua ]]"
 	ska_check "ssh dir"    "[[ -d ~/.ssh ]]"
 	$(call BOLD,\n--- Runtimes (mise) ---)
+	ska_check "mise"       "mise --version"
 	ska_check "python"     "mise exec -- python --version"
 	ska_check "node"       "mise exec -- node --version"
 	ska_check "go"         "mise exec -- go version"
@@ -734,6 +741,7 @@ test-lite: ## Validate lite Docker image install
 	ska_check "zshrc"     "[[ -L ~/.zshrc ]]"
 	ska_check "nvim init" "[[ -L ~/.config/nvim/init.lua ]]"
 	$(call BOLD,\n--- Runtimes ---)
+	ska_check "mise"      "mise --version"
 	ska_check "python"    "mise exec -- python --version"
 	ska_check "node"      "mise exec -- node --version"
 	ska_check "go"        "mise exec -- go version"
