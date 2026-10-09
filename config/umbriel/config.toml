@@ -130,8 +130,9 @@ action = "overview-open"
 # Flips the G9 between DP and HDMI over DDC. Enables [output.HDMI-A-1] on the
 # way out so the panel keeps a signal and stays reachable for the way back;
 # with the KVM on the Mac the return is the joystick, then `monitor-input dp`.
-"Mod+F11" = { action = "spawn:/opt/skillarch/config/bin/monitor-input toggle", repeat = false }
+"Mod+F8" = { action = "spawn:/opt/skillarch/config/bin/monitor-input toggle", repeat = false }
 "Mod+F12" = { action = "spawn:voxtype record toggle", repeat = false }
+"Mod+MouseForward" = { action = "spawn:voxtype record toggle", repeat = false }
 # Window state
 "Mod+Q" = { action = "window-close", repeat = false }
 "Mod+T" = { action = "window-toggle-floating", repeat = false }
